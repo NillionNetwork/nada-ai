@@ -1,0 +1,154 @@
+---
+program: end-to-end
+inputs:
+  secrets:
+    input_x_0_1_3_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_0_1_0:
+      SecretInteger: "3"
+    input_x_0_2_0_0:
+      SecretInteger: "3"
+    input_x_0_1_2_1:
+      SecretInteger: "3"
+    input_x_0_2_0_1:
+      SecretInteger: "3"
+    input_x_0_1_3_2:
+      SecretInteger: "3"
+    input_x_0_1_3_1:
+      SecretInteger: "3"
+    input_x_0_0_0_2:
+      SecretInteger: "3"
+    testmod_linear.bias_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_0_1_1:
+      SecretInteger: "3"
+    input_x_0_2_1_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_1_0_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_0_0_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_1_1_0:
+      SecretInteger: "3"
+    input_x_0_1_1_2:
+      SecretInteger: "3"
+    input_x_0_2_0_2:
+      SecretInteger: "3"
+    input_x_0_2_3_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_2_1_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_2_1_1:
+      SecretInteger: "3"
+    input_x_0_0_1_0:
+      SecretInteger: "3"
+    input_x_0_0_2_1:
+      SecretInteger: "3"
+    input_x_0_1_1_0:
+      SecretInteger: "3"
+    testmod_linear.weight_1_1:
+      SecretInteger: "3"
+    input_x_0_1_1_1:
+      SecretInteger: "3"
+    input_x_0_2_3_2:
+      SecretInteger: "3"
+    input_x_0_0_0_0:
+      SecretInteger: "3"
+    input_x_0_0_3_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_2_0_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_0_0_1:
+      SecretInteger: "3"
+    input_x_0_0_1_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_0_0_0:
+      SecretInteger: "3"
+    input_x_0_2_2_0:
+      SecretInteger: "3"
+    input_x_0_2_1_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_1_0_0:
+      SecretInteger: "3"
+    input_x_0_2_2_2:
+      SecretInteger: "3"
+    input_x_0_1_2_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_1_1_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_2_0_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_1_0_0:
+      SecretInteger: "3"
+    testmod_linear.weight_0_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.bias_0_0_0_0:
+      SecretInteger: "3"
+    testmod_linear.bias_0:
+      SecretInteger: "3"
+    input_x_0_1_0_1:
+      SecretInteger: "3"
+    input_x_0_0_3_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_1_0_1:
+      SecretInteger: "3"
+    input_x_0_1_0_0:
+      SecretInteger: "3"
+    input_x_0_0_0_1:
+      SecretInteger: "3"
+    input_x_0_0_2_2:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_1_1_0:
+      SecretInteger: "3"
+    testmod_linear.weight_1_0:
+      SecretInteger: "3"
+    input_x_0_2_1_0:
+      SecretInteger: "3"
+    input_x_0_0_3_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.bias_0_1_0_0:
+      SecretInteger: "3"
+    testmod_linear.weight_0_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_2_1_1:
+      SecretInteger: "3"
+    testmod_linear.weight_0_3:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_0_1_1:
+      SecretInteger: "3"
+    input_x_0_1_2_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_1_1_1:
+      SecretInteger: "3"
+    input_x_0_2_2_1:
+      SecretInteger: "3"
+    testmod_linear.weight_1_2:
+      SecretInteger: "3"
+    input_x_0_1_0_2:
+      SecretInteger: "3"
+    input_x_0_0_2_0:
+      SecretInteger: "3"
+    testmod_linear.weight_0_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_0_0_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_2_1_0:
+      SecretInteger: "3"
+    input_x_0_2_3_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_2_0_0:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_0_2_0_1:
+      SecretInteger: "3"
+    testmod_linear.weight_1_3:
+      SecretInteger: "3"
+    input_x_0_0_1_1:
+      SecretInteger: "3"
+    testmod_conv_module.conv.weight_1_0_1_0:
+      SecretInteger: "3"
+  public_variables: {}
+expected_outputs:
+  output_0:
+    SecretInteger: "335"
+  output_1:
+    SecretInteger: "335"

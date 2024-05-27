@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "nada-ai"
+version = "0.1.0"
+description = "Nada-AI is a Python library designed for AI/ML on top of Nada DSL and Nillion Network."
+authors = ["Mathias Leys <mathias.leys@nillion.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.4"
+nada-dsl = "^0.2.1"
+py-nillion-client = "^0.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,36 @@
+---
+program: linear_layers
+inputs:
+  secrets:
+    input_0:
+      SecretInteger: "1"
+    input_1:
+      SecretInteger: "2"
+    input_2:
+      SecretInteger: "3"
+    testmod_linear_0.weight_0_0:
+      SecretInteger: "1"
+    testmod_linear_0.weight_0_1:
+      SecretInteger: "2"
+    testmod_linear_0.weight_0_2:
+      SecretInteger: "3"
+    testmod_linear_0.weight_1_0:
+      SecretInteger: "4"
+    testmod_linear_0.weight_1_1:
+      SecretInteger: "5"
+    testmod_linear_0.weight_1_2:
+      SecretInteger: "6"
+    testmod_linear_0.bias_0:
+      SecretInteger: "4"
+    testmod_linear_0.bias_1:
+      SecretInteger: "5"
+    testmod_linear_1.weight_0_0:
+      SecretInteger: "3"
+    testmod_linear_1.weight_0_1:
+      SecretInteger: "4"
+    testmod_linear_1.bias_0:
+      SecretInteger: "5"
+  public_variables: {}
+expected_outputs:
+  output_0:
+    SecretInteger: "207"

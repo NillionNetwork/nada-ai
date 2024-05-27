@@ -1,0 +1,43 @@
+name = "tests"
+version = "0.1.0"
+authors = ["Mathias Leys <mathias.leys@nillion.com>"]
+
+[[programs]]
+path = "src/load_state.py"
+prime_size = 128
+
+[[programs]]
+path = "src/parameters.py"
+prime_size = 128
+
+[[programs]]
+path = "src/nested_modules.py"
+prime_size = 128
+
+[[programs]]
+path = "src/linear_layers.py"
+prime_size = 128
+
+[[programs]]
+path = "src/activations.py"
+prime_size = 128
+
+[[programs]]
+path = "src/flatten.py"
+prime_size = 128
+
+[[programs]]
+path = "src/conv.py"
+prime_size = 128
+
+[[programs]]
+path = "src/pool.py"
+prime_size = 128
+
+[[programs]]
+path = "src/linear_regression.py"
+prime_size = 128
+
+[[programs]]
+path = "src/end-to-end.py"
+prime_size = 128
