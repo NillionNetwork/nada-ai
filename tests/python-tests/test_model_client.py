@@ -9,6 +9,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
 from nada_ai import ModelClient
 
+
 class TestModelClient:
 
     def test_sklearn_1(self):
@@ -18,8 +19,8 @@ class TestModelClient:
         with pytest.raises(AttributeError):
             ModelClient.from_sklearn(lin_reg)
 
-        X = np.array([[1,2,3],[2,3,4]])
-        y = np.array([0,1])
+        X = np.array([[1, 2, 3], [2, 3, 4]])
+        y = np.array([0, 1])
 
         lin_reg_fit = lin_reg.fit(X, y)
 
@@ -32,8 +33,8 @@ class TestModelClient:
         with pytest.raises(AttributeError):
             ModelClient.from_sklearn(log_reg)
 
-        X = np.array([[1,2,3],[2,3,4]])
-        y = np.array([0,1])
+        X = np.array([[1, 2, 3], [2, 3, 4]])
+        y = np.array([0, 1])
 
         log_reg_fit = log_reg.fit(X, y)
 
@@ -42,14 +43,16 @@ class TestModelClient:
     def test_sklearn_3(self):
         log_reg = LogisticRegression(fit_intercept=False)
 
-        X = np.array([[1,2,3],[2,3,4]])
-        y = np.array([0,1])
+        X = np.array([[1, 2, 3], [2, 3, 4]])
+        y = np.array([0, 1])
 
         log_reg_fit = log_reg.fit(X, y)
 
         model_client = ModelClient.from_sklearn(log_reg_fit)
 
-        secrets = model_client.export_state_as_secrets("test_model", as_rational=True, scale=16)
+        secrets = model_client.export_state_as_secrets(
+            "test_model", as_rational=True, scale=16
+        )
 
         assert len(secrets.keys()) == 4
 
@@ -61,8 +64,8 @@ class TestModelClient:
     def test_sklearn_4(self):
         log_reg = LogisticRegression(fit_intercept=False)
 
-        X = np.array([[1,2,3],[2,3,4]])
-        y = np.array([0,1])
+        X = np.array([[1, 2, 3], [2, 3, 4]])
+        y = np.array([0, 1])
 
         log_reg_fit = log_reg.fit(X, y)
 
@@ -74,12 +77,17 @@ class TestModelClient:
     def test_sklearn_5(self):
         log_reg = LogisticRegression(fit_intercept=False)
 
-        X = np.array([[1,2,3],[2,3,4]])
-        y = np.array([0,1])
+        X = np.array([[1, 2, 3], [2, 3, 4]])
+        y = np.array([0, 1])
 
         log_reg_fit = log_reg.fit(X, y)
 
-        model_client = ModelClient(log_reg_fit, OrderedDict({"coef": log_reg_fit.coef_, "intercept": log_reg_fit.intercept_}))
+        model_client = ModelClient(
+            log_reg_fit,
+            OrderedDict(
+                {"coef": log_reg_fit.coef_, "intercept": log_reg_fit.intercept_}
+            ),
+        )
 
         secrets = model_client.export_state_as_secrets("test_model", as_rational=True)
 
@@ -96,6 +104,7 @@ class TestModelClient:
                 super(TestModule, self).__init__()
                 self.linear_0 = nn.Linear(3, 2)
                 self.linear_1 = nn.Linear(2, 2)
+
             def forward(self, x: torch.Tensor) -> torch.Tensor:
                 x = self.linear_0(x)
                 x = self.linear_1(x)
@@ -111,6 +120,7 @@ class TestModelClient:
                 super(TestModule, self).__init__()
                 self.linear_0 = nn.Linear(3, 2)
                 self.linear_1 = nn.Linear(2, 2)
+
             def forward(self, x: torch.Tensor) -> torch.Tensor:
                 x = self.linear_0(x)
                 x = self.linear_1(x)
@@ -152,6 +162,7 @@ class TestModelClient:
                 self.attn = nn.MultiheadAttention(2, 2)
                 self.layer_norm = nn.LayerNorm((2,))
                 self.gelu = nn.GELU()
+
             def forward(self, x: torch.Tensor) -> torch.Tensor:
                 return x
 
@@ -205,6 +216,7 @@ class TestModelClient:
                 super(TestModule, self).__init__()
                 self.linear_0 = nn.Linear(3, 2)
                 self.linear_1 = nn.Linear(2, 2)
+
             def forward(self, x: torch.Tensor) -> torch.Tensor:
                 x = self.linear_0(x)
                 x = self.linear_1(x)

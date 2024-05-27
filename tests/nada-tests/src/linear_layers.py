@@ -11,6 +11,7 @@ def nada_main():
         def __init__(self) -> None:
             self.linear_0 = Linear(3, 2)
             self.linear_1 = Linear(2, 1)
+
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             x = self.linear_0(x)
             x = self.linear_1(x)

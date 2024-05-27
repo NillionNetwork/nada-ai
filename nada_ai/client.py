@@ -8,7 +8,11 @@ import nada_algebra.client as na_client
 from collections import OrderedDict
 from typing import Any, Dict, Iterable, Union
 
-from sklearn.linear_model import LinearRegression, LogisticRegression, LogisticRegressionCV
+from sklearn.linear_model import (
+    LinearRegression,
+    LogisticRegression,
+    LogisticRegressionCV,
+)
 import torch
 from torch import nn
 import sklearn
@@ -60,28 +64,41 @@ class ModelClient:
             ModelClient: Instantiated model client.
         """
         if not isinstance(model, sklearn.base.BaseEstimator):
-            raise TypeError("Cannot interpret type `%s` as Sklearn model. Expected (sub)type of `sklearn.base.BaseEstimator`" % type(model).__name__)
+            raise TypeError(
+                "Cannot interpret type `%s` as Sklearn model. Expected (sub)type of `sklearn.base.BaseEstimator`"
+                % type(model).__name__
+            )
 
         if isinstance(model, LinearRegression):
-            state_dict = OrderedDict({
-                "coef": model.coef_,
-                "intercept": model.intercept_ if isinstance(model.intercept_, Iterable) else np.array([model.intercept_]),
-            })
+            state_dict = OrderedDict(
+                {
+                    "coef": model.coef_,
+                    "intercept": (
+                        model.intercept_
+                        if isinstance(model.intercept_, Iterable)
+                        else np.array([model.intercept_])
+                    ),
+                }
+            )
         elif isinstance(model, (LogisticRegression, LogisticRegressionCV)):
-            state_dict = OrderedDict({
-                "coef": model.coef_,
-                "intercept": model.intercept_,
-            })
+            state_dict = OrderedDict(
+                {
+                    "coef": model.coef_,
+                    "intercept": model.intercept_,
+                }
+            )
         else:
-            raise NotImplementedError("Instantiating ModelClient from Sklearn model type `%s` is not yet implemented.")
+            raise NotImplementedError(
+                "Instantiating ModelClient from Sklearn model type `%s` is not yet implemented."
+            )
 
         return cls(model=model, state_dict=state_dict)
 
     def export_state_as_secrets(
         self,
         name: str,
-        as_rational: bool=True,
-        scale: int=16,
+        as_rational: bool = True,
+        scale: int = 16,
         nada_type: _NillionType = nillion.SecretInteger,
     ) -> Dict[str, _NillionType]:
         """Exports model state as a Dict of Nillion secret types.
@@ -100,9 +117,15 @@ class ModelClient:
             Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
         """
         if scale <= 0:
-            warnings.warn("Provided scaling factor `%d` is very low. This scale will be used as a base-2 exponent during quantization. Expected a value above 0." % scale)
+            warnings.warn(
+                "Provided scaling factor `%d` is very low. This scale will be used as a base-2 exponent during quantization. Expected a value above 0."
+                % scale
+            )
         if scale >= 64:
-            warnings.warn("Provided scaling factor `%d` is very high. This scale will be used as a base-2 exponent during quantization. Expected a value below 64." % scale)
+            warnings.warn(
+                "Provided scaling factor `%d` is very high. This scale will be used as a base-2 exponent during quantization. Expected a value below 64."
+                % scale
+            )
 
         state_secrets = {}
         for layer_name, layer_weight in self.state_dict.items():
@@ -112,15 +135,22 @@ class ModelClient:
             elif isinstance(layer_weight, (float, int)):
                 layer_weight = np.array(layer_weight)
             elif not isinstance(layer_weight, np.ndarray):
-                raise TypeError("Could not parse layer weight of type `%s` in state_dict" % type(layer_weight).__name__)
+                raise TypeError(
+                    "Could not parse layer weight of type `%s` in state_dict"
+                    % type(layer_weight).__name__
+                )
 
             if as_rational:
                 layer_weight = layer_weight * (2**scale)
 
             layer_weight = layer_weight.astype(int)
-            layer_weight[layer_weight==0] = 1  # TODO: remove line when pushing zero as Secret is implemented
+            layer_weight[layer_weight == 0] = (
+                1  # TODO: remove line when pushing zero as Secret is implemented
+            )
 
-            state_secret = na_client.array(layer_weight, prefix=f"{name}_{layer_name}", nada_type=nada_type)
+            state_secret = na_client.array(
+                layer_weight, prefix=f"{name}_{layer_name}", nada_type=nada_type
+            )
 
             state_secrets.update(state_secret)
 

@@ -2,15 +2,16 @@ from nada_dsl import *
 from nada_ai.nn import Module, Parameter
 import nada_algebra as na
 
+
 def nada_main():
     party = Party("party")
 
     class TestModule(Module):
         def __init__(self) -> None:
-            self.param1 = Parameter((3,2))
+            self.param1 = Parameter((3, 2))
             self.param2 = Parameter(2)
-        def forward(self, x: na.NadaArray) -> na.NadaArray:
-            ...
+
+        def forward(self, x: na.NadaArray) -> na.NadaArray: ...
 
     mod1 = TestModule()
     mod2 = TestModule()

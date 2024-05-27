@@ -10,6 +10,7 @@ from nada_dsl import Integer
 
 _ShapeLike = Union[int, Iterable[int]]
 
+
 class Parameter(na.NadaArray):
     """Parameter class"""
 
@@ -41,6 +42,9 @@ class Parameter(na.NadaArray):
             MismatchedShapesException: Raised when state of incompatible shape is provided.
         """
         if state.shape != self.shape:
-            raise MismatchedShapesException("Could not load state of shape `%s` for parameter of shape `%s`" % (state.shape, self.shape))
+            raise MismatchedShapesException(
+                "Could not load state of shape `%s` for parameter of shape `%s`"
+                % (state.shape, self.shape)
+            )
 
         self.inner = state.inner

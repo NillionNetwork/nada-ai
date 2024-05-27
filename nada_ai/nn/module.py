@@ -5,9 +5,18 @@ import inspect
 from typing import Iterator, Tuple, Union
 from nada_ai.nn.parameter import Parameter
 import nada_algebra as na
-from nada_dsl import Party, SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger
+from nada_dsl import (
+    Party,
+    SecretInteger,
+    SecretUnsignedInteger,
+    PublicInteger,
+    PublicUnsignedInteger,
+)
 
-_NadaInteger = Union[SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger]
+_NadaInteger = Union[
+    SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger
+]
+
 
 class Module(ABC):
     """Generic neural network module"""
@@ -71,8 +80,8 @@ class Module(ABC):
         self,
         name: str,
         party: Party,
-        as_rational: bool=True,
-        scale: int=16,
+        as_rational: bool = True,
+        scale: int = 16,
         nada_type: _NadaInteger = SecretInteger,
     ) -> None:
         """Loads the model state from the Nillion network.
@@ -86,8 +95,12 @@ class Module(ABC):
             nada_type (_NadaInteger, optional): NadaType to interpret the state values as. Defaults to SecretInteger.
         """
         for param_name, param in self.named_parameters():
-            param_state = na.array(param.shape, party, f"{name}_{param_name}", nada_type)
+            param_state = na.array(
+                param.shape, party, f"{name}_{param_name}", nada_type
+            )
             if as_rational:
-                param_state = param_state.applypyfunc(lambda x: na.SecretRational(x, scale=scale, is_scaled=True))
+                param_state = param_state.applypyfunc(
+                    lambda x: na.SecretRational(x, scale=scale, is_scaled=True)
+                )
 
             param.load_state(param_state)

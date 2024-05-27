@@ -18,12 +18,6 @@ class ReLU(Module):
             na.NadaArray: Module output.
         """
         x = x.applypyfunc(
-            lambda a: a.value
-            if isinstance(a, (na.Rational, na.SecretRational))
-            else a
+            lambda a: a.value if isinstance(a, (na.Rational, na.SecretRational)) else a
         )
-        return x.applypyfunc(
-            lambda a: (
-                a > Integer(0)
-            ).if_else(a, Integer(0))
-        )
+        return x.applypyfunc(lambda a: (a > Integer(0)).if_else(a, Integer(0)))

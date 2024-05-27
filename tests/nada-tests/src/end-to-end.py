@@ -13,6 +13,7 @@ def nada_main():
             super(TestModuleConv, self).__init__()
             self.conv = Conv2d(kernel_size=2, in_channels=3, out_channels=2)
             self.pool = AvgPool2d(kernel_size=2)
+
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             x = self.conv(x)
             x = self.pool(x)
@@ -24,6 +25,7 @@ def nada_main():
             self.flatten = Flatten()
             self.relu = ReLU()
             self.linear = Linear(4, 2)
+
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             x = self.conv_module(x)
             x = self.flatten(x)

@@ -8,7 +8,7 @@ from nada_ai.nn.parameter import Parameter
 class LinearRegression(Module):
     """Linear regression implementation"""
 
-    def __init__(self, in_features: int, include_bias: bool=True) -> None:
+    def __init__(self, in_features: int, include_bias: bool = True) -> None:
         """Initialization.
 
         Args:

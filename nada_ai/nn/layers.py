@@ -13,7 +13,9 @@ _ShapeLike = Union[int, Iterable[int]]
 class Linear(Module):
     """Linear layer implementation"""
 
-    def __init__(self, in_features: int, out_features: int, include_bias: bool = True) -> None:
+    def __init__(
+        self, in_features: int, out_features: int, include_bias: bool = True
+    ) -> None:
         """Linear (or fully-connected) layer.
 
         Args:
@@ -65,7 +67,9 @@ class Conv2d(Module):
 
         kernel_height, kernel_width = kernel_size
 
-        self.weight = Parameter((out_channels, in_channels, kernel_height, kernel_width))
+        self.weight = Parameter(
+            (out_channels, in_channels, kernel_height, kernel_width)
+        )
         self.bias = Parameter((1, out_channels, 1, 1)) if include_bias else None
 
         self.padding = padding
@@ -80,11 +84,11 @@ class Conv2d(Module):
         Returns:
             na.NadaArray: Module output.
         """
-        unbatched=False
+        unbatched = False
         if len(x.shape) == 3:
             # Assume unbatched --> assign batch_size of 1
             x = x.reshape(1, *x.shape)
-            unbatched=True
+            unbatched = True
 
         batch_size, _, input_rows, input_cols = x.shape
         out_channels, _, kernel_rows, kernel_cols = self.weight.shape
@@ -141,7 +145,9 @@ class Conv2d(Module):
 class AvgPool2d(Module):
     """2d-Average pooling layer implementation"""
 
-    def __init__(self, kernel_size: _ShapeLike, padding: int = 0, stride: int = 1) -> None:
+    def __init__(
+        self, kernel_size: _ShapeLike, padding: int = 0, stride: int = 1
+    ) -> None:
         """2D-average pooling layer.
 
         Args:
@@ -166,11 +172,11 @@ class AvgPool2d(Module):
         Returns:
             na.NadaArray: Module output.
         """
-        unbatched=False
+        unbatched = False
         if len(x.shape) == 3:
             # Assume unbatched --> assign batch_size of 1
             x = x.reshape(1, *x.shape)
-            unbatched=True
+            unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
 
