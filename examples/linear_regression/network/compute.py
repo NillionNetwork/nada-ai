@@ -22,7 +22,8 @@ import nada_algebra.client as na_client
 # Load environment variables from a .env file
 load_dotenv()
 
-NUM_FEATS=10
+NUM_FEATS = 10
+
 
 # Decorator function to measure and log the execution time of asynchronous functions
 def async_timer(file_path):
@@ -55,16 +56,12 @@ async def store_program(client, user_id, cluster_id, program_name, program_mir_p
 
 # Asynchronous function to store secrets on the nillion client
 @async_timer("bench/store_secrets.txt")
-async def store_secrets(
-    client, cluster_id, program_id, party_id, party_name, secrets
-):
+async def store_secrets(client, cluster_id, program_id, party_id, party_name, secrets):
     secret_bindings = nillion.ProgramBindings(program_id)
     secret_bindings.add_input_party(party_name, party_id)
 
     # Store the secret for the specified party
-    store_id = await client.store_secrets(
-        cluster_id, secret_bindings, secrets, None
-    )
+    store_id = await client.store_secrets(cluster_id, secret_bindings, secrets, None)
     return store_id
 
 
@@ -113,7 +110,9 @@ async def main():
     # Train a linear regression
     X = np.random.randn(1_000, NUM_FEATS)
     # We generate the data from a specific linear model
-    coeffs_gt = np.ones(NUM_FEATS,)
+    coeffs_gt = np.ones(
+        NUM_FEATS,
+    )
     bias_gt = 4.2
 
     y = X @ coeffs_gt + bias_gt
@@ -166,7 +165,7 @@ async def main():
     outputs = [result["my_output_0"] / 2**16]
     print(f"🖥️  The result is {outputs}")
 
-    expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1,-1))
+    expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1, -1))
     print(f"🖥️  VS expected plain-text result {expected}")
     return result
 

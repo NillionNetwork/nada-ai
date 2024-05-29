@@ -15,12 +15,14 @@ class MyConvModule(nn.Module):
         """Takes convolution & pools"""
         return self.pool(self.conv(x))
 
+
 class PlusOne(nn.Module):
     """My +1 module"""
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """Simply does +1"""
         return x + Integer(1)
+
 
 class MyModel(nn.Module):
     """My aribitrarily specific model architecture"""

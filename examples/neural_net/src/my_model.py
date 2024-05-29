@@ -1,6 +1,7 @@
 import nada_algebra as na
 from nada_ai import nn
 
+
 class MyModel(nn.Module):
     """My custom model architecture"""
 

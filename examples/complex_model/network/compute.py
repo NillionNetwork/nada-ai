@@ -22,6 +22,7 @@ import nada_algebra.client as na_client
 # Load environment variables from a .env file
 load_dotenv()
 
+
 # Decorator function to measure and log the execution time of asynchronous functions
 def async_timer(file_path):
     def decorator(func):
@@ -53,16 +54,12 @@ async def store_program(client, user_id, cluster_id, program_name, program_mir_p
 
 # Asynchronous function to store secrets on the nillion client
 @async_timer("bench/store_secrets.txt")
-async def store_secrets(
-    client, cluster_id, program_id, party_id, party_name, secrets
-):
+async def store_secrets(client, cluster_id, program_id, party_id, party_name, secrets):
     secret_bindings = nillion.ProgramBindings(program_id)
     secret_bindings.add_input_party(party_name, party_id)
 
     # Store the secret for the specified party
-    store_id = await client.store_secrets(
-        cluster_id, secret_bindings, secrets, None
-    )
+    store_id = await client.store_secrets(cluster_id, secret_bindings, secrets, None)
     return store_id
 
 

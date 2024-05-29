@@ -134,7 +134,9 @@ class Conv2d(Module):
                         )
 
         if self.bias is not None:
-            output_tensor = output_tensor + self.bias.inner.reshape(1, out_channels, 1, 1)
+            output_tensor = output_tensor + self.bias.inner.reshape(
+                1, out_channels, 1, 1
+            )
 
         if unbatched:
             output_tensor = output_tensor[0]
