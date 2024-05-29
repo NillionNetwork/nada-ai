@@ -15,7 +15,7 @@ class LinearRegression(Module):
             in_features (int): Number of input features to regression.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
         """
-        self.coef = Parameter((1, in_features))
+        self.coef = Parameter(in_features)
         self.intercept = Parameter(1) if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:

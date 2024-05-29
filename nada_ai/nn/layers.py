@@ -70,7 +70,7 @@ class Conv2d(Module):
         self.weight = Parameter(
             (out_channels, in_channels, kernel_height, kernel_width)
         )
-        self.bias = Parameter((1, out_channels, 1, 1)) if include_bias else None
+        self.bias = Parameter(out_channels) if include_bias else None
 
         self.padding = padding
         self.stride = stride
@@ -134,7 +134,7 @@ class Conv2d(Module):
                         )
 
         if self.bias is not None:
-            output_tensor = output_tensor + self.bias.inner
+            output_tensor = output_tensor + self.bias.inner.reshape(1, out_channels, 1, 1)
 
         if unbatched:
             output_tensor = output_tensor[0]
