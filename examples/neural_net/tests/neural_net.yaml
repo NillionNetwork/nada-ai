@@ -1,0 +1,118 @@
+---
+program: main
+inputs:
+  secrets:
+    my_model_linear_0.weight_1_2:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_4:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_7:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_4:
+      SecretInteger: "3"
+    my_model_linear_0.bias_2:
+      SecretInteger: "3"
+    my_model_linear_1.weight_0_3:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_6:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_3:
+      SecretInteger: "3"
+    my_model_linear_0.bias_3:
+      SecretInteger: "3"
+    my_model_linear_1.weight_1_1:
+      SecretInteger: "3"
+    my_input_0:
+      SecretInteger: "3"
+    my_input_4:
+      SecretInteger: "3"
+    my_model_linear_1.weight_0_0:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_0:
+      SecretInteger: "3"
+    my_model_linear_1.weight_1_2:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_2:
+      SecretInteger: "3"
+    my_input_2:
+      SecretInteger: "3"
+    my_model_linear_1.weight_1_0:
+      SecretInteger: "3"
+    my_input_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_0:
+      SecretInteger: "3"
+    my_input_6:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_5:
+      SecretInteger: "3"
+    my_model_linear_1.weight_0_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_2:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_3:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_7:
+      SecretInteger: "3"
+    my_model_linear_1.weight_1_3:
+      SecretInteger: "3"
+    my_model_linear_0.bias_1:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_4:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_5:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_3:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_5:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_7:
+      SecretInteger: "3"
+    my_input_5:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_0:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_0:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_6:
+      SecretInteger: "3"
+    my_model_linear_1.weight_0_2:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_4:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_3:
+      SecretInteger: "3"
+    my_input_3:
+      SecretInteger: "3"
+    my_model_linear_0.weight_3_2:
+      SecretInteger: "3"
+    my_model_linear_1.bias_1:
+      SecretInteger: "3"
+    my_input_7:
+      SecretInteger: "3"
+    my_model_linear_0.bias_0:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_6:
+      SecretInteger: "3"
+    my_model_linear_0.weight_2_6:
+      SecretInteger: "3"
+    my_model_linear_0.weight_1_5:
+      SecretInteger: "3"
+    my_model_linear_1.bias_0:
+      SecretInteger: "3"
+    my_model_linear_0.weight_0_7:
+      SecretInteger: "3"
+  public_variables: {}
+expected_outputs:
+  my_output_0:
+    SecretInteger: "3"
+  my_output_1:
+    SecretInteger: "3"

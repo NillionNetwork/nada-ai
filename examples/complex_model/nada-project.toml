@@ -1,0 +1,7 @@
+name = "complex_model"
+version = "0.1.0"
+authors = [""]
+
+[[programs]]
+path = "src/main.py"
+prime_size = 128

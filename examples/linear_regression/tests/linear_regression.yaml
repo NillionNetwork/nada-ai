@@ -1,0 +1,50 @@
+---
+program: main
+inputs:
+  secrets:
+    my_model_coef_0:
+      SecretInteger: "3"
+    my_model_coef_1:
+      SecretInteger: "3"
+    my_model_coef_2:
+      SecretInteger: "3"
+    my_model_coef_3:
+      SecretInteger: "3"
+    my_model_coef_4:
+      SecretInteger: "3"
+    my_model_coef_5:
+      SecretInteger: "3"
+    my_model_coef_6:
+      SecretInteger: "3"
+    my_model_coef_7:
+      SecretInteger: "3"
+    my_model_coef_8:
+      SecretInteger: "3"
+    my_model_coef_9:
+      SecretInteger: "3"
+    my_model_intercept_0:
+      SecretInteger: "3"
+    my_input_0:
+      SecretInteger: "3"
+    my_input_1:
+      SecretInteger: "3"
+    my_input_2:
+      SecretInteger: "3"
+    my_input_3:
+      SecretInteger: "3"
+    my_input_4:
+      SecretInteger: "3"
+    my_input_5:
+      SecretInteger: "3"
+    my_input_6:
+      SecretInteger: "3"
+    my_input_7:
+      SecretInteger: "3"
+    my_input_8:
+      SecretInteger: "3"
+    my_input_9:
+      SecretInteger: "3"
+  public_variables: {}
+expected_outputs:
+  my_output_0:
+    SecretInteger: "93"
