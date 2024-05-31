@@ -2,49 +2,57 @@
 program: main
 inputs:
   secrets:
+    # We assume all values were originally floats, scaled & rounded by a factor of 2**16
+
+    # All coefficients are scaled random floats between 0 and 1
     my_model_coef_0:
-      SecretInteger: "3"
+      SecretInteger: "30669"  # e.g. 30669 = 0.4679718017578125 * 2**16
     my_model_coef_1:
-      SecretInteger: "3"
+      SecretInteger: "22411"
     my_model_coef_2:
-      SecretInteger: "3"
+      SecretInteger: "61182"
     my_model_coef_3:
-      SecretInteger: "3"
+      SecretInteger: "23548"
     my_model_coef_4:
-      SecretInteger: "3"
+      SecretInteger: "52068"
     my_model_coef_5:
-      SecretInteger: "3"
+      SecretInteger: "49177"
     my_model_coef_6:
-      SecretInteger: "3"
+      SecretInteger: "60541"
     my_model_coef_7:
-      SecretInteger: "3"
+      SecretInteger: "55932"
     my_model_coef_8:
-      SecretInteger: "3"
+      SecretInteger: "7771"
     my_model_coef_9:
-      SecretInteger: "3"
+      SecretInteger: "61119"
     my_model_intercept_0:
-      SecretInteger: "3"
+      SecretInteger: "45040"
+
+    # Inputs are an array of 2.5 (2.5 * 2**16 = 163840)
+
     my_input_0:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_1:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_2:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_3:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_4:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_5:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_6:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_7:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_8:
-      SecretInteger: "3"
+      SecretInteger: "163840"
     my_input_9:
-      SecretInteger: "3"
+      SecretInteger: "163840"
   public_variables: {}
 expected_outputs:
+  # If you go in and crunch the numbers of this one, the result should be 16.877471923828125
+  # 16.877471923828125 * 2**16 = 1106082
   my_output_0:
-    SecretInteger: "93"
+    SecretInteger: "1106082"

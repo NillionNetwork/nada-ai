@@ -21,6 +21,7 @@ def nada_main():
 
     # Step 4: Load input data to be used for inference (provided by Party1)
     my_input = na.array((3, 4, 3), parties[1], "my_input")
+    my_input = my_input.applypyfunc(lambda x: na.SecretRational(x, scale=UnsignedInteger(16)))
 
     # Step 5: Compute inference
     # Note: completely equivalent to `my_model.forward(...)`

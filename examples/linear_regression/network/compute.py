@@ -135,7 +135,7 @@ async def main():
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((NUM_FEATS,)), "my_input")
+    my_input = na_client.array(np.ones((NUM_FEATS,)) * 2**16, "my_input")
     input_secrets = nillion.Secrets(my_input)
 
     data_store_id = await store_secrets(
