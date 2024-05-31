@@ -127,13 +127,13 @@ files = [
 
 [[package]]
 name = "nada-algebra"
-version = "0.1.1"
+version = "0.2.0"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "nada_algebra-0.1.1-py3-none-any.whl", hash = "sha256:ea7962e9b0c96ba00ab6839c184925b6e311ff1c9c98d7f846b480890aca4946"},
-    {file = "nada_algebra-0.1.1.tar.gz", hash = "sha256:1d5d616eee590541dd6965f565b2194213412ef2794d27b0f01fd1d3fa53571e"},
+    {file = "nada_algebra-0.2.0-py3-none-any.whl", hash = "sha256:2db264b127368a20bb616e79af2fab86cb0e27b3afba515ce3082b4e588f59c5"},
+    {file = "nada_algebra-0.2.0.tar.gz", hash = "sha256:ab81dd7d67c566246f6f9da91601fabb06a2b2589d2c15b5d246cd694e82729b"},
 ]
 
 [package.dependencies]
@@ -369,4 +369,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "62d173ad5951a9782122c2fb31d08cb58d146325621af4543ec45e8ce2258ac1"
+content-hash = "8b0c7a58ffd0c8c0fa3b0a38b099ae011c550756e90b6438d27bfa5064983baa"
