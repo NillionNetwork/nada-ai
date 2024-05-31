@@ -149,6 +149,6 @@ inputs:
   public_variables: {}
 expected_outputs:
   my_output_1:
-    SecretInteger: "15"
+    SecretInteger: "-9"
   my_output_0:
-    SecretInteger: "15"
+    SecretInteger: "-9"

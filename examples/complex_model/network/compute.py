@@ -119,12 +119,12 @@ async def main():
             """Takes convolution & pools"""
             return self.pool(self.conv(x))
 
-    class PlusOne(torch.nn.Module):
-        """My +1 module"""
+    class MyOperations(torch.nn.Module):
+        """My operations module"""
 
         def forward(self, x: torch.Tensor) -> torch.Tensor:
-            """Simply does +1"""
-            return x + 1
+            """Does some arbitrary operations for illustrative purposes"""
+            return (x * 2) - 1
 
     class MyModel(torch.nn.Module):
         """My aribitrarily specific model architecture"""
@@ -133,15 +133,15 @@ async def main():
             """Model is a collection of arbitrary custom components"""
             super(MyModel, self).__init__()
             self.conv_module = MyConvModule()
-            self.plus_one = PlusOne()
+            self.my_operations = MyOperations()
             self.linear = torch.nn.Linear(4, 2)
-            self.flatten = torch.nn.Flatten(start_dim=0, end_dim=-1)
+            self.flatten = torch.nn.Flatten(0)
 
         def forward(self, x: torch.Tensor) -> torch.Tensor:
             """My custom forward pass logic"""
             x = self.conv_module(x)
             x = self.flatten(x)
-            x = self.plus_one(x)
+            x = self.my_operations(x)
             x = self.linear(x)
             return x
 
