@@ -1,0 +1,125 @@
+---
+program: main
+inputs:
+  secrets:
+    # We assume all values were originally floats, scaled & rounded by a factor of 2**16
+
+    # For simplicity's sake, we assume all coefficients and inputs are 2.5
+    # 2.5 * 2**16 = 163840
+
+    my_model_linear_0.weight_1_2:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_4:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_7:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_4:
+      SecretInteger: "163840"
+    my_model_linear_0.bias_2:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_0_3:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_6:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_3:
+      SecretInteger: "163840"
+    my_model_linear_0.bias_3:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_1_1:
+      SecretInteger: "163840"
+    my_input_0:
+      SecretInteger: "163840"
+    my_input_4:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_0_0:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_0:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_1_2:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_2:
+      SecretInteger: "163840"
+    my_input_2:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_1_0:
+      SecretInteger: "163840"
+    my_input_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_0:
+      SecretInteger: "163840"
+    my_input_6:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_5:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_0_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_2:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_3:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_7:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_1_3:
+      SecretInteger: "163840"
+    my_model_linear_0.bias_1:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_4:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_5:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_3:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_5:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_7:
+      SecretInteger: "163840"
+    my_input_5:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_0:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_0:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_6:
+      SecretInteger: "163840"
+    my_model_linear_1.weight_0_2:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_4:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_3:
+      SecretInteger: "163840"
+    my_input_3:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_3_2:
+      SecretInteger: "163840"
+    my_model_linear_1.bias_1:
+      SecretInteger: "163840"
+    my_input_7:
+      SecretInteger: "163840"
+    my_model_linear_0.bias_0:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_6:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_2_6:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_1_5:
+      SecretInteger: "163840"
+    my_model_linear_1.bias_0:
+      SecretInteger: "163840"
+    my_model_linear_0.weight_0_7:
+      SecretInteger: "163840"
+  public_variables: {}
+expected_outputs:
+  # If you go in and crunch the numbers of this one, the result should be 527.5
+  # 527.5 * 2**16 = 34_570_240
+  my_output_0:
+    SecretInteger: "34570240"
+  my_output_1:
+    SecretInteger: "34570240"

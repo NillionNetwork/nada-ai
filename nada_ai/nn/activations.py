@@ -17,7 +17,8 @@ class ReLU(Module):
         Returns:
             na.NadaArray: Module output.
         """
-        x = x.applypyfunc(
-            lambda a: a.value if isinstance(a, (na.Rational, na.SecretRational)) else a
+        mask = x.applypyfunc(
+            lambda a: (a > Integer(0)).if_else(Integer(1), Integer(0))
         )
-        return x.applypyfunc(lambda a: (a > Integer(0)).if_else(a, Integer(0)))
+        result = x * mask
+        return result
