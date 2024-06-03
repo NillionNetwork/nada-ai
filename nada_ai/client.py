@@ -2,8 +2,8 @@
 This module provides functions to work with the Python Nillion Client
 """
 
-import warnings
-
+import nada_algebra as na
+from nada_algebra.types import RationalConfig
 import nada_algebra.client as na_client
 from collections import OrderedDict
 from typing import Any, Dict, Iterable, Union
@@ -20,6 +20,7 @@ import numpy as np
 import py_nillion_client as nillion
 
 _NillionType = Union[
+    na.SecretRational,
     nillion.SecretInteger,
     nillion.SecretUnsignedInteger,
     nillion.PublicVariableInteger,
@@ -97,18 +98,13 @@ class ModelClient:
     def export_state_as_secrets(
         self,
         name: str,
-        as_rational: bool = True,
-        scale: int = 16,
-        nada_type: _NillionType = nillion.SecretInteger,
+        nada_type: _NillionType = na.SecretRational,
     ) -> Dict[str, _NillionType]:
         """Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
-            as_rational (bool, optional): Whether or not to export the state as rational values. Defaults to True.
-            scale (int, optional): Scaling factor to be used as base-2 exponent during quantization. Only used if state is
-                exported as rational values. Defaults to 16.
-            nada_type (_NillionType, optional): Data type to convert weights to. Defaults to nillion.SecretInteger.
+            nada_type (_NillionType, optional): Data type to convert weights to. Defaults to na.SecretRational.
 
         Raises:
             TypeError: Raised when model state has incompatible values.
@@ -116,17 +112,6 @@ class ModelClient:
         Returns:
             Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
         """
-        if scale <= 0:
-            warnings.warn(
-                "Provided scaling factor `%d` is very low. This scale will be used as a base-2 exponent during quantization. Expected a value above 0."
-                % scale
-            )
-        if scale >= 64:
-            warnings.warn(
-                "Provided scaling factor `%d` is very high. This scale will be used as a base-2 exponent during quantization. Expected a value below 64."
-                % scale
-            )
-
         state_secrets = {}
         for layer_name, layer_weight in self.state_dict.items():
 
@@ -140,8 +125,9 @@ class ModelClient:
                     % type(layer_weight).__name__
                 )
 
-            if as_rational:
-                layer_weight = layer_weight * (2**scale)
+            if nada_type == na.SecretRational:
+                layer_weight = layer_weight * 2**RationalConfig.LOG_SCALE
+                nada_type = nillion.SecretInteger
 
             layer_weight = layer_weight.astype(int)
             layer_weight[layer_weight == 0] = (
