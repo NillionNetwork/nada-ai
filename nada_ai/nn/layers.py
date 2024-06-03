@@ -198,6 +198,7 @@ class AvgPool2d(Module):
             unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
+        dtype = type(x.item(0))
 
         if any(pad > 0 for pad in self.padding):
             padded_input = np.pad(
@@ -236,9 +237,14 @@ class AvgPool2d(Module):
                         end_w = start_w + self.kernel_size[1]
 
                         pool_region = padded_input[b, c, start_h:end_h, start_w:end_w]
-                        output_array[b, c, i, j] = np.sum(pool_region) / Integer(
-                            pool_region.size
-                        )
+
+                        if dtype in (na.Rational, na.SecretRational):
+                            pool_size = na.Rational(pool_region.size)
+                        else:
+                            pool_size = Integer(pool_region.size)
+
+                        output_array[b, c, i, j] = np.sum(pool_region) / pool_size
+
         if unbatched:
             output_array = output_array[0]
 
@@ -273,7 +279,7 @@ class Flatten(Module):
         if end_dim < 0:
             end_dim += len(shape)
 
-        flattened_dim_size = np.prod(shape[self.start_dim:end_dim + 1])
+        flattened_dim_size = int(np.prod(shape[self.start_dim:end_dim + 1]))
         flattened_shape = shape[:self.start_dim] + (flattened_dim_size,) + shape[end_dim + 1:]
 
         return x.reshape(flattened_shape)

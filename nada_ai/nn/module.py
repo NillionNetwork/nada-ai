@@ -14,7 +14,7 @@ from nada_dsl import (
 )
 
 _NadaInteger = Union[
-    SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger
+    SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger, na.SecretRational
 ]
 
 
@@ -80,27 +80,18 @@ class Module(ABC):
         self,
         name: str,
         party: Party,
-        as_rational: bool = True,
-        scale: int = 16,
-        nada_type: _NadaInteger = SecretInteger,
+        nada_type: _NadaInteger = na.SecretRational,
     ) -> None:
         """Loads the model state from the Nillion network.
 
         Args:
             name (str): Name to be used to find state secrets in the network.
             party (Party): Party that provided the model state in the network.
-            as_rational (bool, optional): Whether or not to interpret the state secrets as rational values.
-            scale (int, optional): Scaling factor to be used as base-2 exponent during quantization. Only used if state was
-                exported as rational values. Defaults to 16.
-            nada_type (_NadaInteger, optional): NadaType to interpret the state values as. Defaults to SecretInteger.
+            nada_type (_NadaInteger, optional): NadaType to interpret the state values as. Defaults to na.SecretRational.
         """
         for param_name, param in self.named_parameters():
             param_state = na.array(
                 param.shape, party, f"{name}_{param_name}", nada_type
             )
-            if as_rational:
-                param_state = param_state.applypyfunc(
-                    lambda x: na.SecretRational(x, scale=scale, is_scaled=True)
-                )
 
             param.load_state(param_state)
