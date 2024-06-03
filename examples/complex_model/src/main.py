@@ -6,7 +6,7 @@ def nada_main():
     # Step 1: We use Nada Algebra wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 
-    # Step 2: Instantiate linear regression object
+    # Step 2: Instantiate model object
     my_model = MyModel()
 
     # Step 3: Load model weights from Nillion network by passing model name (acts as ID)

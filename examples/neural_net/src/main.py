@@ -1,13 +1,13 @@
 import nada_algebra as na
-from my_model import MyModel
+from my_nn import MyNN
 
 
 def nada_main():
     # Step 1: We use Nada Algebra wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 
-    # Step 2: Instantiate linear regression object
-    my_model = MyModel()
+    # Step 2: Instantiate model object
+    my_model = MyNN()
 
     # Step 3: Load model weights from Nillion network by passing model name (acts as ID)
     # In this examples Party0 provides the model and Party1 runs inference

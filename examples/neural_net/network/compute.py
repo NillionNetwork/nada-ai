@@ -107,29 +107,29 @@ async def main():
     )
 
     # Create custom torch Module
-    class MyModel(torch.nn.Module):
-        """My aribitrarily specific model architecture"""
+    class MyNN(torch.nn.Module):
+        """My simple neural net"""
 
         def __init__(self) -> None:
-            """Model is a collection of arbitrary custom components"""
-            super(MyModel, self).__init__()
+            """Model is a two layers and an activations"""
+            super(MyNN, self).__init__()
             self.linear_0 = torch.nn.Linear(8, 4)
             self.linear_1 = torch.nn.Linear(4, 2)
             self.relu = torch.nn.ReLU()
 
         def forward(self, x: na.NadaArray) -> na.NadaArray:
-            """My custom forward pass logic"""
+            """My forward pass logic"""
             x = self.linear_0(x)
             x = self.relu(x)
             x = self.linear_1(x)
             return x
 
-    my_model = MyModel()
+    my_nn = MyNN()
 
-    print("Model state is:", my_model.state_dict())
+    print("Model state is:", my_nn.state_dict())
 
     # Create and store model secrets via ModelClient
-    model_client = ModelClient.from_torch(my_model)
+    model_client = ModelClient.from_torch(my_nn)
     model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_nn"))
 
     model_store_id = await store_secrets(
@@ -169,7 +169,7 @@ async def main():
 
     print(f"🖥️  The result is {outputs}")
 
-    expected = my_model.forward(torch.ones((8,))).detach().numpy().tolist()
+    expected = my_nn.forward(torch.ones((8,))).detach().numpy().tolist()
     print(f"🖥️  VS expected plain-text result {expected}")
     return result
 
