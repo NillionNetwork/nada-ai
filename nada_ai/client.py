@@ -115,8 +115,9 @@ class ModelClient:
         state_secrets = {}
         for state_layer_name, state_layer_weight in self.state_dict.items():
             layer_name = f"{name}_{state_layer_name}"
-            state_layer_weight = self.__ensure_numpy(state_layer_weight)
-            state_secret = na_client.array(state_layer_weight, layer_name, nada_type)
+            state_secret = na_client.array(
+                self.__ensure_numpy(state_layer_weight), layer_name, nada_type
+            )
             state_secrets.update(state_secret)
 
         return state_secrets
