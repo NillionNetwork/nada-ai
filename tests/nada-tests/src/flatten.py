@@ -12,11 +12,15 @@ def nada_main():
 
     x_flat = flatten(x)
 
-    assert x_flat.shape == (2,4), x_flat.shape
+    assert x_flat.shape == (2, 4), x_flat.shape
 
     assert Flatten(start_dim=0)(x).shape == (8,), Flatten(start_dim=0)(x).shape
-    assert Flatten(start_dim=0, end_dim=-2)(x).shape == (8,1), Flatten(start_dim=0, end_dim=-2)(x).shape
-    assert Flatten(start_dim=2, end_dim=3)(x).shape == (2,2,2), Flatten(start_dim=2, end_dim=3)(x).shape
+    assert Flatten(start_dim=0, end_dim=-2)(x).shape == (8, 1), Flatten(
+        start_dim=0, end_dim=-2
+    )(x).shape
+    assert Flatten(start_dim=2, end_dim=3)(x).shape == (2, 2, 2), Flatten(
+        start_dim=2, end_dim=3
+    )(x).shape
 
     x_flat_out = x_flat.output(party, "x_flat")
 

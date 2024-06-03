@@ -254,7 +254,7 @@ class AvgPool2d(Module):
 class Flatten(Module):
     """Flatten layer implementation"""
 
-    def __init__(self, start_dim: int=1, end_dim: int=-1) -> None:
+    def __init__(self, start_dim: int = 1, end_dim: int = -1) -> None:
         """Flatten operator.
 
         Args:
@@ -279,7 +279,9 @@ class Flatten(Module):
         if end_dim < 0:
             end_dim += len(shape)
 
-        flattened_dim_size = int(np.prod(shape[self.start_dim:end_dim + 1]))
-        flattened_shape = shape[:self.start_dim] + (flattened_dim_size,) + shape[end_dim + 1:]
+        flattened_dim_size = int(np.prod(shape[self.start_dim : end_dim + 1]))
+        flattened_shape = (
+            shape[: self.start_dim] + (flattened_dim_size,) + shape[end_dim + 1 :]
+        )
 
         return x.reshape(flattened_shape)

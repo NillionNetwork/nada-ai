@@ -14,7 +14,11 @@ from nada_dsl import (
 )
 
 _NadaInteger = Union[
-    SecretInteger, SecretUnsignedInteger, PublicInteger, PublicUnsignedInteger, na.SecretRational
+    SecretInteger,
+    SecretUnsignedInteger,
+    PublicInteger,
+    PublicUnsignedInteger,
+    na.SecretRational,
 ]
 
 
