@@ -24,7 +24,7 @@ def nada_main():
             self.conv_module = TestModuleConv()
             self.flatten = Flatten()
             self.relu = ReLU()
-            self.linear = Linear(4, 2)
+            self.linear = Linear(2, 2)
 
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             x = self.conv_module(x)
