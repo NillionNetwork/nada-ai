@@ -79,7 +79,6 @@ class Conv2d(Module):
         )
         self.bias = Parameter(out_channels) if include_bias else None
 
-
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """Forward pass.
 
@@ -115,8 +114,12 @@ class Conv2d(Module):
         else:
             padded_input = x.inner
 
-        output_rows = (input_rows + 2 * self.padding[0] - kernel_rows) // self.stride[0] + 1
-        output_cols = (input_cols + 2 * self.padding[1] - kernel_cols) // self.stride[1] + 1
+        output_rows = (input_rows + 2 * self.padding[0] - kernel_rows) // self.stride[
+            0
+        ] + 1
+        output_cols = (input_cols + 2 * self.padding[1] - kernel_cols) // self.stride[
+            1
+        ] + 1
 
         output_tensor = np.zeros(
             (batch_size, out_channels, output_rows, output_cols)
@@ -153,7 +156,10 @@ class AvgPool2d(Module):
     """2d-Average pooling layer implementation"""
 
     def __init__(
-        self, kernel_size: _ShapeLike, stride: Optional[_ShapeLike]=None, padding: Optional[_ShapeLike]=0
+        self,
+        kernel_size: _ShapeLike,
+        stride: Optional[_ShapeLike] = None,
+        padding: Optional[_ShapeLike] = 0,
     ) -> None:
         """2D-average pooling layer.
 
