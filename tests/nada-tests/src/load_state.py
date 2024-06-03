@@ -16,8 +16,8 @@ def nada_main():
     mod1 = TestModule()
     mod2 = TestModule()
 
-    mod1.load_state_from_network("module1", party, as_rational=True, scale=4)
-    mod2.load_state_from_network("module2", party, as_rational=False)
+    mod1.load_state_from_network("module1", party, nada_type=na.SecretRational)
+    mod2.load_state_from_network("module2", party, nada_type=SecretInteger)
 
     m1_p1_out = mod1.param1.output(party, "module1_param1")
     m1_p2_out = mod1.param2.output(party, "module1_param2")

@@ -18,14 +18,6 @@ inputs:
       SecretInteger: "7"
     input_x_1_1_1_0:
       SecretInteger: "8"
-    input_y_0:
-      SecretInteger: "7"
-    input_y_1:
-      SecretInteger: "8"
-    input_y_2:
-      SecretInteger: "9"
-    input_y_3:
-      SecretInteger: "10"
   public_variables: {}
 expected_outputs:
   x_flat_0:
@@ -44,11 +36,3 @@ expected_outputs:
     SecretInteger: "7"
   x_flat_7:
     SecretInteger: "8"
-  y_flat_0:
-      SecretInteger: "7"
-  y_flat_1:
-    SecretInteger: "8"
-  y_flat_2:
-    SecretInteger: "9"
-  y_flat_3:
-    SecretInteger: "10"

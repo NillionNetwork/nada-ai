@@ -10,7 +10,7 @@ def nada_main():
 
     model = LinearRegression(4)
 
-    model.load_state_from_network("testmod", party, as_rational=False)
+    model.load_state_from_network("testmod", party, SecretInteger)
 
     result = model(x)
 

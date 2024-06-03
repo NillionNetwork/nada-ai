@@ -6,7 +6,7 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array((1, 3, 4, 3), party, "input_x")
+    x = na.array((1, 3, 4, 3), party, "input_x", na.SecretRational)
 
     class TestModuleConv(Module):
         def __init__(self) -> None:
@@ -22,7 +22,7 @@ def nada_main():
     class TestModule(Module):
         def __init__(self) -> None:
             self.conv_module = TestModuleConv()
-            self.flatten = Flatten()
+            self.flatten = Flatten(0)
             self.relu = ReLU()
             self.linear = Linear(2, 2)
 
@@ -35,7 +35,7 @@ def nada_main():
 
     module = TestModule()
 
-    module.load_state_from_network("testmod", party, as_rational=True, scale=2)
+    module.load_state_from_network("testmod", party)
 
     result = module(x)
 

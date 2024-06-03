@@ -32,7 +32,7 @@ class MyModel(nn.Module):
         self.conv_module = MyConvModule()
         self.my_operations = MyOperations()
         self.linear = nn.Linear(4, 2)
-        self.flatten = nn.Flatten()
+        self.flatten = nn.Flatten(0)
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """My custom forward pass logic"""
