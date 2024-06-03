@@ -1,4 +1,3 @@
-from nada_dsl import *
 import nada_algebra as na
 from nada_ai.nn import LinearRegression
 
@@ -12,18 +11,10 @@ def nada_main():
 
     # Step 3: Load model weights from Nillion network by passing model name (acts as ID)
     # In this examples Party0 provides the model and Party1 runs inference
-    my_model.load_state_from_network(
-        "my_model",
-        parties[0],
-        as_rational=True,  # Set to True b/c model weights are native floats
-        scale=16,
-    )
+    my_model.load_state_from_network("my_model", parties[0])
 
     # Step 4: Load input data to be used for inference (provided by Party1)
-    my_input = na.array((10,), parties[1], "my_input")
-    my_input = my_input.applypyfunc(
-        lambda x: na.SecretRational(x, scale=UnsignedInteger(16))
-    )
+    my_input = na.array((10,), parties[1], "my_input", na.SecretRational)
 
     # Step 5: Compute inference
     # Note: completely equivalent to `my_model(...)`

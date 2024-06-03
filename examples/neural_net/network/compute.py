@@ -4,6 +4,7 @@ import os
 import sys
 import numpy as np
 import time
+import nada_algebra as na
 from nada_ai.client import ModelClient
 import torch
 from dotenv import load_dotenv
@@ -107,17 +108,21 @@ async def main():
 
     # Create custom torch Module
     class MyModel(torch.nn.Module):
+        """My aribitrarily specific model architecture"""
+
         def __init__(self) -> None:
-            """Model is a simple feed-forward NN with 2 layers and a ReLU activation"""
+            """Model is a collection of arbitrary custom components"""
             super(MyModel, self).__init__()
             self.linear_0 = torch.nn.Linear(8, 4)
             self.linear_1 = torch.nn.Linear(4, 2)
             self.relu = torch.nn.ReLU()
 
-        def forward(self, x: torch.Tensor) -> torch.Tensor:
+        def forward(self, x: na.NadaArray) -> na.NadaArray:
             """My custom forward pass logic"""
-            x = self.relu(self.linear_0(x))
-            return self.linear_1(x)
+            x = self.linear_0(x)
+            x = self.relu(x)
+            x = self.linear_1(x)
+            return x
 
     my_model = MyModel()
 
@@ -125,16 +130,14 @@ async def main():
 
     # Create and store model secrets via ModelClient
     model_client = ModelClient.from_torch(my_model)
-    model_secrets = nillion.Secrets(
-        model_client.export_state_as_secrets("my_model", as_rational=True, scale=16)
-    )
+    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_nn"))
 
     model_store_id = await store_secrets(
         client, cluster_id, program_id, party_id, party_names[0], model_secrets
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((8,)) * 2**16, "my_input")
+    my_input = na_client.array(np.ones((8,)), "my_input", na.SecretRational)
     input_secrets = nillion.Secrets(my_input)
 
     data_store_id = await store_secrets(

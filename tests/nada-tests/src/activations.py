@@ -6,12 +6,18 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array([4], party, "input")
+    x = na.array([4], party, "input_x")
+    y = na.array([4], party, "input_y", na.SecretRational)
 
     relu = ReLU()
 
-    relu_out = relu(x)
+    relu_x = relu(x)
+    relu_y = relu(y)
 
-    assert relu_out.shape == x.shape, relu_out.shape
+    assert relu_x.shape == x.shape, relu_x.shape
+    assert relu_y.shape == y.shape, relu_y.shape
 
-    return relu_out.output(party, "relu")
+    relu_x_out = relu_x.output(party, "relu_x")
+    relu_y_out = relu_y.output(party, "relu_y")
+
+    return relu_x_out + relu_y_out
