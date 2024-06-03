@@ -11,13 +11,13 @@ numpy = "^1.26.4"
 nada-dsl = "^0.2.1"
 py-nillion-client = "^0.2.1"
 nada-algebra = "^0.2.0"
-scikit-learn = "^1.4.2"
-torch = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
 black = "^24.4.2"
+scikit-learn = "^1.4.2"
+torch = "^2.3.0"
 
 [build-system]
 requires = ["poetry-core"]
