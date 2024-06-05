@@ -17,7 +17,7 @@ def nada_main():
         stride=1,
     )
 
-    conv1.load_state_from_network("conv1", party, as_rational=False)
+    conv1.load_state_from_network("conv1", party, SecretInteger)
 
     conv2 = Conv2d(
         kernel_size=2,
@@ -27,7 +27,7 @@ def nada_main():
         stride=2,
     )
 
-    conv2.load_state_from_network("conv2", party, as_rational=False)
+    conv2.load_state_from_network("conv2", party, SecretInteger)
 
     x_conv1 = conv1(x)
     x_conv2 = conv2(x)

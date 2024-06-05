@@ -4,6 +4,7 @@ import os
 import sys
 import numpy as np
 import time
+import nada_algebra as na
 from nada_ai.client import ModelClient
 import torch
 from dotenv import load_dotenv
@@ -151,16 +152,14 @@ async def main():
 
     # Create and store model secrets via ModelClient
     model_client = ModelClient.from_torch(my_model)
-    model_secrets = nillion.Secrets(
-        model_client.export_state_as_secrets("my_model", as_rational=True, scale=16)
-    )
+    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_model"))
 
     model_store_id = await store_secrets(
         client, cluster_id, program_id, party_id, party_names[0], model_secrets
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((3, 4, 3)) * 2**16, "my_input")
+    my_input = na_client.array(np.ones((3, 4, 3)), "my_input", na.SecretRational)
     input_secrets = nillion.Secrets(my_input)
 
     data_store_id = await store_secrets(

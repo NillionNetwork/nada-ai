@@ -23,11 +23,11 @@ def nada_main():
             x = self.mod(x)
             return x + self.param1
 
-    x = na.array([2], party, "input")
+    x = na.array([2], party, "input", na.SecretRational)
 
     mod = TestModule2(module1=TestModule1())
 
-    mod.load_state_from_network("testmod", party, as_rational=False)
+    mod.load_state_from_network("testmod", party)
 
     result = mod(x)
 

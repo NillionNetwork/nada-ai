@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
 from nada_ai import ModelClient
+import py_nillion_client as nillion
 
 
 class TestModelClient:
@@ -50,9 +51,7 @@ class TestModelClient:
 
         model_client = ModelClient.from_sklearn(log_reg_fit)
 
-        secrets = model_client.export_state_as_secrets(
-            "test_model", as_rational=True, scale=16
-        )
+        secrets = model_client.export_state_as_secrets("test_model")
 
         assert len(secrets.keys()) == 4
 
@@ -71,8 +70,7 @@ class TestModelClient:
 
         model_client = ModelClient.from_sklearn(log_reg_fit)
 
-        with pytest.warns():
-            model_client.export_state_as_secrets("test_model", scale=-1)
+        model_client.export_state_as_secrets("test_model", nillion.SecretInteger)
 
     def test_sklearn_5(self):
         log_reg = LogisticRegression(fit_intercept=False)
@@ -89,7 +87,7 @@ class TestModelClient:
             ),
         )
 
-        secrets = model_client.export_state_as_secrets("test_model", as_rational=True)
+        secrets = model_client.export_state_as_secrets("test_model")
 
         assert len(secrets.keys()) == 4
 
@@ -130,7 +128,7 @@ class TestModelClient:
 
         model_client = ModelClient.from_torch(mod)
 
-        secrets = model_client.export_state_as_secrets("test_model", scale=16)
+        secrets = model_client.export_state_as_secrets("test_model")
 
         assert len(secrets) == 14
 
@@ -170,7 +168,7 @@ class TestModelClient:
 
         model_client = ModelClient.from_torch(mod)
 
-        secrets = model_client.export_state_as_secrets("test_model", scale=16)
+        secrets = model_client.export_state_as_secrets("test_model")
 
         assert len(secrets) == 30
 
@@ -226,7 +224,7 @@ class TestModelClient:
 
         model_client = ModelClient(mod, mod.state_dict())
 
-        secrets = model_client.export_state_as_secrets("test_model", scale=16)
+        secrets = model_client.export_state_as_secrets("test_model")
 
         assert len(secrets) == 14
 

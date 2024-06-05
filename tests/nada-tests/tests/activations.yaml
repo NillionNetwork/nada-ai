@@ -2,21 +2,37 @@
 program: activations
 inputs:
   secrets:
-    input_0:
+    input_x_0:
       SecretInteger: "-2"
-    input_1:
+    input_x_1:
       SecretInteger: "0"
-    input_2:
+    input_x_2:
       SecretInteger: "4"
-    input_3:
+    input_x_3:
       SecretInteger: "-121"
+    input_y_0:
+      SecretInteger: "-131072"
+    input_y_1:
+      SecretInteger: "0"
+    input_y_2:
+      SecretInteger: "262144"
+    input_y_3:
+      SecretInteger: "-7929856"
   public_variables: {}
 expected_outputs:
-  relu_0:
+  relu_x_0:
     SecretInteger: "0"
-  relu_1:
+  relu_x_1:
     SecretInteger: "0"
-  relu_2:
+  relu_x_2:
     SecretInteger: "4"
-  relu_3:
+  relu_x_3:
+    SecretInteger: "0"
+  relu_y_0:
+    SecretInteger: "0"
+  relu_y_1:
+    SecretInteger: "0"
+  relu_y_2:
+    SecretInteger: "262144"
+  relu_y_3:
     SecretInteger: "0"

@@ -2,8 +2,7 @@
 This module provides functions to work with the Python Nillion Client
 """
 
-import warnings
-
+import nada_algebra as na
 import nada_algebra.client as na_client
 from collections import OrderedDict
 from typing import Any, Dict, Iterable, Union
@@ -20,6 +19,8 @@ import numpy as np
 import py_nillion_client as nillion
 
 _NillionType = Union[
+    na.Rational,
+    na.SecretRational,
     nillion.SecretInteger,
     nillion.SecretUnsignedInteger,
     nillion.PublicVariableInteger,
@@ -97,18 +98,13 @@ class ModelClient:
     def export_state_as_secrets(
         self,
         name: str,
-        as_rational: bool = True,
-        scale: int = 16,
-        nada_type: _NillionType = nillion.SecretInteger,
+        nada_type: _NillionType = na.SecretRational,
     ) -> Dict[str, _NillionType]:
         """Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
-            as_rational (bool, optional): Whether or not to export the state as rational values. Defaults to True.
-            scale (int, optional): Scaling factor to be used as base-2 exponent during quantization. Only used if state is
-                exported as rational values. Defaults to 16.
-            nada_type (_NillionType, optional): Data type to convert weights to. Defaults to nillion.SecretInteger.
+            nada_type (_NillionType, optional): Data type to convert weights to. Defaults to SecretRational.
 
         Raises:
             TypeError: Raised when model state has incompatible values.
@@ -116,42 +112,32 @@ class ModelClient:
         Returns:
             Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
         """
-        if scale <= 0:
-            warnings.warn(
-                "Provided scaling factor `%d` is very low. This scale will be used as a base-2 exponent during quantization. Expected a value above 0."
-                % scale
-            )
-        if scale >= 64:
-            warnings.warn(
-                "Provided scaling factor `%d` is very high. This scale will be used as a base-2 exponent during quantization. Expected a value below 64."
-                % scale
-            )
-
         state_secrets = {}
-        for layer_name, layer_weight in self.state_dict.items():
-
-            if isinstance(layer_weight, torch.Tensor):
-                layer_weight = layer_weight.detach().numpy()
-            elif isinstance(layer_weight, (float, int)):
-                layer_weight = np.array(layer_weight)
-            elif not isinstance(layer_weight, np.ndarray):
-                raise TypeError(
-                    "Could not parse layer weight of type `%s` in state_dict"
-                    % type(layer_weight).__name__
-                )
-
-            if as_rational:
-                layer_weight = layer_weight * (2**scale)
-
-            layer_weight = layer_weight.astype(int)
-            layer_weight[layer_weight == 0] = (
-                1  # TODO: remove line when pushing zero as Secret is implemented
-            )
-
+        for state_layer_name, state_layer_weight in self.state_dict.items():
+            layer_name = f"{name}_{state_layer_name}"
             state_secret = na_client.array(
-                layer_weight, prefix=f"{name}_{layer_name}", nada_type=nada_type
+                self.__ensure_numpy(state_layer_weight), layer_name, nada_type
             )
-
             state_secrets.update(state_secret)
 
         return state_secrets
+
+    def __ensure_numpy(self, array_like: Any) -> np.ndarray:
+        """Ensures an array-like input is converted to a NumPy array.
+
+        Args:
+            array_like (Any): Some array-like input.
+
+        Raises:
+            TypeError: Raised when an input is passed of an incompatible type.
+
+        Returns:
+            np.ndarray: NumPy-converted result.
+        """
+        if isinstance(array_like, torch.Tensor):
+            return array_like.detach().numpy()
+        if isinstance(array_like, (float, int, np.ndarray)):
+            return np.array(array_like)
+        raise TypeError(
+            "Could not convert type `%s` to NumPy array" % type(array_like).__name__
+        )

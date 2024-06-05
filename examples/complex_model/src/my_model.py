@@ -1,6 +1,5 @@
 import nada_algebra as na
 from nada_ai import nn
-from nada_dsl import Integer
 
 
 class MyConvModule(nn.Module):
@@ -9,7 +8,7 @@ class MyConvModule(nn.Module):
     def __init__(self) -> None:
         """Contains some ConvNet components"""
         self.conv = nn.Conv2d(kernel_size=2, in_channels=3, out_channels=2)
-        self.pool = nn.AvgPool2d(kernel_size=2)
+        self.pool = nn.AvgPool2d(kernel_size=2, stride=1)
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """Takes convolution & pools"""
@@ -21,7 +20,7 @@ class MyOperations(nn.Module):
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """Does some arbitrary operations for illustrative purposes"""
-        return (x * Integer(2)) - Integer(1)
+        return (x * na.Rational(2)) - na.Rational(1)
 
 
 class MyModel(nn.Module):
@@ -32,7 +31,7 @@ class MyModel(nn.Module):
         self.conv_module = MyConvModule()
         self.my_operations = MyOperations()
         self.linear = nn.Linear(4, 2)
-        self.flatten = nn.Flatten()
+        self.flatten = nn.Flatten(0)
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """My custom forward pass logic"""

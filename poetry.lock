@@ -127,13 +127,13 @@ files = [
 
 [[package]]
 name = "nada-algebra"
-version = "0.1.1"
+version = "0.2.1"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "nada_algebra-0.1.1-py3-none-any.whl", hash = "sha256:ea7962e9b0c96ba00ab6839c184925b6e311ff1c9c98d7f846b480890aca4946"},
-    {file = "nada_algebra-0.1.1.tar.gz", hash = "sha256:1d5d616eee590541dd6965f565b2194213412ef2794d27b0f01fd1d3fa53571e"},
+    {file = "nada_algebra-0.2.1-py3-none-any.whl", hash = "sha256:46c9758de310b88c891e0f2e068712b326ac83a00328e0dba2313a115ed6e300"},
+    {file = "nada_algebra-0.2.1.tar.gz", hash = "sha256:01f09591269a1b367027586b682295e0f2b7e78a8e20fd8dcb4330bbdf15b08a"},
 ]
 
 [package.dependencies]
@@ -357,16 +357,16 @@ files = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.12.0"
+version = "4.12.1"
 description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "typing_extensions-4.12.0-py3-none-any.whl", hash = "sha256:b349c66bea9016ac22978d800cfff206d5f9816951f12a7d0ec5578b0a819594"},
-    {file = "typing_extensions-4.12.0.tar.gz", hash = "sha256:8cbcdc8606ebcb0d95453ad7dc5065e6237b6aa230a31e81d0f440c30fed5fd8"},
+    {file = "typing_extensions-4.12.1-py3-none-any.whl", hash = "sha256:6024b58b69089e5a89c347397254e35f1bf02a907728ec7fee9bf0fe837d203a"},
+    {file = "typing_extensions-4.12.1.tar.gz", hash = "sha256:915f5e35ff76f56588223f15fdd5938f9a1cf9195c0de25130c627e4d597f6d1"},
 ]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "62d173ad5951a9782122c2fb31d08cb58d146325621af4543ec45e8ce2258ac1"
+content-hash = "d0c1bdeb38bbe87e8589dd2000e171f9fea47c0f70dfb1528870b818c1973a80"

@@ -14,7 +14,7 @@ def nada_main():
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             return (self.param1 @ x) + self.param2
 
-    x = na.array([2], party, "input")
+    x = na.array([2], party, "input", na.SecretRational)
 
     mod = TestModule()
 
