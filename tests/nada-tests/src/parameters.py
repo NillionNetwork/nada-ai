@@ -6,6 +6,8 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
+    x = na.array([2], party, "input", na.SecretRational)
+
     class TestModule(Module):
         def __init__(self) -> None:
             self.param1 = Parameter((3, 2))
@@ -13,8 +15,6 @@ def nada_main():
 
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             return (self.param1 @ x) + self.param2
-
-    x = na.array([2], party, "input", na.SecretRational)
 
     mod = TestModule()
 

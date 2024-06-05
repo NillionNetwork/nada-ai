@@ -6,7 +6,7 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array([4], party, "input_x")
+    x = na.array([4], party, "input_x", SecretInteger)
     y = na.array([4], party, "input_y", na.SecretRational)
 
     relu = ReLU()

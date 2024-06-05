@@ -6,8 +6,8 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array((1, 4, 4, 2), party, "input_x")
-    y = na.array((4, 4, 2), party, "input_y")
+    x = na.array((1, 4, 4, 2), party, "input_x", SecretInteger)
+    y = na.array((4, 4, 2), party, "input_y", SecretInteger)
 
     pool1 = AvgPool2d(
         kernel_size=2,

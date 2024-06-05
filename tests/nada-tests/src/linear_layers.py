@@ -7,6 +7,8 @@ from nada_ai.nn import Linear
 def nada_main():
     party = Party("party")
 
+    x = na.array([3], party, "input", SecretInteger)
+
     class TestModule(Module):
         def __init__(self) -> None:
             self.linear_0 = Linear(3, 2)
@@ -16,8 +18,6 @@ def nada_main():
             x = self.linear_0(x)
             x = self.linear_1(x)
             return x
-
-    x = na.array([3], party, "input")
 
     mod = TestModule()
 

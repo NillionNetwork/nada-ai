@@ -6,7 +6,7 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array([2, 2, 2, 1], party, "input_x")
+    x = na.array([2, 2, 2, 1], party, "input_x", SecretInteger)
 
     flatten = Flatten()
 

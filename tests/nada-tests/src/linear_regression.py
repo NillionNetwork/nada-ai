@@ -6,7 +6,7 @@ from nada_ai.nn import LinearRegression
 def nada_main():
     party = Party("party")
 
-    x = na.array([4], party, "input")
+    x = na.array([4], party, "input", SecretInteger)
 
     model = LinearRegression(4)
 
