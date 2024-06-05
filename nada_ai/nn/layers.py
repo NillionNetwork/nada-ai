@@ -205,7 +205,7 @@ class AvgPool2d(Module):
             unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
-        dtype = x.dtype
+        is_rational = x.is_rational
 
         if any(pad > 0 for pad in self.padding):
             # TODO: avoid side-step to NumPy
@@ -246,7 +246,7 @@ class AvgPool2d(Module):
 
                         pool_region = padded_input[b, c, start_h:end_h, start_w:end_w]
 
-                        if dtype in (na.Rational, na.SecretRational):
+                        if is_rational:
                             pool_size = na.rational(pool_region.size)
                         else:
                             pool_size = Integer(pool_region.size)
