@@ -37,9 +37,8 @@ class ReLU(Module):
         Returns:
             na.SecretRational: ReLU output rational.
         """
-        rational_zero = na.rational(0, is_scaled=True)  # No need to rescale zero
-        above_zero: Union[PublicBoolean, SecretBoolean] = value > rational_zero
-        return above_zero.if_else(na.rational(1), rational_zero)
+        above_zero: Union[PublicBoolean, SecretBoolean] = value > na.rational(0)
+        return above_zero.if_else(na.rational(1), na.rational(0))
 
     @staticmethod
     def _relu(value: NadaType) -> SecretInteger:
