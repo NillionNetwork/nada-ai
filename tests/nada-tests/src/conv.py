@@ -6,8 +6,8 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array((1, 3, 4, 2), party, "input_x")
-    y = na.array((3, 4, 2), party, "input_y")
+    x = na.array((1, 3, 4, 2), party, "input_x", SecretInteger)
+    y = na.array((3, 4, 2), party, "input_y", SecretInteger)
 
     conv1 = Conv2d(
         kernel_size=2,

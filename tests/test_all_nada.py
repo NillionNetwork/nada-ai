@@ -79,7 +79,7 @@ def test_client():
     secrets = nillion.Secrets(
         na_client.concat(
             [
-                na_client.array(np.ones((3, 3)), "A"),
+                na_client.array(np.ones((3, 3)), "A", nillion.SecretInteger),
                 na_client.array(np.ones((3, 3)), "B", nillion.SecretUnsignedInteger),
             ]
         )

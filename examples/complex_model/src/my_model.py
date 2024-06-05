@@ -20,7 +20,7 @@ class MyOperations(nn.Module):
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """Does some arbitrary operations for illustrative purposes"""
-        return (x * na.Rational(2)) - na.Rational(1)
+        return (x * na.rational(2)) - na.rational(1)
 
 
 class MyModel(nn.Module):

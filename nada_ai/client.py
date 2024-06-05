@@ -32,7 +32,8 @@ class ModelClient:
     """ML model client"""
 
     def __init__(self, model: Any, state_dict: OrderedDict[str, np.ndarray]) -> None:
-        """Initialization.
+        """
+        Initialization.
 
         Args:
             model (Any): Model object to wrap around.
@@ -43,7 +44,8 @@ class ModelClient:
 
     @classmethod
     def from_torch(cls, model: nn.Module) -> "ModelClient":
-        """Instantiates a model client from a PyTorch model.
+        """
+        Instantiates a model client from a PyTorch model.
 
         Args:
             model (nn.Module): PyTorch nn.Module object.
@@ -56,7 +58,8 @@ class ModelClient:
 
     @classmethod
     def from_sklearn(cls, model: sklearn.base.BaseEstimator) -> "ModelClient":
-        """Instantiates a model client from a Sklearn estimator.
+        """
+        Instantiates a model client from a Sklearn estimator.
 
         Args:
             model (sklearn.base.BaseEstimator): Sklearn estimator object.
@@ -100,7 +103,8 @@ class ModelClient:
         name: str,
         nada_type: _NillionType = na.SecretRational,
     ) -> Dict[str, _NillionType]:
-        """Exports model state as a Dict of Nillion secret types.
+        """
+        Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
@@ -123,7 +127,8 @@ class ModelClient:
         return state_secrets
 
     def __ensure_numpy(self, array_like: Any) -> np.ndarray:
-        """Ensures an array-like input is converted to a NumPy array.
+        """
+        Ensures an array-like input is converted to a NumPy array.
 
         Args:
             array_like (Any): Some array-like input.

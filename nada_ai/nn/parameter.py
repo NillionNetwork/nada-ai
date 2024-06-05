@@ -1,6 +1,5 @@
 """Parameter logic"""
 
-from functools import reduce
 from typing import Iterable, Union
 
 import numpy as np
@@ -15,7 +14,8 @@ class Parameter(na.NadaArray):
     """Parameter class"""
 
     def __init__(self, shape: _ShapeLike) -> None:
-        """Initializes light NadaArray wrapper.
+        """
+        Initializes light NadaArray wrapper.
 
         Args:
             shape (_ShapeLike, optional): Parameter array shape.
@@ -25,15 +25,17 @@ class Parameter(na.NadaArray):
         super().__init__(inner=zeros)
 
     def numel(self) -> int:
-        """Returns number of elements in inner array.
+        """
+        Returns number of elements in inner array.
 
         Returns:
             int: Number of elements in inner array.
         """
-        return reduce(lambda x, y: x * y, self.shape, 1)
+        return np.prod(self.shape)
 
     def load_state(self, state: na.NadaArray) -> None:
-        """Loads a provided NadaArray as new Parameter state.
+        """
+        Loads a provided NadaArray as new Parameter state.
 
         Args:
             state (na.NadaArray): New state.
@@ -42,9 +44,7 @@ class Parameter(na.NadaArray):
             MismatchedShapesException: Raised when state of incompatible shape is provided.
         """
         if state.shape != self.shape:
-            raise MismatchedShapesException(
-                "Could not load state of shape `%s` for parameter of shape `%s`"
-                % (state.shape, self.shape)
-            )
+            msg = f"State shape `{state.shape}` does not match expected `{self.shape}`."
+            raise MismatchedShapesException(msg)
 
         self.inner = state.inner
