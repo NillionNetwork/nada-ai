@@ -27,7 +27,9 @@ class ReLU(Module):
         return x * mask
 
     @staticmethod
-    def _rational_relu(value: Union[na.Rational, na.SecretRational]) -> na.SecretRational:
+    def _rational_relu(
+        value: Union[na.Rational, na.SecretRational]
+    ) -> na.SecretRational:
         """
         Element-wise ReLU logic for rational values.
 

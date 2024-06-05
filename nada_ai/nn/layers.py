@@ -1,6 +1,6 @@
 """NN layers logic"""
 
-from typing import Iterable, Optional, Union
+from typing import Iterable, Union
 import numpy as np
 import nada_algebra as na
 from nada_ai.nn.module import Module
@@ -16,7 +16,8 @@ class Linear(Module):
     def __init__(
         self, in_features: int, out_features: int, include_bias: bool = True
     ) -> None:
-        """Linear (or fully-connected) layer.
+        """
+        Linear (or fully-connected) layer.
 
         Args:
             in_features (int): Number of input features.
@@ -27,7 +28,8 @@ class Linear(Module):
         self.bias = Parameter(out_features) if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass.
+        """
+        Forward pass.
 
         Args:
             x (na.NadaArray): Input array.
@@ -48,18 +50,19 @@ class Conv2d(Module):
         in_channels: int,
         out_channels: int,
         kernel_size: _ShapeLike,
-        padding: Optional[_ShapeLike] = 0,
-        stride: Optional[_ShapeLike] = 1,
+        padding: _ShapeLike = 0,
+        stride: _ShapeLike = 1,
         include_bias: bool = True,
     ) -> None:
-        """2D-convolutional operator.
+        """
+        2D-convolutional operator.
 
         Args:
             in_channels (int): Number of input channels.
             out_channels (int): Number of output channels.
             kernel_size (_ShapeLike): Size of convolution kernel.
-            padding (Optional[_ShapeLike]): Padding length. Defaults to 0.
-            stride (Optional[_ShapeLike]): Stride length. Defaults to 1.
+            padding (_ShapeLike, optional): Padding length. Defaults to 0.
+            stride (_ShapeLike, optional): Stride length. Defaults to 1.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
         """
         if isinstance(kernel_size, int):
@@ -80,7 +83,8 @@ class Conv2d(Module):
         self.bias = Parameter(out_channels) if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass.
+        """
+        Forward pass.
 
         Args:
             x (na.NadaArray): Input array.
@@ -98,6 +102,7 @@ class Conv2d(Module):
         out_channels, _, kernel_rows, kernel_cols = self.weight.shape
 
         if any(pad > 0 for pad in self.padding):
+            # TODO: avoid side-step to NumPy
             padded_input = np.pad(
                 x.inner,
                 [
@@ -158,15 +163,16 @@ class AvgPool2d(Module):
     def __init__(
         self,
         kernel_size: _ShapeLike,
-        stride: Optional[_ShapeLike] = None,
-        padding: Optional[_ShapeLike] = 0,
+        stride: _ShapeLike = None,
+        padding: _ShapeLike = 0,
     ) -> None:
-        """2D-average pooling layer.
+        """
+        2D-average pooling layer.
 
         Args:
             kernel_size (_ShapeLike): Size of pooling kernel.
-            stride (Optional[_ShapeLike]): Stride length. Defaults to the size of the pooling kernel.
-            padding (Optional[_ShapeLike]): Padding length. Defaults to 0.
+            stride (_ShapeLike, optional): Stride length. Defaults to the size of the pooling kernel.
+            padding (_ShapeLike, optional): Padding length. Defaults to 0.
         """
         if isinstance(kernel_size, int):
             kernel_size = (kernel_size, kernel_size)
@@ -183,7 +189,8 @@ class AvgPool2d(Module):
         self.stride = stride
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass.
+        """
+        Forward pass.
 
         Args:
             x (na.NadaArray): Input array.
@@ -198,9 +205,10 @@ class AvgPool2d(Module):
             unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
-        dtype = type(x.item(0))
+        dtype = x.dtype
 
         if any(pad > 0 for pad in self.padding):
+            # TODO: avoid side-step to NumPy
             padded_input = np.pad(
                 x.inner,
                 (
@@ -239,7 +247,7 @@ class AvgPool2d(Module):
                         pool_region = padded_input[b, c, start_h:end_h, start_w:end_w]
 
                         if dtype in (na.Rational, na.SecretRational):
-                            pool_size = na.Rational(pool_region.size)
+                            pool_size = na.rational(pool_region.size)
                         else:
                             pool_size = Integer(pool_region.size)
 
@@ -255,7 +263,8 @@ class Flatten(Module):
     """Flatten layer implementation"""
 
     def __init__(self, start_dim: int = 1, end_dim: int = -1) -> None:
-        """Flatten operator.
+        """
+        Flatten operator.
 
         Args:
             start_dim (int, optional): Flatten start dimension. Defaults to 1.
@@ -265,7 +274,8 @@ class Flatten(Module):
         self.end_dim = end_dim
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass.
+        """
+        Forward pass.
 
         Args:
             x (na.NadaArray): Input array.

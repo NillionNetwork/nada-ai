@@ -9,7 +9,8 @@ class LinearRegression(Module):
     """Linear regression implementation"""
 
     def __init__(self, in_features: int, include_bias: bool = True) -> None:
-        """Initialization.
+        """
+        Initialization.
 
         Args:
             in_features (int): Number of input features to regression.
@@ -19,7 +20,8 @@ class LinearRegression(Module):
         self.intercept = Parameter(1) if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass.
+        """
+        Forward pass.
 
         Args:
             x (na.NadaArray): Input array.

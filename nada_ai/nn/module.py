@@ -26,16 +26,33 @@ class Module(ABC):
     """Generic neural network module"""
 
     @abstractmethod
-    def forward(self, x: na.NadaArray) -> na.NadaArray:
-        """Forward pass"""
+    def forward(self, x: na.NadaArray, *args, **kwargs) -> na.NadaArray:
+        """
+        Forward pass.
+
+        Args:
+            x (na.NadaArray): Input array.
+
+        Returns:
+            na.NadaArray: Output array.
+        """
         ...
 
-    def __call__(self, x: na.NadaArray) -> na.NadaArray:
-        """All calls get passed to forward method"""
-        return self.forward(x)
+    def __call__(self, x: na.NadaArray, *args, **kwargs) -> na.NadaArray:
+        """
+        Proxy for forward pass.
+
+        Args:
+            x (na.NadaArray): Input array.
+
+        Returns:
+            na.NadaArray: Output array.
+        """
+        return self.forward(x, *args, **kwargs)
 
     def __named_parameters(self, prefix: str) -> Iterator[Tuple[str, Parameter]]:
-        """Recursively generates all parameters in Module, its submodules, their submodules, etc.
+        """
+        Recursively generates all parameters in Module, its submodules, their submodules, etc.
 
         Args:
             prefix (str): Named parameter prefix. Parameter names have a "."-delimited trace of
@@ -53,7 +70,8 @@ class Module(ABC):
                 yield from value.__named_parameters(prefix=name)
 
     def named_parameters(self) -> Iterator[Tuple[str, Parameter]]:
-        """Generates all parameters in Module, its submodules, their submodules, etc.
+        """
+        Generates all parameters in Module, its submodules, their submodules, etc.
 
         Yields:
             Iterator[Tuple[str, Parameter]]: Iterator over named parameters.
@@ -61,7 +79,8 @@ class Module(ABC):
         yield from self.__named_parameters(prefix="")
 
     def __numel(self) -> Iterator[int]:
-        """Recursively generates number of elements in each Parameter in the module.
+        """
+        Recursively generates number of elements in each Parameter in the module.
 
         Yields:
             Iterator[int]: Number of elements in each Parameter.
@@ -73,7 +92,8 @@ class Module(ABC):
                 yield from value.__numel()
 
     def numel(self) -> int:
-        """Returns total number of elements in the module.
+        """
+        Returns total number of elements in the module.
 
         Returns:
             int: Total number of elements.
@@ -86,7 +106,8 @@ class Module(ABC):
         party: Party,
         nada_type: _NadaInteger = na.SecretRational,
     ) -> None:
-        """Loads the model state from the Nillion network.
+        """
+        Loads the model state from the Nillion network.
 
         Args:
             name (str): Name to be used to find state secrets in the network.
@@ -94,8 +115,6 @@ class Module(ABC):
             nada_type (_NadaInteger, optional): NadaType to interpret the state values as. Defaults to na.SecretRational.
         """
         for param_name, param in self.named_parameters():
-            param_state = na.array(
-                param.shape, party, f"{name}_{param_name}", nada_type
-            )
-
+            state_name = f"{name}_{param_name}"
+            param_state = na.array(param.shape, party, state_name, nada_type)
             param.load_state(param_state)
