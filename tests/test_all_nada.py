@@ -32,16 +32,18 @@ def build_nada(test_dir):
     result = subprocess.run(
         ["nada", "build", test_dir[1]], cwd=test_dir[0], capture_output=True, text=True
     )
-    if result.returncode != 0:
-        pytest.fail(f"Build failed: {result.stderr}")
+    err = result.stderr.lower() + result.stdout.lower()
+    if result.returncode != 0 or "error" in err or "fail" in err:
+        pytest.fail(f"Build {test_dir}:\n{result.stdout + result.stderr}")
 
 
 def run_nada(test_dir):
     result = subprocess.run(
         ["nada", "test", test_dir[1]], cwd=test_dir[0], capture_output=True, text=True
     )
-    if result.returncode != 0:
-        pytest.fail(f"Tests failed: {result.stderr}")
+    err = result.stderr.lower() + result.stdout.lower()
+    if result.returncode != 0 or "error" in err or "fail" in err:
+        pytest.fail(f"Run {test_dir}:\n{result.stdout + result.stderr}")
 
 
 class TestSuite:
