@@ -5,7 +5,7 @@ This module provides functions to work with the Python Nillion Client
 import nada_algebra as na
 import nada_algebra.client as na_client
 from collections import OrderedDict
-from typing import Any, Dict, Iterable, Union
+from typing import Any, Dict, Union
 
 from sklearn.linear_model import (
     LinearRegression,
@@ -26,18 +26,20 @@ _NillionType = Union[
     nillion.PublicVariableInteger,
     nillion.PublicVariableUnsignedInteger,
 ]
+_Tensor = Union[np.ndarray, torch.Tensor]
+_LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
 
 
 class ModelClient:
     """ML model client"""
 
-    def __init__(self, model: Any, state_dict: OrderedDict[str, np.ndarray]) -> None:
+    def __init__(self, model: Any, state_dict: OrderedDict[str, _Tensor]) -> None:
         """
         Initialization.
 
         Args:
             model (Any): Model object to wrap around.
-            state_dict (OrderedDict[str, np.ndarray]): Model state.
+            state_dict (OrderedDict[str, _Tensor]): Model state.
         """
         self.model = model
         self.state_dict = state_dict
@@ -64,31 +66,17 @@ class ModelClient:
         Args:
             model (sklearn.base.BaseEstimator): Sklearn estimator object.
 
+        Raises:
+            NotImplementedError: Raised when unsupported Scikit-learn model is passed.
+
         Returns:
             ModelClient: Instantiated model client.
         """
-        if not isinstance(model, sklearn.base.BaseEstimator):
-            raise TypeError(
-                "Cannot interpret type `%s` as Sklearn model. Expected (sub)type of `sklearn.base.BaseEstimator`"
-                % type(model).__name__
-            )
-
-        if isinstance(model, LinearRegression):
+        if isinstance(model, _LinearModel):
             state_dict = OrderedDict(
                 {
                     "coef": model.coef_,
-                    "intercept": (
-                        model.intercept_
-                        if isinstance(model.intercept_, Iterable)
-                        else np.array([model.intercept_])
-                    ),
-                }
-            )
-        elif isinstance(model, (LogisticRegression, LogisticRegressionCV)):
-            state_dict = OrderedDict(
-                {
-                    "coef": model.coef_,
-                    "intercept": model.intercept_,
+                    "intercept": np.array(model.intercept_),
                 }
             )
         else:
@@ -119,9 +107,8 @@ class ModelClient:
         state_secrets = {}
         for state_layer_name, state_layer_weight in self.state_dict.items():
             layer_name = f"{name}_{state_layer_name}"
-            state_secret = na_client.array(
-                self.__ensure_numpy(state_layer_weight), layer_name, nada_type
-            )
+            layer_state = self.__ensure_numpy(state_layer_weight)
+            state_secret = na_client.array(layer_state, layer_name, nada_type)
             state_secrets.update(state_secret)
 
         return state_secrets
