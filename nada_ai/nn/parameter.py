@@ -5,7 +5,6 @@ from typing import Iterable, Union
 import numpy as np
 import nada_algebra as na
 from nada_ai.exceptions import MismatchedShapesException
-from nada_dsl import Integer
 
 _ShapeLike = Union[int, Iterable[int]]
 
@@ -20,9 +19,8 @@ class Parameter(na.NadaArray):
         Args:
             shape (_ShapeLike, optional): Parameter array shape.
         """
-        zeros = np.zeros(shape, dtype=int)
-        zeros = np.frompyfunc(Integer, 1, 1)(zeros)
-        super().__init__(inner=zeros)
+        zeros = na.zeros(shape)
+        super().__init__(inner=zeros.inner)
 
     def numel(self) -> int:
         """

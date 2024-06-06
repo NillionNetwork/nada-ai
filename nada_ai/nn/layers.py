@@ -67,7 +67,7 @@ class Conv2d(Module):
         """
         if isinstance(kernel_size, int):
             kernel_size = (kernel_size, kernel_size)
-        kernel_height, kernel_width = kernel_size
+        self.kernel_size = kernel_size
 
         if isinstance(padding, int):
             padding = (padding, padding)
@@ -77,9 +77,7 @@ class Conv2d(Module):
             stride = (stride, stride)
         self.stride = stride
 
-        self.weight = Parameter(
-            (out_channels, in_channels, kernel_height, kernel_width)
-        )
+        self.weight = Parameter((out_channels, in_channels, *kernel_size))
         self.bias = Parameter(out_channels) if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
@@ -93,18 +91,17 @@ class Conv2d(Module):
             na.NadaArray: Module output.
         """
         unbatched = False
-        if len(x.shape) == 3:
+        if x.ndim == 3:
             # Assume unbatched --> assign batch_size of 1
             x = x.reshape(1, *x.shape)
             unbatched = True
 
-        batch_size, _, input_rows, input_cols = x.shape
+        batch_size, _, input_height, input_width = x.shape
         out_channels, _, kernel_rows, kernel_cols = self.weight.shape
 
         if any(pad > 0 for pad in self.padding):
-            # TODO: avoid side-step to NumPy
-            padded_input = np.pad(
-                x.inner,
+            x = na.pad(
+                x,
                 [
                     (0, 0),
                     (0, 0),
@@ -113,48 +110,39 @@ class Conv2d(Module):
                 ],
                 mode="constant",
             )
-            padded_input = np.frompyfunc(
-                lambda x: Integer(x.item()) if isinstance(x, np.int64) else x, 1, 1
-            )(padded_input)
-        else:
-            padded_input = x.inner
 
-        output_rows = (input_rows + 2 * self.padding[0] - kernel_rows) // self.stride[
-            0
-        ] + 1
-        output_cols = (input_cols + 2 * self.padding[1] - kernel_cols) // self.stride[
-            1
-        ] + 1
+        out_height = (
+            input_height + 2 * self.padding[0] - self.kernel_size[0]
+        ) // self.stride[0] + 1
+        out_width = (
+            input_width + 2 * self.padding[1] - self.kernel_size[1]
+        ) // self.stride[1] + 1
 
-        output_tensor = np.zeros(
-            (batch_size, out_channels, output_rows, output_cols)
-        ).astype(Integer)
+        output_tensor = na.zeros((batch_size, out_channels, out_height, out_width))
         for b in range(batch_size):
             for oc in range(out_channels):
-                for i in range(output_rows):
-                    for j in range(output_cols):
+                for i in range(out_height):
+                    for j in range(out_width):
                         start_i = i * self.stride[0]
                         start_j = j * self.stride[1]
 
-                        receptive_field = padded_input[
+                        receptive_field = x[
                             b,
                             :,
                             start_i : start_i + kernel_rows,
                             start_j : start_j + kernel_cols,
                         ]
-                        output_tensor[b, oc, i, j] = np.sum(
-                            self.weight.inner[oc] * receptive_field
+                        output_tensor[b, oc, i, j] = na.sum(
+                            self.weight[oc] * receptive_field
                         )
 
         if self.bias is not None:
-            output_tensor = output_tensor + self.bias.inner.reshape(
-                1, out_channels, 1, 1
-            )
+            output_tensor += self.bias.reshape(1, out_channels, 1, 1)
 
         if unbatched:
             output_tensor = output_tensor[0]
 
-        return na.NadaArray(output_tensor)
+        return output_tensor
 
 
 class AvgPool2d(Module):
@@ -199,7 +187,7 @@ class AvgPool2d(Module):
             na.NadaArray: Module output.
         """
         unbatched = False
-        if len(x.shape) == 3:
+        if x.ndim == 3:
             # Assume unbatched --> assign batch_size of 1
             x = x.reshape(1, *x.shape)
             unbatched = True
@@ -208,9 +196,8 @@ class AvgPool2d(Module):
         is_rational = x.is_rational
 
         if any(pad > 0 for pad in self.padding):
-            # TODO: avoid side-step to NumPy
-            padded_input = np.pad(
-                x.inner,
+            x = na.pad(
+                x,
                 (
                     (0, 0),
                     (0, 0),
@@ -219,44 +206,37 @@ class AvgPool2d(Module):
                 ),
                 mode="constant",
             )
-            padded_input = np.frompyfunc(
-                lambda x: Integer(x.item()) if isinstance(x, np.int64) else x, 1, 1
-            )(padded_input)
-        else:
-            padded_input = x.inner
 
-        output_height = (
+        out_height = (
             input_height + 2 * self.padding[0] - self.kernel_size[0]
         ) // self.stride[0] + 1
-        output_width = (
+        out_width = (
             input_width + 2 * self.padding[1] - self.kernel_size[1]
         ) // self.stride[1] + 1
 
-        output_array = np.zeros(
-            (batch_size, channels, output_height, output_width)
-        ).astype(Integer)
+        output_tensor = na.zeros((batch_size, channels, out_height, out_width))
         for b in range(batch_size):
             for c in range(channels):
-                for i in range(output_height):
-                    for j in range(output_width):
+                for i in range(out_height):
+                    for j in range(out_width):
                         start_h = i * self.stride[0]
                         start_w = j * self.stride[1]
                         end_h = start_h + self.kernel_size[0]
                         end_w = start_w + self.kernel_size[1]
 
-                        pool_region = padded_input[b, c, start_h:end_h, start_w:end_w]
+                        pool_region = x[b, c, start_h:end_h, start_w:end_w]
 
                         if is_rational:
                             pool_size = na.rational(pool_region.size)
                         else:
                             pool_size = Integer(pool_region.size)
 
-                        output_array[b, c, i, j] = np.sum(pool_region) / pool_size
+                        output_tensor[b, c, i, j] = na.sum(pool_region) / pool_size
 
         if unbatched:
-            output_array = output_array[0]
+            output_tensor = output_tensor[0]
 
-        return na.NadaArray(output_array)
+        return na.NadaArray(output_tensor)
 
 
 class Flatten(Module):
