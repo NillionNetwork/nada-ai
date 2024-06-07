@@ -6,8 +6,8 @@ import nada_algebra as na
 def nada_main():
     party = Party("party")
 
-    x = na.array((1, 3, 4, 2), party, "input_x", SecretInteger)
-    y = na.array((3, 4, 2), party, "input_y", SecretInteger)
+    x = na.array((1, 3, 4, 2), party, "input_x", na.Rational)
+    y = na.array((3, 4, 2), party, "input_y", na.Rational)
 
     conv1 = Conv2d(
         kernel_size=2,
@@ -17,7 +17,7 @@ def nada_main():
         stride=1,
     )
 
-    conv1.load_state_from_network("conv1", party, SecretInteger)
+    conv1.load_state_from_network("conv1", party, na.Rational)
 
     conv2 = Conv2d(
         kernel_size=2,
@@ -27,7 +27,7 @@ def nada_main():
         stride=2,
     )
 
-    conv2.load_state_from_network("conv2", party, SecretInteger)
+    conv2.load_state_from_network("conv2", party, na.Rational)
 
     x_conv1 = conv1(x)
     x_conv2 = conv2(x)

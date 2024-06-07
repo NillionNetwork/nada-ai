@@ -11,7 +11,7 @@ def nada_main():
 
     # Step 3: Load model weights from Nillion network by passing model name (acts as ID)
     # In this examples Party0 provides the model and Party1 runs inference
-    my_model.load_state_from_network("my_model", parties[0])
+    my_model.load_state_from_network("my_model", parties[0], na.SecretRational)
 
     # Step 4: Load input data to be used for inference (provided by Party1)
     my_input = na.array((3, 4, 3), parties[1], "my_input", na.SecretRational)

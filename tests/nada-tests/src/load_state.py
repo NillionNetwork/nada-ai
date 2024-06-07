@@ -1,4 +1,5 @@
 from nada_dsl import *
+import pytest
 from nada_ai.nn import Module, Parameter
 import nada_algebra as na
 
@@ -17,7 +18,11 @@ def nada_main():
     mod2 = TestModule()
 
     mod1.load_state_from_network("module1", party, nada_type=na.SecretRational)
-    mod2.load_state_from_network("module2", party, nada_type=SecretInteger)
+
+    with pytest.raises(NotImplementedError):
+        mod2.load_state_from_network("module2", party, nada_type=SecretInteger)
+
+    mod2.load_state_from_network("module2", party, nada_type=na.Rational)
 
     m1_p1_out = mod1.param1.output(party, "module1_param1")
     m1_p2_out = mod1.param2.output(party, "module1_param2")
