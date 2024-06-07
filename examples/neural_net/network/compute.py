@@ -130,7 +130,9 @@ async def main():
 
     # Create and store model secrets via ModelClient
     model_client = TorchClient(my_nn)
-    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_nn", na.SecretRational))
+    model_secrets = nillion.Secrets(
+        model_client.export_state_as_secrets("my_nn", na.SecretRational)
+    )
 
     model_store_id = await store_secrets(
         client, cluster_id, program_id, party_id, party_names[0], model_secrets
