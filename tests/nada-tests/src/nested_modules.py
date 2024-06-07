@@ -27,7 +27,7 @@ def nada_main():
 
     mod = TestModule2(module1=TestModule1())
 
-    mod.load_state_from_network("testmod", party)
+    mod.load_state_from_network("testmod", party, na.SecretRational)
 
     result = mod(x)
 

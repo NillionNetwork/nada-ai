@@ -7,7 +7,7 @@ from nada_ai.nn import Linear
 def nada_main():
     party = Party("party")
 
-    x = na.array([3], party, "input", SecretInteger)
+    x = na.array([3], party, "input", na.Rational)
 
     class TestModule(Module):
         def __init__(self) -> None:
@@ -21,7 +21,7 @@ def nada_main():
 
     mod = TestModule()
 
-    mod.load_state_from_network("testmod", party, SecretInteger)
+    mod.load_state_from_network("testmod", party, na.Rational)
 
     result = mod(x)
 

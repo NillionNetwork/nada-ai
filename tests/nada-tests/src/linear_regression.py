@@ -1,16 +1,16 @@
 from nada_dsl import *
 import nada_algebra as na
-from nada_ai.nn import LinearRegression
+from nada_ai.linear_model import LinearRegression
 
 
 def nada_main():
     party = Party("party")
 
-    x = na.array([4], party, "input", SecretInteger)
+    x = na.array([4], party, "input", na.SecretRational)
 
     model = LinearRegression(4)
 
-    model.load_state_from_network("testmod", party, SecretInteger)
+    model.load_state_from_network("testmod", party, na.SecretRational)
 
     result = model(x)
 
