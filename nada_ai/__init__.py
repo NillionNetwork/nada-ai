@@ -1,1 +1,1 @@
-from nada_ai.client import BaseClient, TorchClient, SklearnClient
+from nada_ai.client import StateClient, TorchClient, SklearnClient

@@ -106,8 +106,8 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
         )
 
 
-class BaseClient(ModelClient):
-    """Base ModelClient for generic model states"""
+class StateClient(ModelClient):
+    """ModelClient for generic model states"""
 
     def __init__(self, state_dict: Dict[str, Any]) -> None:
         """

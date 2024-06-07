@@ -8,7 +8,7 @@ import nada_algebra as na
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
 from nada_ai.client import ModelClient
-from nada_ai import BaseClient, TorchClient, SklearnClient
+from nada_ai import StateClient, TorchClient, SklearnClient
 import py_nillion_client as nillion
 
 
@@ -73,10 +73,10 @@ class TestModelClient:
         with pytest.raises(NotImplementedError):
             model_client.export_state_as_secrets("test_model", nillion.SecretInteger)
 
-    def test_base_client_1(self):
-        base_client = BaseClient({"some_value": 1})
+    def test_state_client_1(self):
+        state_client = StateClient({"some_value": 1})
 
-        secrets = base_client.export_state_as_secrets("test_model", na.Rational)
+        secrets = state_client.export_state_as_secrets("test_model", na.Rational)
 
         assert list(secrets.keys()) == ["test_model_some_value_0"]
 
