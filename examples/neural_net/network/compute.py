@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import time
 import nada_algebra as na
-from nada_ai.client import ModelClient
+from nada_ai import TorchClient
 import torch
 from dotenv import load_dotenv
 
@@ -129,8 +129,8 @@ async def main():
     print("Model state is:", my_nn.state_dict())
 
     # Create and store model secrets via ModelClient
-    model_client = ModelClient.from_torch(my_nn)
-    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_nn"))
+    model_client = TorchClient(my_nn)
+    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_nn", na.SecretRational))
 
     model_store_id = await store_secrets(
         client, cluster_id, program_id, party_id, party_names[0], model_secrets
