@@ -1,4 +1,4 @@
-"""Model implementations"""
+"""Linear regression implementation"""
 
 import nada_algebra as na
 from nada_ai.nn.module import Module
