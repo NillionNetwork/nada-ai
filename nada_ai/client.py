@@ -146,7 +146,7 @@ class SklearnClient(ModelClient):
         if isinstance(model, _LinearModel):
             state_dict = {"coef": model.coef_}
             if model.fit_intercept is True:
-                state_dict.update({"intercept": np.array(model.intercept_)})
+                state_dict.update({"intercept": model.intercept_})
         else:
             raise NotImplementedError(
                 f"Instantiating ModelClient from Sklearn model type `{type(model).__name__}` is not yet implemented."
