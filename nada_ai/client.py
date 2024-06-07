@@ -2,10 +2,10 @@
 This module provides functions to work with the Python Nillion Client
 """
 
+from abc import ABC, ABCMeta
 import nada_algebra as na
 import nada_algebra.client as na_client
-from collections import OrderedDict
-from typing import Any, Dict, Union
+from typing import Any, Dict, Sequence, Union
 
 from sklearn.linear_model import (
     LinearRegression,
@@ -26,84 +26,53 @@ _NillionType = Union[
     nillion.PublicVariableInteger,
     nillion.PublicVariableUnsignedInteger,
 ]
-_Tensor = Union[np.ndarray, torch.Tensor]
 _LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
 
 
-class ModelClient:
-    """ML model client"""
+class ModelClientMeta(ABCMeta):
+    """ML model client metaclass"""
 
-    def __init__(self, model: Any, state_dict: OrderedDict[str, _Tensor]) -> None:
+    def __call__(self, *args, **kwargs) -> object:
         """
-        Initialization.
-
-        Args:
-            model (Any): Model object to wrap around.
-            state_dict (OrderedDict[str, _Tensor]): Model state.
-        """
-        self.model = model
-        self.state_dict = state_dict
-
-    @classmethod
-    def from_torch(cls, model: nn.Module) -> "ModelClient":
-        """
-        Instantiates a model client from a PyTorch model.
-
-        Args:
-            model (nn.Module): PyTorch nn.Module object.
-
-        Returns:
-            ModelClient: Instantiated model client.
-        """
-        state_dict = model.state_dict()
-        return cls(model=model, state_dict=state_dict)
-
-    @classmethod
-    def from_sklearn(cls, model: sklearn.base.BaseEstimator) -> "ModelClient":
-        """
-        Instantiates a model client from a Sklearn estimator.
-
-        Args:
-            model (sklearn.base.BaseEstimator): Sklearn estimator object.
+        Ensures __init__ defines a value for `self.state_dict`.
 
         Raises:
-            NotImplementedError: Raised when unsupported Scikit-learn model is passed.
+            AttributeError: Raised when no value for `self.state_dict` is defined.
 
         Returns:
-            ModelClient: Instantiated model client.
+            object: Result object.
         """
-        if isinstance(model, _LinearModel):
-            state_dict = OrderedDict(
-                {
-                    "coef": model.coef_,
-                    "intercept": np.array(model.intercept_),
-                }
-            )
-        else:
-            raise NotImplementedError(
-                "Instantiating ModelClient from Sklearn model type `%s` is not yet implemented."
-            )
+        obj = super(ModelClientMeta, self).__call__(*args, **kwargs)
+        if not getattr(obj, "state_dict"):
+            raise AttributeError("required attribute `state_dict` not set")
+        return obj
 
-        return cls(model=model, state_dict=state_dict)
+
+class ModelClient(ABC, metaclass=ModelClientMeta):
+    """ML model client"""
 
     def export_state_as_secrets(
         self,
         name: str,
-        nada_type: _NillionType = na.SecretRational,
+        nada_type: _NillionType,
     ) -> Dict[str, _NillionType]:
         """
         Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
-            nada_type (_NillionType, optional): Data type to convert weights to. Defaults to SecretRational.
+            nada_type (_NillionType): Data type to convert weights to.
 
         Raises:
+            NotImplementedError: Raised when unsupported model state type is passed.
             TypeError: Raised when model state has incompatible values.
 
         Returns:
             Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
         """
+        if nada_type not in (na.Rational, na.SecretRational):
+            raise NotImplementedError("Exporting non-rational state is not supported")
+
         state_secrets = {}
         for state_layer_name, state_layer_weight in self.state_dict.items():
             layer_name = f"{name}_{state_layer_name}"
@@ -128,8 +97,59 @@ class ModelClient:
         """
         if isinstance(array_like, torch.Tensor):
             return array_like.detach().numpy()
-        if isinstance(array_like, (float, int, np.ndarray)):
+        if isinstance(array_like, (Sequence, np.ndarray)):
             return np.array(array_like)
+        if isinstance(array_like, (float, int, np.floating)):
+            return np.array([array_like])
         raise TypeError(
             "Could not convert type `%s` to NumPy array" % type(array_like).__name__
         )
+
+
+class BaseClient(ModelClient):
+    """Base ModelClient for generic model states"""
+
+    def __init__(self, state_dict: Dict[str, Any]) -> None:
+        """
+        Client initialization.
+        This client accepts an arbitrary model state as input.
+
+        Args:
+            state_dict (Dict[str, Any]): State dict.
+        """
+        self.state_dict = state_dict
+
+
+class TorchClient(ModelClient):
+    """ModelClient for PyTorch models"""
+
+    def __init__(self, model: nn.Module) -> None:
+        """
+        Client initialization.
+
+        Args:
+            model (nn.Module): PyTorch model object to wrap around.
+        """
+        self.state_dict = model.state_dict()
+
+
+class SklearnClient(ModelClient):
+    """ModelClient for Scikit-learn models"""
+
+    def __init__(self, model: sklearn.base.BaseEstimator) -> None:
+        """
+        Client initialization.
+
+        Args:
+            model (sklearn.base.BaseEstimator): Sklearn model object to wrap around.
+        """
+        if isinstance(model, _LinearModel):
+            state_dict = {"coef": model.coef_}
+            if model.fit_intercept is True:
+                state_dict.update({"intercept": np.array(model.intercept_)})
+        else:
+            raise NotImplementedError(
+                f"Instantiating ModelClient from Sklearn model type `{type(model).__name__}` is not yet implemented."
+            )
+
+        self.state_dict = state_dict
