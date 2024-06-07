@@ -18,6 +18,7 @@ _NadaInteger = Union[
     SecretUnsignedInteger,
     PublicInteger,
     PublicUnsignedInteger,
+    na.Rational,
     na.SecretRational,
 ]
 
@@ -104,7 +105,7 @@ class Module(ABC):
         self,
         name: str,
         party: Party,
-        nada_type: _NadaInteger = na.SecretRational,
+        nada_type: _NadaInteger,
     ) -> None:
         """
         Loads the model state from the Nillion network.
@@ -112,8 +113,14 @@ class Module(ABC):
         Args:
             name (str): Name to be used to find state secrets in the network.
             party (Party): Party that provided the model state in the network.
-            nada_type (_NadaInteger, optional): NadaType to interpret the state values as. Defaults to na.SecretRational.
+            nada_type (_NadaInteger): NadaType to interpret the state values as.
+
+        Raises:
+            NotImplementedError: When state is attempted to be loaded as non-rationals.
         """
+        if nada_type not in (na.Rational, na.SecretRational):
+            raise NotImplementedError("Loading non-rational state is not supported")
+
         for param_name, param in self.named_parameters():
             state_name = f"{name}_{param_name}"
             param_state = na.array(param.shape, party, state_name, nada_type)
