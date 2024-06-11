@@ -172,7 +172,7 @@ class Prophet(Module):
             m_t = (-self.changepoints_t * deltas_t).sum(axis=1) + m
             trend = k_t * t + m_t
         elif self.growth == "flat":
-            trend = na.ones_like(t, na.rational) * m
+            trend = na.ones_like(t, na.Rational) * m
         else:
             raise NotImplementedError(self.growth + " is not supported")
 
