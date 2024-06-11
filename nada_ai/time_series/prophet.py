@@ -1,15 +1,12 @@
 """Facebook Prophet implementation"""
 
-from typing import override
-import pandas as pd
+import numpy as np
+from typing import Dict, Tuple, override
+
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.time_series.helpers import (
-    fourier_series,
-    decode_seasonality_matrix,
-    decode_component_matrix,
-)
+from nada_ai.time_series.helpers import fourier_series
 
 
 class Prophet(Module):
@@ -17,191 +14,229 @@ class Prophet(Module):
 
     def __init__(
         self,
+        n_changepoints: int,
         growth: str = "linear",
-        n_changepoints: int = 25,  # TODO: somehow enforce a fixed number of changepoints in case n_changepoints < len(sequence)
-        num_seasonality_features: int = 1,  # TODO: somehow enforce a fixed number of seasonalities
+        yearly_seasonality: bool = True,
+        weekly_seasonality: bool = True,
+        daily_seasonality: bool = False,
+        seasonality_mode: str = "additive",
     ) -> None:
-        if growth not in {"linear"}:
-            raise NotImplementedError(f"Growth mode `{growth}` is not supported")
+        """
+        Prophet model initialization.
 
+        Args:
+            n_changepoints (int): Number of changepoints.
+            growth (str, optional): Forecasting growth mode. Defaults to "linear".
+            yearly_seasonality (bool, optional): Whether or not to include a yearly
+                seasonality term. Defaults to True.
+            weekly_seasonality (bool, optional): Whether or not to include a weekly
+                seasonality term. Defaults to True.
+            daily_seasonality (bool, optional): Whether or not to include a daily
+                seasonality term. Defaults to False.
+            seasonality_mode (str, optional): Seasonality mode. Defaults to 'additive'.
+        """
         self.growth = growth
+
+        self.seasonalities = {
+            "additive": {},
+            "multiplicative": {},
+        }
+        if yearly_seasonality:
+            self.seasonalities[seasonality_mode]["yearly"] = {
+                "period": 365.25,
+                "fourier_order": 10,
+            }
+        if weekly_seasonality:
+            self.seasonalities[seasonality_mode]["weekly"] = {
+                "period": 7,
+                "fourier_order": 3,
+            }
+        if daily_seasonality:
+            self.seasonalities[seasonality_mode]["daily"] = {
+                "period": 1,
+                "fourier_order": 4,
+            }
+
+        num_fourier = 0
+        for _, mode_seasonality in self.seasonalities.items():
+            for _, period_seasonality in mode_seasonality.items():
+                # NOTE: times two because there is always a term for both sin and cos
+                num_fourier += period_seasonality["fourier_order"] * 2
 
         M = 1  # NOTE: MAP estimation is assumed, so M=1 guaranteed
 
         self.k = Parameter((M, 1))
         self.m = Parameter((M, 1))
+        self.beta = (
+            Parameter((M, num_fourier))
+            if num_fourier != 0
+            else na.NadaArray(np.array([None]))
+        )
         self.delta = Parameter((M, n_changepoints))
-        self.beta = Parameter((M, num_seasonality_features))
         self.changepoints_t = Parameter(n_changepoints)
-
         self.y_scale = Parameter(1)
 
-        self.seasonality_matrix = Parameter((6, 3))
-        self.component_matrix = Parameter(5)
+    def predict_seasonal_comps(
+        self, dates: np.ndarray
+    ) -> Tuple[na.NadaArray, na.NadaArray]:
+        """
+        Predicts seasonal components.
 
-        self.seasonalities = decode_seasonality_matrix(self.seasonality_matrix)
-        self.component_modes = decode_component_matrix(self.component_matrix)
+        Args:
+            dates (np.ndarray): Array of timestamp values.
 
-    def predict_seasonal_comps(self, df):
-        seasonal_features, _, component_cols, _ = self.make_all_seasonality_features(df)
+        Returns:
+            Tuple[na.NadaArray, na.NadaArray]: Additive and multiplicative
+                seasonal components.
+        """
+        [beta] = self.beta
 
-        X = seasonal_features.values
-        data = {}
-        for component in component_cols.columns:
-            component_values = component_cols[component].values
-            beta_c = self.beta * component_values
-
-            comp = X @ beta_c.T
-
-            comp = (
-                comp
-                * self.component_modes[
-                    component.replace("_additive", "").replace("_multiplicative", "")
-                ]
-            )
-            data[component] = comp.mean(axis=1)
-
-        return pd.DataFrame(data)
-
-    def make_all_seasonality_features(self, df):
-        seasonal_features = []
-        prior_scales = []
-        modes = {"additive": [], "multiplicative": []}
-
-        for name, props in self.seasonalities.items():
-            features = fourier_series(df["ds"], props["period"], props["fourier_order"])
-            columns = [
-                "{}_delim_{}".format(name, i + 1) for i in range(features.shape[1])
-            ]
-            features = pd.DataFrame(features, columns=columns)
-
-            seasonal_features.append(features)
-            prior_scales.extend([props["prior_scale"]] * features.shape[1])
-            modes[props["mode"]].append(name)
-
-        if len(seasonal_features) == 0:
-            seasonal_features.append(pd.DataFrame({"zeros": na.zeros(df.shape[0])}))
-            prior_scales.append(1.0)
-
-        seasonal_features = pd.concat(seasonal_features, axis=1)
-        component_cols, modes = self.regressor_column_matrix(seasonal_features, modes)
-        return seasonal_features, prior_scales, component_cols, modes
-
-    def regressor_column_matrix(self, seasonal_features, modes):
-        components = pd.DataFrame(
-            {
-                "col": na.arange(seasonal_features.shape[1]),
-                "component": [x.split("_delim_")[0] for x in seasonal_features.columns],
-            }
-        )
-
+        seasonal_components = {}
         for mode in ["additive", "multiplicative"]:
-            components = self.add_group_component(
-                components, mode + "_terms", modes[mode]
+            seasonal_features = self.make_seasonality_features(
+                dates, self.seasonalities[mode]
             )
-            modes[mode].append(mode + "_terms")
 
-        component_cols = pd.crosstab(
-            components["col"],
-            components["component"],
-        ).sort_index(level="col")
+            components = []
+            for _, features in seasonal_features.items():
+                if features is None:
+                    continue
 
-        for name in ["additive_terms", "multiplicative_terms"]:
-            if name not in component_cols:
-                component_cols[name] = 0
+                comp = (features @ beta.T) * self.y_scale
+                components.append(comp)
 
-        component_cols.drop("zeros", axis=1, inplace=True, errors="ignore")
+            if len(components) == 0:
+                seasonal_components[mode] = na.zeros(dates.shape, na.Rational)
+            else:
+                seasonal_components[mode] = na.NadaArray(np.array(components))
 
-        return component_cols, modes
+        additive_component = (seasonal_components["additive"] * self.y_scale).sum(
+            axis=0
+        )
+        multiplicative_component = (
+            -seasonal_components["multiplicative"] + na.rational(1)
+        ).prod(axis=0)
 
-    def add_group_component(self, components, name, group):
-        new_comp = components[components["component"].isin(set(group))].copy()
-        group_cols = new_comp["col"].unique()
-        if len(group_cols) > 0:
-            new_comp = pd.DataFrame({"col": group_cols, "component": name})
-            components = pd.concat([components, new_comp])
-        return components
+        return additive_component, multiplicative_component
 
-    def predict_trend(self, df: pd.DataFrame) -> pd.Series:
-        # NOTE: this indexing is possible because M=1 guaranteed
+    def make_seasonality_features(
+        self, dates: np.ndarray, seasonalities: Dict[str, Dict[str, int | float]]
+    ) -> Dict[str, na.NadaArray]:
+        """
+        Generates seasonality features per seasonal component.
+
+        Args:
+            dates (np.ndarray): Array of timestamp values.
+            seasonalities (Dict[str, Dict[str, int  |  float]]): Seasonality config.
+
+        Returns:
+            Dict[str, na.NadaArray]: Generated seasonality features.
+        """
+        features = {}
+        for name, props in seasonalities.items():
+            period, fourier_order = props["period"], props["fourier_order"]
+            if fourier_order == 0:
+                feats = None
+            else:
+                feats = fourier_series(dates, period, fourier_order)
+            features[name] = na.frompyfunc(na.rational, 1, 1)(feats)
+        return features
+
+    def predict_trend(self, floor: na.NadaArray, t: na.NadaArray) -> na.NadaArray:
+        """
+        Predicts trend values.
+
+        Args:
+            floor (na.NadaArray): Array of floor values.
+            t (na.NadaArray): Array of t values.
+
+        Raises:
+            NotImplementedError: Raised when unsupported growth mode is provided.
+
+        Returns:
+            na.NadaArray: Predicted trend.
+        """
+        # NOTE: this indexing is possible because M=1 is guaranteed
         # If this were not the case, we should take the arithmetic mean
         [[k]] = self.k
         [[m]] = self.m
         [delta] = self.delta
 
-        t = df["t"].to_numpy()
         if self.growth == "linear":
-            mask = self.changepoints_t[None, :] <= t[..., None]
+            mask = na.frompyfunc(
+                lambda a, b: (a <= b).if_else(na.rational(1), na.rational(0)), 2, 1
+            )(self.changepoints_t[None, :], t[..., None])
             deltas_t = delta * mask
             k_t = deltas_t.sum(axis=1) + k
             m_t = (-self.changepoints_t * deltas_t).sum(axis=1) + m
             trend = k_t * t + m_t
+        elif self.growth == "flat":
+            trend = na.ones_like(t, na.rational) * m
         else:
             raise NotImplementedError(self.growth + " is not supported")
 
-        return trend * self.y_scale + df["floor"]
+        return trend * self.y_scale + floor
 
-    def predict(self, df: pd.DataFrame) -> na.NadaArray:
-        df["trend"] = self.predict_trend(df)
-        seasonal_comps = self.predict_seasonal_comps(df)
+    def predict(
+        self,
+        dates: np.ndarray,
+        floor: na.NadaArray,
+        t: na.NadaArray,
+    ) -> na.NadaArray:
+        """
+        Generates time series forecasts.
 
-        result = pd.concat((df[["ds", "trend"]], seasonal_comps), axis=1)
+        Args:
+            dates (np.ndarray): Array of timestamp values.
+            floor (na.NadaArray): Array of floor values.
+            t (na.NadaArray): Array of t values.
 
-        return (result["trend"] * (result["multiplicative_terms"] + 1)) + result[
-            "additive_terms"
-        ]
+        Returns:
+            na.NadaArray: Forecasted values.
+        """
+        trend = self.predict_trend(floor, t)
+        additive_comps, multiplicative_comps = self.predict_seasonal_comps(dates)
+        yhat = trend * (multiplicative_comps + na.rational(1)) + additive_comps
+        return yhat
 
     @override
     def __call__(
         self,
-        dates: na.NadaArray,
+        dates: np.ndarray,
         floor: na.NadaArray,
         t: na.NadaArray,
-        trend: na.NadaArray,
     ) -> na.NadaArray:
         """
         Forward pass.
-        Note: requires multiple input arrays due special nature of forecasting.
+        Note: requires multiple input arrays due to special nature of forecasting.
 
         Args:
-            dates (na.NadaArray): Array of timestamp values.
+            dates (np.ndarray): Array of timestamp values.
             floor (na.NadaArray): Array of floor values.
             t (na.NadaArray): Array of t values.
-            trend (na.NadaArray): Array of trend values.
 
         Returns:
             na.NadaArray: Forecasted values.
         """
-        return self.forward(dates=dates, floor=floor, t=t, trend=trend)
+        return self.predict(dates=dates, floor=floor, t=t)
 
     @override
     def forward(
         self,
-        dates: na.NadaArray,
+        dates: np.ndarray,
         floor: na.NadaArray,
         t: na.NadaArray,
-        trend: na.NadaArray,
     ) -> na.NadaArray:
         """
         Forward pass.
-        Note: requires multiple input arrays due special nature of forecasting.
+        Note: requires multiple input arrays due to special nature of forecasting.
 
         Args:
-            dates (na.NadaArray): Array of timestamp values.
+            dates (np.ndarray): Array of timestamp values.
             floor (na.NadaArray): Array of floor values.
             t (na.NadaArray): Array of t values.
-            trend (na.NadaArray): Array of trend values.
 
         Returns:
             na.NadaArray: Forecasted values.
         """
-        return self.predict(
-            pd.DataFrame(
-                {
-                    "ds": dates.inner,
-                    "floor": floor.inner,
-                    "t": t.inner,
-                    "trend": trend.inner,
-                }
-            )
-        )
+        return self.predict(dates=dates, floor=floor, t=t)

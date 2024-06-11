@@ -12,6 +12,7 @@ from sklearn.linear_model import (
     LogisticRegression,
     LogisticRegressionCV,
 )
+import prophet
 import torch
 from torch import nn
 import sklearn
@@ -101,9 +102,9 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
             return np.array(array_like)
         if isinstance(array_like, (float, int, np.floating)):
             return np.array([array_like])
-        raise TypeError(
-            "Could not convert type `%s` to NumPy array" % type(array_like).__name__
-        )
+
+        error_msg = f"Could not convert `{type(array_like).__name__}` to NumPy array"
+        raise TypeError(error_msg)
 
 
 class StateClient(ModelClient):
@@ -153,3 +154,23 @@ class SklearnClient(ModelClient):
             )
 
         self.state_dict = state_dict
+
+
+class ProphetClient(ModelClient):
+    """ModelClient for Prophet models"""
+
+    def __init__(self, model) -> None:
+        """
+        Client initialization.
+
+        Args:
+            model (prophet.forecaster.Prophet): Prophet model.
+        """
+        self.state_dict = {
+            "k": model.params["k"],
+            "m": model.params["m"],
+            "delta": model.params["delta"],
+            "beta": model.params["beta"],
+            "changepoints_t": model.changepoints_t,
+            "y_scale": model.y_scale,
+        }
