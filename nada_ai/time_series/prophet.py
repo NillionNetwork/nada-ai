@@ -221,7 +221,7 @@ class Prophet(Module):
         Returns:
             np.ndarray: Standardized dates.
         """
-        if isinstance(dates.dtype, np.floating):
+        if np.issubdtype(dates.dtype, (np.integer, np.floating)):
             return dates
         if np.issubdtype(dates.dtype, np.datetime64):
             return dates.astype(np.float64)
