@@ -102,7 +102,7 @@ class Prophet(Module):
                 if features is None:
                     continue
 
-                comp = (features @ beta.T) * self.y_scale
+                comp = features @ beta.T
                 components.append(comp)
 
             if len(components) == 0:
@@ -110,12 +110,13 @@ class Prophet(Module):
             else:
                 seasonal_components[mode] = na.NadaArray(np.array(components))
 
-        additive_component = (seasonal_components["additive"] * self.y_scale).sum(
-            axis=0
+        additive_component = seasonal_components["additive"] * self.y_scale
+        additive_component = additive_component.sum(axis=0)
+
+        multiplicative_component = -seasonal_components["multiplicative"] + na.rational(
+            1
         )
-        multiplicative_component = (
-            -seasonal_components["multiplicative"] + na.rational(1)
-        ).prod(axis=0)
+        multiplicative_component = multiplicative_component.prod(axis=0)
 
         return additive_component, multiplicative_component
 
@@ -180,7 +181,9 @@ class Prophet(Module):
     def predict(
         self,
         dates: np.ndarray,
+        # TODO: often all zero - opportunity to compress
         floor: na.NadaArray,
+        # TODO: can be deterministically generated from len(horizon)
         t: na.NadaArray,
     ) -> na.NadaArray:
         """
@@ -194,10 +197,37 @@ class Prophet(Module):
         Returns:
             na.NadaArray: Forecasted values.
         """
+        assert len(dates) == len(
+            floor
+        ), "Provided Prophet inputs must be equally sized."
+        assert len(floor) == len(t), "Provided Prophet inputs must be equally sized."
+
+        dates = self.ensure_numeric_dates(dates)
         trend = self.predict_trend(floor, t)
         additive_comps, multiplicative_comps = self.predict_seasonal_comps(dates)
-        yhat = trend * (multiplicative_comps + na.rational(1)) + additive_comps
+        yhat = trend * multiplicative_comps + additive_comps
         return yhat
+
+    def ensure_numeric_dates(self, dates: np.ndarray) -> np.ndarray:
+        """
+        Ensures an array of dates is of the correct data format.
+
+        Args:
+            dates (np.ndarray): Data array.
+
+        Raises:
+            TypeError: Raised when dates array of incompatible type is passed.
+
+        Returns:
+            np.ndarray: Standardized dates.
+        """
+        if isinstance(dates.dtype, np.floating):
+            return dates
+        if np.issubdtype(dates.dtype, np.datetime64):
+            return dates.astype(np.float64)
+        raise TypeError(
+            f"Could not convert dates array of type `{dates}` to a NumPy array of numerics."
+        )
 
     @override
     def __call__(
