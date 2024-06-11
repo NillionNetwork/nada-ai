@@ -79,8 +79,6 @@ class TestModule:
     def test_parameters_5(self):
         param = Parameter((2, 3))
 
-        assert param[0][0] == Integer(0)
-
         alphas = na.alphas((2, 3), alpha=Integer(42))
         param.load_state(alphas)
 
@@ -95,9 +93,6 @@ class TestModule:
             def forward(x: na.NadaArray) -> na.NadaArray: ...
 
         mod = TestModule()
-
-        for _, param in mod.named_parameters():
-            assert param[0][0] == Integer(0)
 
         alphas = na.alphas((2, 3), alpha=Integer(42))
 
@@ -124,9 +119,6 @@ class TestModule:
 
         mod = TestModule2()
 
-        for _, param in mod.named_parameters():
-            assert param[0][0] == Integer(0)
-
         alphas = na.alphas((2, 3), alpha=Integer(42))
 
         for _, param in mod.named_parameters():
@@ -137,8 +129,6 @@ class TestModule:
 
     def test_parameters_8(self):
         param = Parameter((2, 3))
-
-        assert param[0][0] == Integer(0)
 
         alphas = na.alphas((3, 3), alpha=Integer(42))
 

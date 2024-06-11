@@ -1,5 +1,5 @@
 ---
-program: main
+program: time_series
 inputs:
   secrets:
     my_prophet_changepoints_t_8:

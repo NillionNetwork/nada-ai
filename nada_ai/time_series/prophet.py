@@ -197,10 +197,8 @@ class Prophet(Module):
         Returns:
             na.NadaArray: Forecasted values.
         """
-        assert len(dates) == len(
-            floor
-        ), "Provided Prophet inputs must be equally sized."
-        assert len(floor) == len(t), "Provided Prophet inputs must be equally sized."
+        assert len(dates) == len(floor), "Prophet inputs must be equally sized."
+        assert len(floor) == len(t), "Prophet inputs must be equally sized."
 
         dates = self.ensure_numeric_dates(dates)
         trend = self.predict_trend(floor, t)
@@ -221,7 +219,9 @@ class Prophet(Module):
         Returns:
             np.ndarray: Standardized dates.
         """
-        if np.issubdtype(dates.dtype, (np.integer, np.floating)):
+        if np.issubdtype(dates.dtype, np.integer) or np.issubdtype(
+            dates.dtype, np.floating
+        ):
             return dates
         if np.issubdtype(dates.dtype, np.datetime64):
             return dates.astype(np.float64)

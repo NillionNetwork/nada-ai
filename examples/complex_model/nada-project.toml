@@ -3,5 +3,5 @@ version = "0.1.0"
 authors = [""]
 
 [[programs]]
-path = "src/main.py"
+path = "src/complex_model.py"
 prime_size = 128

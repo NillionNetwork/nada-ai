@@ -159,7 +159,7 @@ class SklearnClient(ModelClient):
 class ProphetClient(ModelClient):
     """ModelClient for Prophet models"""
 
-    def __init__(self, model) -> None:
+    def __init__(self, model: "prophet.forecaster.Prophet") -> None:
         """
         Client initialization.
 
