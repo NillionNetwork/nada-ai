@@ -1,0 +1,56 @@
+---
+program: prophet
+inputs:
+  secrets:
+    my_prophet_m_0_0:
+      SecretInteger: "3"
+    my_prophet_beta_0_4:
+      SecretInteger: "3"
+    my_prophet_beta_0_5:
+      SecretInteger: "3"
+    my_prophet_changepoints_t_1:
+      SecretInteger: "3"
+    my_prophet_delta_0_1:
+      SecretInteger: "3"
+    my_prophet_y_scale_0:
+      SecretInteger: "3"
+    floor_2:
+      SecretInteger: "3"
+    my_prophet_delta_0_0:
+      SecretInteger: "3"
+    floor_3:
+      SecretInteger: "3"
+    t_2:
+      SecretInteger: "3"
+    floor_0:
+      SecretInteger: "3"
+    my_prophet_changepoints_t_0:
+      SecretInteger: "3"
+    my_prophet_beta_0_1:
+      SecretInteger: "3"
+    t_1:
+      SecretInteger: "3"
+    my_prophet_beta_0_3:
+      SecretInteger: "3"
+    my_prophet_k_0_0:
+      SecretInteger: "3"
+    my_prophet_beta_0_2:
+      SecretInteger: "3"
+    floor_1:
+      SecretInteger: "3"
+    t_0:
+      SecretInteger: "3"
+    t_3:
+      SecretInteger: "3"
+    my_prophet_beta_0_0:
+      SecretInteger: "3"
+  public_variables: {}
+expected_outputs:
+  forecast_2:
+    SecretInteger: "6"
+  forecast_0:
+    SecretInteger: "6"
+  forecast_3:
+    SecretInteger: "6"
+  forecast_1:
+    SecretInteger: "5"
