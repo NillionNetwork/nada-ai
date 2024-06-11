@@ -19,8 +19,7 @@ class Parameter(na.NadaArray):
         Args:
             shape (_ShapeLike, optional): Parameter array shape.
         """
-        zeros = na.zeros(shape)
-        super().__init__(inner=zeros.inner)
+        super().__init__(inner=np.empty(shape))
 
     def numel(self) -> int:
         """

@@ -1,13 +1,13 @@
 """NN layers logic"""
 
-from typing import Iterable, Union
+from typing import Sequence, Union
 import numpy as np
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
 from nada_dsl import Integer
 
-_ShapeLike = Union[int, Iterable[int]]
+_ShapeLike = Union[int, Sequence[int]]
 
 
 class Linear(Module):
@@ -193,7 +193,7 @@ class AvgPool2d(Module):
             unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
-        is_rational = x.is_rational
+        pool_type = na.rational if x.is_rational else Integer
 
         if any(pad > 0 for pad in self.padding):
             x = na.pad(
@@ -225,11 +225,7 @@ class AvgPool2d(Module):
                         end_w = start_w + self.kernel_size[1]
 
                         pool_region = x[b, c, start_h:end_h, start_w:end_w]
-
-                        if is_rational:
-                            pool_size = na.rational(pool_region.size)
-                        else:
-                            pool_size = Integer(pool_region.size)
+                        pool_size = pool_type(pool_region.size)
 
                         output_tensor[b, c, i, j] = na.sum(pool_region) / pool_size
 
