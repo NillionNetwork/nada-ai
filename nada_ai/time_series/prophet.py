@@ -110,15 +110,13 @@ class Prophet(Module):
             else:
                 seasonal_components[mode] = na.NadaArray(np.array(components))
 
-        additive_component = seasonal_components["additive"] * self.y_scale
-        additive_component = additive_component.sum(axis=0)
+        add_component = seasonal_components["additive"] * self.y_scale
+        add_component = add_component.sum(axis=0)
 
-        multiplicative_component = seasonal_components["multiplicative"] + na.rational(
-            1
-        )
-        multiplicative_component = multiplicative_component.prod(axis=0)
+        mult_component = seasonal_components["multiplicative"] + na.rational(1)
+        mult_component = mult_component.prod(axis=0)
 
-        return additive_component, multiplicative_component
+        return add_component, mult_component
 
     def make_seasonality_features(
         self, dates: np.ndarray, seasonalities: Dict[str, Dict[str, int | float]]
