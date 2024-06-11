@@ -113,7 +113,7 @@ class Prophet(Module):
         additive_component = seasonal_components["additive"] * self.y_scale
         additive_component = additive_component.sum(axis=0)
 
-        multiplicative_component = -seasonal_components["multiplicative"] + na.rational(
+        multiplicative_component = seasonal_components["multiplicative"] + na.rational(
             1
         )
         multiplicative_component = multiplicative_component.prod(axis=0)
