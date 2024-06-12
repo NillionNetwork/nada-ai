@@ -115,10 +115,11 @@ class Prophet(Module):
                 comp = features @ beta.T
                 components.append(comp)
 
-            if len(components) == 0:
-                seasonal_components[mode] = na.zeros(dates.shape, na.Rational)
-            else:
-                seasonal_components[mode] = na.NadaArray(np.array(components))
+            seasonal_components[mode] = (
+                na.NadaArray(np.array(components))
+                if len(components) != 0
+                else na.zeros(dates.shape, na.Rational)
+            )
 
         add_component = seasonal_components["additive"] * self.y_scale
         add_component = add_component.sum(axis=0)
@@ -144,11 +145,11 @@ class Prophet(Module):
         features = {}
         for name, props in seasonalities.items():
             period, fourier_order = props["period"], props["fourier_order"]
-            if fourier_order == 0:
-                feats = None
-            else:
+            feats = None
+            if fourier_order != 0:
                 feats = fourier_series(dates, period, fourier_order)
-            features[name] = na.frompyfunc(na.rational, 1, 1)(feats)
+                feats = na.frompyfunc(na.rational, 1, 1)(feats)
+            features[name] = feats
         return features
 
     def predict_trend(self, floor: na.NadaArray, t: na.NadaArray) -> na.NadaArray:
@@ -172,9 +173,10 @@ class Prophet(Module):
         [delta] = self.delta
 
         if self.growth == "linear":
-            mask = na.frompyfunc(
-                lambda a, b: (a <= b).if_else(na.rational(1), na.rational(0)), 2, 1
-            )(self.changepoints_t[None, :], t[..., None])
+            le_fn = lambda a, b: (a <= b).if_else(na.rational(1), na.rational(0))
+            mask = na.frompyfunc(le_fn, 2, 1)(
+                self.changepoints_t[None, :], t[..., None]
+            )
             deltas_t = delta * mask
             k_t = deltas_t.sum(axis=1) + k
             m_t = (-self.changepoints_t * deltas_t).sum(axis=1) + m
