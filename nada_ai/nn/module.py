@@ -2,25 +2,11 @@
 
 from abc import ABC, abstractmethod
 import inspect
-from typing import Iterator, Tuple, Union
+from typing import Iterator, Tuple
 from nada_ai.nn.parameter import Parameter
+from nada_ai.typing import NadaInteger
 import nada_algebra as na
-from nada_dsl import (
-    Party,
-    SecretInteger,
-    SecretUnsignedInteger,
-    PublicInteger,
-    PublicUnsignedInteger,
-)
-
-_NadaInteger = Union[
-    SecretInteger,
-    SecretUnsignedInteger,
-    PublicInteger,
-    PublicUnsignedInteger,
-    na.Rational,
-    na.SecretRational,
-]
+from nada_dsl import Party
 
 
 class Module(ABC):
@@ -105,7 +91,7 @@ class Module(ABC):
         self,
         name: str,
         party: Party,
-        nada_type: _NadaInteger,
+        nada_type: NadaInteger,
     ) -> None:
         """
         Loads the model state from the Nillion network.
@@ -113,7 +99,7 @@ class Module(ABC):
         Args:
             name (str): Name to be used to find state secrets in the network.
             party (Party): Party that provided the model state in the network.
-            nada_type (_NadaInteger): NadaType to interpret the state values as.
+            nada_type (NadaInteger): NadaType to interpret the state values as.
 
         Raises:
             NotImplementedError: When state is attempted to be loaded as non-rationals.

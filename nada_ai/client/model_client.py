@@ -1,32 +1,13 @@
-"""
-This module provides functions to work with the Python Nillion Client
-"""
+"""Model client implementation"""
 
 from abc import ABC, ABCMeta
 import nada_algebra as na
 import nada_algebra.client as na_client
-from typing import Any, Dict, Sequence, Union
+from typing import Any, Dict, Sequence
+from nada_ai.typing import NillionType
 
-from sklearn.linear_model import (
-    LinearRegression,
-    LogisticRegression,
-    LogisticRegressionCV,
-)
 import torch
-from torch import nn
-import sklearn
 import numpy as np
-import py_nillion_client as nillion
-
-_NillionType = Union[
-    na.Rational,
-    na.SecretRational,
-    nillion.SecretInteger,
-    nillion.SecretUnsignedInteger,
-    nillion.PublicVariableInteger,
-    nillion.PublicVariableUnsignedInteger,
-]
-_LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
 
 
 class ModelClientMeta(ABCMeta):
@@ -42,9 +23,9 @@ class ModelClientMeta(ABCMeta):
         Returns:
             object: Result object.
         """
-        obj = super(ModelClientMeta, self).__call__(*args, **kwargs)
+        obj = super().__call__(*args, **kwargs)
         if not getattr(obj, "state_dict"):
-            raise AttributeError("required attribute `state_dict` not set")
+            raise AttributeError("Required attribute `state_dict` not set")
         return obj
 
 
@@ -54,21 +35,21 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
     def export_state_as_secrets(
         self,
         name: str,
-        nada_type: _NillionType,
-    ) -> Dict[str, _NillionType]:
+        nada_type: NillionType,
+    ) -> Dict[str, NillionType]:
         """
         Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
-            nada_type (_NillionType): Data type to convert weights to.
+            nada_type (NillionType): Data type to convert weights to.
 
         Raises:
             NotImplementedError: Raised when unsupported model state type is passed.
             TypeError: Raised when model state has incompatible values.
 
         Returns:
-            Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
+            Dict[str, NillionType]: Dict of Nillion secret types that represents model state.
         """
         if nada_type not in (na.Rational, na.SecretRational):
             raise NotImplementedError("Exporting non-rational state is not supported")
@@ -104,52 +85,3 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
         raise TypeError(
             "Could not convert type `%s` to NumPy array" % type(array_like).__name__
         )
-
-
-class StateClient(ModelClient):
-    """ModelClient for generic model states"""
-
-    def __init__(self, state_dict: Dict[str, Any]) -> None:
-        """
-        Client initialization.
-        This client accepts an arbitrary model state as input.
-
-        Args:
-            state_dict (Dict[str, Any]): State dict.
-        """
-        self.state_dict = state_dict
-
-
-class TorchClient(ModelClient):
-    """ModelClient for PyTorch models"""
-
-    def __init__(self, model: nn.Module) -> None:
-        """
-        Client initialization.
-
-        Args:
-            model (nn.Module): PyTorch model object to wrap around.
-        """
-        self.state_dict = model.state_dict()
-
-
-class SklearnClient(ModelClient):
-    """ModelClient for Scikit-learn models"""
-
-    def __init__(self, model: sklearn.base.BaseEstimator) -> None:
-        """
-        Client initialization.
-
-        Args:
-            model (sklearn.base.BaseEstimator): Sklearn model object to wrap around.
-        """
-        if isinstance(model, _LinearModel):
-            state_dict = {"coef": model.coef_}
-            if model.fit_intercept is True:
-                state_dict.update({"intercept": model.intercept_})
-        else:
-            raise NotImplementedError(
-                f"Instantiating ModelClient from Sklearn model type `{type(model).__name__}` is not yet implemented."
-            )
-
-        self.state_dict = state_dict
