@@ -228,11 +228,10 @@ class Prophet(Module):
         Returns:
             np.ndarray: Standardized dates.
         """
-        if np.issubdtype(dates.dtype, np.integer) or np.issubdtype(
-            dates.dtype, np.floating
-        ):
+        dtype = dates.dtype
+        if np.issubdtype(dtype, np.integer) or np.issubdtype(dtype, np.floating):
             return dates
-        if np.issubdtype(dates.dtype, np.datetime64):
+        if np.issubdtype(dtype, np.datetime64):
             return dates.astype(np.float64)
         raise TypeError(
             f"Could not convert dates array of type `{dates}` to a NumPy array of numerics."
