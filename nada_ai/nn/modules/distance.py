@@ -4,6 +4,7 @@ from typing import override
 import nada_algebra as na
 from nada_ai.nn.module import Module
 
+__all__ = ["DotProductSimilarity"]
 
 class DotProductSimilarity(Module):
     """Dot product similarity module"""
