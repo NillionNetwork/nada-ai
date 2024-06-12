@@ -14,7 +14,7 @@ prophet = "^1.1.5"
 nada-dsl = "^0.2.1"
 py-nillion-client = "^0.2.1"
 nada-algebra = "^0.3.4"
-
+nillion-python-helpers = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
