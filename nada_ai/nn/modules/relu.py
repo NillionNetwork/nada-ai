@@ -12,6 +12,8 @@ from nada_dsl import (
     PublicInteger,
 )
 
+__all__ = ["ReLU"]
+
 
 class ReLU(Module):
     """ReLU layer implementation"""

@@ -7,8 +7,7 @@ import numpy as np
 import nada_algebra as na
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
-from nada_ai.client import ModelClient
-from nada_ai import StateClient, TorchClient, SklearnClient
+from nada_ai.client import ModelClient, StateClient, TorchClient, SklearnClient
 import py_nillion_client as nillion
 
 

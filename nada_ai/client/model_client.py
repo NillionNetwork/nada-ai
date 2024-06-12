@@ -1,20 +1,11 @@
-"""
-This module provides functions to work with the Python Nillion Client
-"""
+"""Model client implementation"""
 
 from abc import ABC, ABCMeta
 import nada_algebra as na
 import nada_algebra.client as na_client
 from typing import Any, Dict, Sequence, Union
 
-from sklearn.linear_model import (
-    LinearRegression,
-    LogisticRegression,
-    LogisticRegressionCV,
-)
 import torch
-from torch import nn
-import sklearn
 import numpy as np
 import py_nillion_client as nillion
 
@@ -26,7 +17,6 @@ _NillionType = Union[
     nillion.PublicVariableInteger,
     nillion.PublicVariableUnsignedInteger,
 ]
-_LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
 
 
 class ModelClientMeta(ABCMeta):
@@ -104,52 +94,3 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
         raise TypeError(
             "Could not convert type `%s` to NumPy array" % type(array_like).__name__
         )
-
-
-class StateClient(ModelClient):
-    """ModelClient for generic model states"""
-
-    def __init__(self, state_dict: Dict[str, Any]) -> None:
-        """
-        Client initialization.
-        This client accepts an arbitrary model state as input.
-
-        Args:
-            state_dict (Dict[str, Any]): State dict.
-        """
-        self.state_dict = state_dict
-
-
-class TorchClient(ModelClient):
-    """ModelClient for PyTorch models"""
-
-    def __init__(self, model: nn.Module) -> None:
-        """
-        Client initialization.
-
-        Args:
-            model (nn.Module): PyTorch model object to wrap around.
-        """
-        self.state_dict = model.state_dict()
-
-
-class SklearnClient(ModelClient):
-    """ModelClient for Scikit-learn models"""
-
-    def __init__(self, model: sklearn.base.BaseEstimator) -> None:
-        """
-        Client initialization.
-
-        Args:
-            model (sklearn.base.BaseEstimator): Sklearn model object to wrap around.
-        """
-        if isinstance(model, _LinearModel):
-            state_dict = {"coef": model.coef_}
-            if model.fit_intercept is True:
-                state_dict.update({"intercept": model.intercept_})
-        else:
-            raise NotImplementedError(
-                f"Instantiating ModelClient from Sklearn model type `{type(model).__name__}` is not yet implemented."
-            )
-
-        self.state_dict = state_dict
