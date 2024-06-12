@@ -6,6 +6,7 @@ from nada_ai.nn.module import Module
 
 __all__ = ["DotProductSimilarity"]
 
+
 class DotProductSimilarity(Module):
     """Dot product similarity module"""
 
