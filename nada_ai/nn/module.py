@@ -13,7 +13,7 @@ class Module(ABC):
     """Generic neural network module"""
 
     @abstractmethod
-    def forward(self, x: na.NadaArray, *args, **kwargs) -> na.NadaArray:
+    def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
         Forward pass.
 
@@ -25,17 +25,14 @@ class Module(ABC):
         """
         ...
 
-    def __call__(self, x: na.NadaArray, *args, **kwargs) -> na.NadaArray:
+    def __call__(self, *args, **kwargs) -> na.NadaArray:
         """
         Proxy for forward pass.
-
-        Args:
-            x (na.NadaArray): Input array.
 
         Returns:
             na.NadaArray: Output array.
         """
-        return self.forward(x, *args, **kwargs)
+        return self.forward(*args, **kwargs)
 
     def __named_parameters(self, prefix: str) -> Iterator[Tuple[str, Parameter]]:
         """
