@@ -57,11 +57,7 @@ class Prophet(Module):
                 "fourier_order": 4,
             }
 
-        num_fourier = 0
-        for _, mode_seasonality in self.seasonalities.items():
-            for _, period_seasonality in mode_seasonality.items():
-                # NOTE: times two because there is always a term for both sin and cos
-                num_fourier += period_seasonality["fourier_order"] * 2
+        num_fourier = self._num_fourier_terms()
 
         M = 1  # NOTE: MAP estimation is assumed, so M=1 guaranteed
 
@@ -75,6 +71,20 @@ class Prophet(Module):
         self.delta = Parameter((M, n_changepoints))
         self.changepoints_t = Parameter(n_changepoints)
         self.y_scale = Parameter(1)
+
+    def _num_fourier_terms(self) -> int:
+        """
+        Calculates the number of Fourier terms.
+
+        Returns:
+            int: Number of Fourier terms.
+        """
+        num_fourier = 0
+        for _, mode_seasonality in self.seasonalities.items():
+            for _, period_seasonality in mode_seasonality.items():
+                # NOTE: times two because there is always a term for both sin and cos
+                num_fourier += period_seasonality["fourier_order"] * 2
+        return num_fourier
 
     def predict_seasonal_comps(
         self, dates: np.ndarray
