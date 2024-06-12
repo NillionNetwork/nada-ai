@@ -1,7 +1,7 @@
 """Facebook Prophet implementation"""
 
 import numpy as np
-from typing import Dict, Tuple, override
+from typing import Dict, Tuple
 
 import nada_algebra as na
 from nada_ai.nn.module import Module
@@ -236,7 +236,6 @@ class Prophet(Module):
         error_msg = f"Could not convert dates of type `{dates}` to a numeric array."
         raise TypeError(error_msg)
 
-    @override
     def __call__(
         self,
         dates: np.ndarray,
@@ -257,7 +256,6 @@ class Prophet(Module):
         """
         return self.predict(dates=dates, floor=floor, t=t)
 
-    @override
     def forward(
         self,
         dates: np.ndarray,
