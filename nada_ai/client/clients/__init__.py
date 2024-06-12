@@ -1,5 +1,4 @@
-from .sklearn_client import SklearnClient
-from .state_client import StateClient
-from .torch_client import TorchClient
+from .sklearn import SklearnClient
+from .torch import TorchClient
 
-__all__ = ["SklearnClient", "StateClient", "TorchClient"]
+__all__ = ["SklearnClient", "TorchClient"]

@@ -4,7 +4,7 @@ from abc import ABC, ABCMeta
 import nada_algebra as na
 import nada_algebra.client as na_client
 from typing import Any, Dict, Sequence
-from nada_ai.utils import NillionType
+from nada_ai.typing import NillionType
 
 import torch
 import numpy as np

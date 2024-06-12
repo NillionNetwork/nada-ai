@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 import inspect
 from typing import Iterator, Tuple
 from nada_ai.nn.parameter import Parameter
-from nada_ai.utils import NadaInteger
+from nada_ai.typing import NadaInteger
 import nada_algebra as na
 from nada_dsl import Party
 

@@ -2,7 +2,7 @@
 
 import sklearn
 from nada_ai.client.model_client import ModelClient
-from nada_ai.utils import LinearModel
+from nada_ai.typing import LinearModel
 
 __all__ = ["SklearnClient"]
 

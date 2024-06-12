@@ -3,7 +3,7 @@
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.utils import ShapeLike
+from nada_ai.typing import ShapeLike
 
 __all__ = ["Conv2d"]
 
