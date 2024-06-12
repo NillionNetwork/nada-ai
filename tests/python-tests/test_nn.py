@@ -5,7 +5,7 @@ import numpy as np
 import nada_algebra as na
 from nada_ai.nn.module import Module, Parameter
 from nada_dsl import Integer
-from nada_ai.exceptions import MismatchedShapesException
+from nada_ai.utils.exceptions import MismatchedShapesException
 
 
 class TestModule:

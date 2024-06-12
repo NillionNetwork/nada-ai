@@ -3,20 +3,11 @@
 from abc import ABC, ABCMeta
 import nada_algebra as na
 import nada_algebra.client as na_client
-from typing import Any, Dict, Sequence, Union
+from typing import Any, Dict, Sequence
+from nada_ai.utils import NillionType
 
 import torch
 import numpy as np
-import py_nillion_client as nillion
-
-_NillionType = Union[
-    na.Rational,
-    na.SecretRational,
-    nillion.SecretInteger,
-    nillion.SecretUnsignedInteger,
-    nillion.PublicVariableInteger,
-    nillion.PublicVariableUnsignedInteger,
-]
 
 
 class ModelClientMeta(ABCMeta):
@@ -44,21 +35,21 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
     def export_state_as_secrets(
         self,
         name: str,
-        nada_type: _NillionType,
-    ) -> Dict[str, _NillionType]:
+        nada_type: NillionType,
+    ) -> Dict[str, NillionType]:
         """
         Exports model state as a Dict of Nillion secret types.
 
         Args:
             name (str): Name to be used to store state secrets in the network.
-            nada_type (_NillionType): Data type to convert weights to.
+            nada_type (NillionType): Data type to convert weights to.
 
         Raises:
             NotImplementedError: Raised when unsupported model state type is passed.
             TypeError: Raised when model state has incompatible values.
 
         Returns:
-            Dict[str, _NillionType]: Dict of Nillion secret types that represents model state.
+            Dict[str, NillionType]: Dict of Nillion secret types that represents model state.
         """
         if nada_type not in (na.Rational, na.SecretRational):
             raise NotImplementedError("Exporting non-rational state is not supported")

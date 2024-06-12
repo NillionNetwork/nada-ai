@@ -1,11 +1,9 @@
 """Pooling layer implementation"""
 
-from typing import Iterable, Union
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_dsl import Integer
-
-_ShapeLike = Union[int, Iterable[int]]
+from nada_ai.utils import ShapeLike
 
 __all__ = ["AvgPool2d"]
 
@@ -15,17 +13,17 @@ class AvgPool2d(Module):
 
     def __init__(
         self,
-        kernel_size: _ShapeLike,
-        stride: _ShapeLike = None,
-        padding: _ShapeLike = 0,
+        kernel_size: ShapeLike,
+        stride: ShapeLike = None,
+        padding: ShapeLike = 0,
     ) -> None:
         """
         2D-average pooling layer.
 
         Args:
-            kernel_size (_ShapeLike): Size of pooling kernel.
-            stride (_ShapeLike, optional): Stride length. Defaults to the size of the pooling kernel.
-            padding (_ShapeLike, optional): Padding length. Defaults to 0.
+            kernel_size (ShapeLike): Size of pooling kernel.
+            stride (ShapeLike, optional): Stride length. Defaults to the size of the pooling kernel.
+            padding (ShapeLike, optional): Padding length. Defaults to 0.
         """
         if isinstance(kernel_size, int):
             kernel_size = (kernel_size, kernel_size)

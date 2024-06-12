@@ -1,23 +1,19 @@
 """Parameter logic"""
 
-from typing import Iterable, Union
-
 import numpy as np
 import nada_algebra as na
-from nada_ai.exceptions import MismatchedShapesException
-
-_ShapeLike = Union[int, Iterable[int]]
+from nada_ai.utils import ShapeLike, MismatchedShapesException
 
 
 class Parameter(na.NadaArray):
     """Parameter class"""
 
-    def __init__(self, shape: _ShapeLike) -> None:
+    def __init__(self, shape: ShapeLike) -> None:
         """
         Initializes light NadaArray wrapper.
 
         Args:
-            shape (_ShapeLike, optional): Parameter array shape.
+            shape (ShapeLike, optional): Parameter array shape.
         """
         zeros = na.zeros(shape)
         super().__init__(inner=zeros.inner)

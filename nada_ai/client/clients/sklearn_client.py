@@ -1,16 +1,8 @@
 """Scikit-learn client implementation"""
 
-from nada_ai.client.model_client import ModelClient
-from typing import Union
-
 import sklearn
-from sklearn.linear_model import (
-    LinearRegression,
-    LogisticRegression,
-    LogisticRegressionCV,
-)
-
-_LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
+from nada_ai.client.model_client import ModelClient
+from nada_ai.utils import LinearModel
 
 __all__ = ["SklearnClient"]
 
@@ -25,7 +17,7 @@ class SklearnClient(ModelClient):
         Args:
             model (sklearn.base.BaseEstimator): Sklearn model object to wrap around.
         """
-        if isinstance(model, _LinearModel):
+        if isinstance(model, LinearModel):
             state_dict = {"coef": model.coef_}
             if model.fit_intercept is True:
                 state_dict.update({"intercept": model.intercept_})

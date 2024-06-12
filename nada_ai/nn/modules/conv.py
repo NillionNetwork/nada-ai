@@ -1,11 +1,9 @@
 """Convolutional operator implementation"""
 
-from typing import Iterable, Union
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-
-_ShapeLike = Union[int, Iterable[int]]
+from nada_ai.utils import ShapeLike
 
 __all__ = ["Conv2d"]
 
@@ -17,9 +15,9 @@ class Conv2d(Module):
         self,
         in_channels: int,
         out_channels: int,
-        kernel_size: _ShapeLike,
-        padding: _ShapeLike = 0,
-        stride: _ShapeLike = 1,
+        kernel_size: ShapeLike,
+        padding: ShapeLike = 0,
+        stride: ShapeLike = 1,
         include_bias: bool = True,
     ) -> None:
         """
@@ -28,9 +26,9 @@ class Conv2d(Module):
         Args:
             in_channels (int): Number of input channels.
             out_channels (int): Number of output channels.
-            kernel_size (_ShapeLike): Size of convolution kernel.
-            padding (_ShapeLike, optional): Padding length. Defaults to 0.
-            stride (_ShapeLike, optional): Stride length. Defaults to 1.
+            kernel_size (ShapeLike): Size of convolution kernel.
+            padding (ShapeLike, optional): Padding length. Defaults to 0.
+            stride (ShapeLike, optional): Stride length. Defaults to 1.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
         """
         if isinstance(kernel_size, int):
