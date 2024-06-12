@@ -3,7 +3,7 @@
 import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_dsl import Integer
-from nada_ai.utils import ShapeLike
+from nada_ai.typing import ShapeLike
 
 __all__ = ["AvgPool2d"]
 

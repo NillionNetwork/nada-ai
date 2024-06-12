@@ -2,7 +2,8 @@
 
 import numpy as np
 import nada_algebra as na
-from nada_ai.utils import ShapeLike, MismatchedShapesException
+from nada_ai.typing import ShapeLike
+from nada_ai.exceptions import MismatchedShapesException
 
 
 class Parameter(na.NadaArray):
