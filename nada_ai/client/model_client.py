@@ -23,9 +23,9 @@ class ModelClientMeta(ABCMeta):
         Returns:
             object: Result object.
         """
-        obj = super(ModelClientMeta, self).__call__(*args, **kwargs)
+        obj = super().__call__(*args, **kwargs)
         if not getattr(obj, "state_dict"):
-            raise AttributeError("required attribute `state_dict` not set")
+            raise AttributeError("Required attribute `state_dict` not set")
         return obj
 
 
