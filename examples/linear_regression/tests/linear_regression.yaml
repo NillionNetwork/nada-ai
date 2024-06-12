@@ -1,5 +1,5 @@
 ---
-program: main
+program: linear_regression
 inputs:
   secrets:
     # We assume all values were originally floats, scaled & rounded by a factor of 2**16

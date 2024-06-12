@@ -43,5 +43,9 @@ path = "src/end-to-end.py"
 prime_size = 128
 
 [[programs]]
+path = "src/prophet.py"
+prime_size = 128
+
+[[programs]]
 path = "src/distance.py"
 prime_size = 128

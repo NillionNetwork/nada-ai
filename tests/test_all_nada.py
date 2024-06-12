@@ -14,9 +14,15 @@ TESTS = [
     "linear_regression",
     "end-to-end",
     "distance",
+    "prophet",
 ]
 
-EXAMPLES = []
+EXAMPLES = [
+    "complex_model",
+    "linear_regression",
+    "neural_net",
+    # "time_series",
+]
 
 TESTS = [("tests/nada-tests/", test) for test in TESTS] + [
     ("examples/" + test, test) for test in EXAMPLES

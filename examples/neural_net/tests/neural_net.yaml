@@ -1,5 +1,5 @@
 ---
-program: main
+program: neural_net
 inputs:
   secrets:
     # We assume all values were originally floats, scaled & rounded by a factor of 2**16

@@ -105,6 +105,6 @@ class Module(ABC):
             raise NotImplementedError("Loading non-rational state is not supported")
 
         for param_name, param in self.named_parameters():
-            state_name = f"{name}_{param_name}"
-            param_state = na.array(param.shape, party, state_name, nada_type)
+            param_state_name = f"{name}_{param_name}"
+            param_state = na.array(param.shape, party, param_state_name, nada_type)
             param.load_state(param_state)

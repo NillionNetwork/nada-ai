@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import time
 import nada_algebra as na
-from nada_ai import TorchClient
+from nada_ai.client import TorchClient
 import torch
 from dotenv import load_dotenv
 
@@ -166,8 +166,14 @@ async def main():
         nillion.Secrets({}),
     )
 
-    # Sort & rescale the obtained results by the quantization scale (here: 16)
-    outputs = [result[1] / 2**16 for result in sorted(result.items())]
+    # Sort & rescale the obtained results by the quantization scale
+    outputs = [
+        na_client.float_from_rational(result[1])
+        for result in sorted(
+            result.items(),
+            key=lambda x: int(x[0].replace("my_output", "").replace("_", "")),
+        )
+    ]
 
     print(f"🖥️  The result is {outputs}")
 

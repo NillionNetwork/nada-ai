@@ -188,8 +188,14 @@ async def main():
         nillion.Secrets({}),
     )
 
-    # Sort & rescale the obtained results by the quantization scale (here: 16)
-    outputs = [result[1] / 2**16 for result in sorted(result.items())]
+    # Sort & rescale the obtained results by the quantization scale
+    outputs = outputs = [
+        na_client.float_from_rational(result[1])
+        for result in sorted(
+            result.items(),
+            key=lambda x: int(x[0].replace("my_output", "").replace("_", "")),
+        )
+    ]
 
     print(f"🖥️  The result is {outputs}")
 

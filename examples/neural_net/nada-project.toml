@@ -1,7 +1,7 @@
-name = "complex_model"
+name = "neural_net"
 version = "0.1.0"
 authors = [""]
 
 [[programs]]
-path = "src/main.py"
+path = "src/neural_net.py"
 prime_size = 128
