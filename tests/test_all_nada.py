@@ -13,6 +13,7 @@ TESTS = [
     "pool",
     "linear_regression",
     "end-to-end",
+    "distance",
 ]
 
 EXAMPLES = []
