@@ -687,13 +687,13 @@ files = [
 
 [[package]]
 name = "nada-algebra"
-version = "0.3.2"
+version = "0.3.3"
 description = "Nada-Algebra is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "nada_algebra-0.3.2-py3-none-any.whl", hash = "sha256:d83e7c71854bb6230ad51009a273d2eb9c4f4c4117a5808f8cd485f1f9a83d6f"},
-    {file = "nada_algebra-0.3.2.tar.gz", hash = "sha256:1aed21b53ad7e764dccd27aec2d8fd25faaef8159429f81a7341499f5554d09e"},
+    {file = "nada_algebra-0.3.3-py3-none-any.whl", hash = "sha256:d5590a7e5a535df96bcc4fbe58dc8e5200bfe620368a6248f3bdf473f5f7e0da"},
+    {file = "nada_algebra-0.3.3.tar.gz", hash = "sha256:99314f2d3fd17160436ded762d4ff8b6c4e879fcc60468d497768d6161cf3a98"},
 ]
 
 [package.dependencies]
@@ -1566,4 +1566,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5fbd199d20ff748b0f4b8b98c3b1b6967824e9bcf2b87300b112f37572412d87"
+content-hash = "5b547da890f17807c8b1eb405e22fde1942bb4498c70aa2b01282e35f7b38d1a"
