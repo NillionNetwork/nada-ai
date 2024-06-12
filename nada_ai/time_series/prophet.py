@@ -206,8 +206,8 @@ class Prophet(Module):
         Returns:
             na.NadaArray: Forecasted values.
         """
-        assert len(dates) == len(floor), "Prophet inputs must be equally sized."
-        assert len(floor) == len(t), "Prophet inputs must be equally sized."
+        assert dates.shape == floor.shape, "Prophet inputs must be equally sized."
+        assert floor.shape == t.shape, "Prophet inputs must be equally sized."
 
         dates = self.ensure_numeric_dates(dates)
         trend = self.predict_trend(floor, t)
@@ -233,9 +233,8 @@ class Prophet(Module):
             return dates
         if np.issubdtype(dtype, np.datetime64):
             return dates.astype(np.float64)
-        raise TypeError(
-            f"Could not convert dates array of type `{dates}` to a NumPy array of numerics."
-        )
+        error_msg = f"Could not convert dates of type `{dates}` to a numeric array."
+        raise TypeError(error_msg)
 
     @override
     def __call__(
