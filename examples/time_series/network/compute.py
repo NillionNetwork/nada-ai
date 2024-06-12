@@ -2,11 +2,12 @@ import asyncio
 import py_nillion_client as nillion
 import os
 import sys
-import numpy as np
 import time
+import numpy as np
 import nada_algebra as na
-from nada_ai import SklearnClient
-from sklearn.linear_model import LinearRegression
+import pandas as pd
+from nada_ai.client import ProphetClient
+from prophet import Prophet
 from dotenv import load_dotenv
 
 # Add the parent directory to the system path to import modules from it
@@ -23,8 +24,6 @@ import nada_algebra.client as na_client
 # Load environment variables from a .env file
 load_dotenv()
 
-NUM_FEATS = 10
-
 
 # Decorator function to measure and log the execution time of asynchronous functions
 def async_timer(file_path):
@@ -37,7 +36,7 @@ def async_timer(file_path):
 
             # Log the execution time to a file
             with open(file_path, "a") as file:
-                file.write(f"{NUM_FEATS} feats: {elapsed_time:.6f},\n")
+                file.write(f"{elapsed_time:.6f},\n")
             return result
 
         return wrapper
@@ -103,32 +102,28 @@ async def main():
     if not os.path.exists("bench"):
         os.mkdir("bench")
 
+    na.set_log_scale(50)
+
     # Store the program
     program_id = await store_program(
         client, user_id, cluster_id, program_name, program_mir_path
     )
 
-    # Train a linear regression
-    X = np.random.randn(1_000, NUM_FEATS)
-    # We generate the data from a specific linear model
-    coeffs_gt = np.ones(
-        NUM_FEATS,
-    )
-    bias_gt = 4.2
+    # Train prophet model
+    model = Prophet()
 
-    y = X @ coeffs_gt + bias_gt
+    ds = pd.date_range("2024-05-01", "2024-05-17").tolist()
+    y = np.arange(1, 18).tolist()
 
-    model = LinearRegression()
-    # The learned params will likely be close to the coefficients & bias we used to generate the data
-    fit_model = model.fit(X, y)
+    fit_model = model.fit(df=pd.DataFrame({"ds": ds, "y": y}))
 
-    print("Learned model coeffs are:", model.coef_)
-    print("Learned model intercept is:", model.intercept_)
+    print("Model params are:", fit_model.params)
+    print("Number of detected changepoints:", fit_model.n_changepoints)
 
     # Create and store model secrets via ModelClient
-    model_client = SklearnClient(fit_model)
+    model_client = ProphetClient(fit_model)
     model_secrets = nillion.Secrets(
-        model_client.export_state_as_secrets("my_model", na.SecretRational)
+        model_client.export_state_as_secrets("my_prophet", na.SecretRational)
     )
 
     model_store_id = await store_secrets(
@@ -136,7 +131,17 @@ async def main():
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((NUM_FEATS,)), "my_input", na.SecretRational)
+    future_df = fit_model.make_future_dataframe(periods=3)
+    inference_ds = fit_model.setup_dataframe(future_df.copy())
+
+    my_input = {}
+    my_input.update(
+        na_client.array(inference_ds["floor"].to_numpy(), "floor", na.SecretRational)
+    )
+    my_input.update(
+        na_client.array(inference_ds["t"].to_numpy(), "t", na.SecretRational)
+    )
+
     input_secrets = nillion.Secrets(my_input)
 
     data_store_id = await store_secrets(
@@ -162,11 +167,19 @@ async def main():
         [model_store_id, data_store_id],
         nillion.Secrets({}),
     )
-    # Rescale the obtained result by the quantization scale
-    outputs = [na_client.float_from_rational(result["my_output_0"])]
+
+    # Sort & rescale the obtained results by the quantization scale
+    outputs = [
+        na_client.float_from_rational(result[1])
+        for result in sorted(
+            result.items(),
+            key=lambda x: int(x[0].replace("my_output", "").replace("_", "")),
+        )
+    ]
+
     print(f"🖥️  The result is {outputs}")
 
-    expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1, -1))
+    expected = fit_model.predict(inference_ds)["yhat"].to_numpy()
     print(f"🖥️  VS expected plain-text result {expected}")
     return result
 

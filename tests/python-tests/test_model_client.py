@@ -3,11 +3,13 @@
 import pytest
 import torch
 import numpy as np
+import pandas as pd
 
 import nada_algebra as na
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
-from nada_ai.client import ModelClient, TorchClient, SklearnClient
+from prophet import Prophet
+from nada_ai.client import ModelClient, TorchClient, SklearnClient, ProphetClient
 import py_nillion_client as nillion
 
 
@@ -244,6 +246,63 @@ class TestModelClient:
             "test_model_linear_1.bias_0",
             "test_model_linear_1.bias_1",
         ]
+
+        for expected_layer in expected_layers:
+            assert expected_layer in secrets.keys()
+
+    def test_prophet_1(self):
+        model = Prophet()
+
+        ds = pd.date_range("2024-05-01", "2024-05-17").tolist()
+        y = np.arange(1, 18).tolist()
+
+        fit_model = model.fit(df=pd.DataFrame({"ds": ds, "y": y}))
+
+        # Avoid zero secrets - just for testing purposes
+        for param_name in fit_model.params:
+            fit_model.params[param_name] = fit_model.params[param_name] + 1
+
+        model_client = ProphetClient(fit_model)
+
+        secrets = model_client.export_state_as_secrets("test_model", na.SecretRational)
+
+        expected_layers = [
+            "test_model_k_0_0",
+            "test_model_m_0_0",
+            "test_model_delta_0_0",
+            "test_model_delta_0_1",
+            "test_model_delta_0_2",
+            "test_model_delta_0_3",
+            "test_model_delta_0_4",
+            "test_model_delta_0_5",
+            "test_model_delta_0_6",
+            "test_model_delta_0_7",
+            "test_model_delta_0_8",
+            "test_model_delta_0_9",
+            "test_model_delta_0_10",
+            "test_model_delta_0_11",
+            "test_model_beta_0_0",
+            "test_model_beta_0_1",
+            "test_model_beta_0_2",
+            "test_model_beta_0_3",
+            "test_model_beta_0_4",
+            "test_model_beta_0_5",
+            "test_model_changepoints_t_0",
+            "test_model_changepoints_t_1",
+            "test_model_changepoints_t_2",
+            "test_model_changepoints_t_3",
+            "test_model_changepoints_t_4",
+            "test_model_changepoints_t_5",
+            "test_model_changepoints_t_6",
+            "test_model_changepoints_t_7",
+            "test_model_changepoints_t_8",
+            "test_model_changepoints_t_9",
+            "test_model_changepoints_t_10",
+            "test_model_changepoints_t_11",
+            "test_model_y_scale_0",
+        ]
+
+        assert len(secrets) == len(expected_layers)
 
         for expected_layer in expected_layers:
             assert expected_layer in secrets.keys()

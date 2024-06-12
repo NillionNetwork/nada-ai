@@ -1,7 +1,7 @@
-name = "complex_model"
+name = "time_series"
 version = "0.1.0"
 authors = [""]
 
 [[programs]]
-path = "src/complex_model.py"
+path = "src/time_series.py"
 prime_size = 128
