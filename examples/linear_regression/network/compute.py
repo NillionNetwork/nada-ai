@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 # Import helper functions for creating nillion client and getting keys
-from neural_net.network.helpers.nillion_client_helper import create_nillion_client
-from neural_net.network.helpers.nillion_keypath_helper import (
+from nillion_python_helpers import (
+    create_nillion_client,
     getUserKeyFromFile,
     getNodeKeyFromFile,
 )
