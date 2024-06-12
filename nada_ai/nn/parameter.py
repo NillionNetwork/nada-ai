@@ -9,12 +9,12 @@ from nada_ai.exceptions import MismatchedShapesException
 class Parameter(na.NadaArray):
     """Parameter class"""
 
-    def __init__(self, shape: ShapeLike) -> None:
+    def __init__(self, shape: ShapeLike = 1) -> None:
         """
         Initializes light NadaArray wrapper.
 
         Args:
-            shape (ShapeLike, optional): Parameter array shape.
+            shape (ShapeLike, optional): Parameter array shape. Defaults to 1.
         """
         super().__init__(inner=np.empty(shape))
 

@@ -19,7 +19,7 @@ class LinearRegression(Module):
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
         """
         self.coef = Parameter(in_features)
-        self.intercept = Parameter(1) if include_bias else None
+        self.intercept = Parameter() if include_bias else None
 
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
