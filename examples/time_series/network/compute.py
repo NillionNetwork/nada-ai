@@ -170,7 +170,7 @@ async def main():
 
     # Sort & rescale the obtained results by the quantization scale
     outputs = [
-        result[1] / 2**50
+        na_client.float_from_rational(result[1])
         for result in sorted(
             result.items(),
             key=lambda x: int(x[0].replace("my_output", "").replace("_", "")),
