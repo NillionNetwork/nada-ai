@@ -6,7 +6,7 @@ import time
 import numpy as np
 import nada_algebra as na
 import pandas as pd
-from nada_ai import ProphetClient
+from nada_ai.client import ProphetClient
 from prophet import Prophet
 from dotenv import load_dotenv
 
