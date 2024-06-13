@@ -35,7 +35,7 @@ jobs:
     - name: Run pylint
       run: poetry run pylint nada_ai
     - name: Run mypy
-      run: poetry run mypy nada_ai --ignore-missing-imports
+      run: poetry run mypy nada_ai
 
   build:
     needs: check-linting
