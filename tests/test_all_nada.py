@@ -1,6 +1,7 @@
 import os
-import pytest
 import subprocess
+
+import pytest
 
 TESTS = [
     "load_state",
@@ -76,8 +77,8 @@ class TestSuite:
 
 def test_client():
     import nada_algebra.client as na_client  # For use with Python Client
-    import py_nillion_client as nillion
     import numpy as np
+    import py_nillion_client as nillion
 
     parties = na_client.parties(3)
 

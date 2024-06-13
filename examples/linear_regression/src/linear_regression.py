@@ -1,4 +1,5 @@
 import nada_algebra as na
+
 from nada_ai.linear_model import LinearRegression
 
 

@@ -1,6 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import Module, Conv2d, AvgPool2d, Linear, Flatten, ReLU
 import nada_algebra as na
+from nada_dsl import *
+
+from nada_ai.nn import AvgPool2d, Conv2d, Flatten, Linear, Module, ReLU
 
 
 def nada_main():

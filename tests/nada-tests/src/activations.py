@@ -1,6 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import ReLU
 import nada_algebra as na
+from nada_dsl import *
+
+from nada_ai.nn import ReLU
 
 
 def nada_main():

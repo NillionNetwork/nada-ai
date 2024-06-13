@@ -1,11 +1,12 @@
 """NN components unit tests"""
 
-import pytest
-import numpy as np
 import nada_algebra as na
-from nada_ai.nn.module import Module, Parameter
+import numpy as np
+import pytest
 from nada_dsl import Integer
+
 from nada_ai.exceptions import MismatchedShapesException
+from nada_ai.nn.module import Module, Parameter
 
 
 class TestModule:
