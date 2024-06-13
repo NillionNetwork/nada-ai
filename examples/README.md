@@ -6,6 +6,7 @@ The following are the currently available examples:
 - [Neural Net](./neural_net): shows how to build & run a simple Feed-Forward Neural Net (both linear layers & activations) using Nada AI
 - [Complex Model](./complex_model): shows how to build more intricate model architectures using Nada AI. Contains convolutions, pooling operations, linear layers and activations
 - [Time Series](./time_series): shows how to run a Facebook Prophet time series forecasting model using Nada AI
+- [Spam Detection Demo](./spam_detection): shows how to build a privacy-preserving spam detection model using Nada AI. Contains Logistic Regression, and cleartext TF-IDF vectorization.
 
 The Nada program source code is stored in `src/<EXAMPLE_NAME>.py`.
 
