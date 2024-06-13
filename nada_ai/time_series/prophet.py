@@ -1,17 +1,20 @@
 """Facebook Prophet implementation"""
 
-import numpy as np
-from typing import Dict, Tuple
+from typing import Any, Dict, Tuple
 
 import nada_algebra as na
+import numpy as np
+from typing_extensions import override
+
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.time_series.helpers import fourier_series
+from nada_ai.utils import fourier_series
 
 
-class Prophet(Module):
+class Prophet(Module):  # pylint:disable=too-many-instance-attributes
     """Prophet forecasting implementation"""
 
+    # pylint:disable=too-many-arguments
     def __init__(
         self,
         n_changepoints: int,
@@ -37,7 +40,7 @@ class Prophet(Module):
         """
         self.growth = growth
 
-        self.seasonalities = {
+        self.seasonalities: Dict[str, Any] = {
             "additive": {},
             "multiplicative": {},
         }
@@ -59,7 +62,8 @@ class Prophet(Module):
 
         num_fourier = self._num_fourier_terms()
 
-        M = 1  # NOTE: MAP estimation is assumed, so M=1 guaranteed
+        # NOTE: MAP estimation is assumed, so M=1 guaranteed
+        M = 1  # pylint:disable=invalid-name
 
         self.k = Parameter((M, 1))
         self.m = Parameter((M, 1))
@@ -130,14 +134,14 @@ class Prophet(Module):
         return add_component, mult_component
 
     def make_seasonality_features(
-        self, dates: np.ndarray, seasonalities: Dict[str, Dict[str, int | float]]
+        self, dates: np.ndarray, seasonalities: Dict[str, Any]
     ) -> Dict[str, na.NadaArray]:
         """
         Generates seasonality features per seasonal component.
 
         Args:
             dates (np.ndarray): Array of timestamp values.
-            seasonalities (Dict[str, Dict[str, int  |  float]]): Seasonality config.
+            seasonalities (Dict[str, Any]): Seasonality config.
 
         Returns:
             Dict[str, na.NadaArray]: Generated seasonality features.
@@ -173,6 +177,7 @@ class Prophet(Module):
         [delta] = self.delta
 
         if self.growth == "linear":
+            # pylint:disable=unnecessary-lambda-assignment
             less_than_fn = lambda a, b: (a <= b).if_else(na.rational(1), na.rational(0))
             less_than_vectorized = na.frompyfunc(less_than_fn, 2, 1)
             mask = less_than_vectorized(self.changepoints_t[None, :], t[..., None])
@@ -256,6 +261,8 @@ class Prophet(Module):
         """
         return self.predict(dates=dates, floor=floor, t=t)
 
+    # pylint:disable=arguments-differ
+    @override  # type: ignore
     def forward(
         self,
         dates: np.ndarray,

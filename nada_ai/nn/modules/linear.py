@@ -1,6 +1,7 @@
 """Linear layer implementation"""
 
 import nada_algebra as na
+
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
 

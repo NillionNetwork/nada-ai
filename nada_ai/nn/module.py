@@ -1,12 +1,14 @@
 """Neural Network Module logic"""
 
-from abc import ABC, abstractmethod
 import inspect
+from abc import ABC, abstractmethod
 from typing import Iterator, Tuple
-from nada_ai.nn.parameter import Parameter
-from nada_ai.typing import NadaInteger
+
 import nada_algebra as na
 from nada_dsl import Party
+
+from nada_ai.nada_typing import NadaInteger
+from nada_ai.nn.parameter import Parameter
 
 
 class Module(ABC):
@@ -23,7 +25,6 @@ class Module(ABC):
         Returns:
             na.NadaArray: Output array.
         """
-        ...
 
     def __call__(self, *args, **kwargs) -> na.NadaArray:
         """
@@ -51,6 +52,7 @@ class Module(ABC):
                 yield name, value
             elif isinstance(value, Module):
                 name = ".".join([prefix, name]) if prefix else name
+                # pylint:disable=protected-access
                 yield from value.__named_parameters(prefix=name)
 
     def named_parameters(self) -> Iterator[Tuple[str, Parameter]]:
@@ -73,7 +75,7 @@ class Module(ABC):
             if isinstance(value, Parameter):
                 yield value.numel()
             elif isinstance(value, Module):
-                yield from value.__numel()
+                yield from value.__numel()  # pylint:disable=protected-access
 
     def numel(self) -> int:
         """

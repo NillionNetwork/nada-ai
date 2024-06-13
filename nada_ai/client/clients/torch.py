@@ -1,6 +1,7 @@
 """PyTorch client implementation"""
 
 from torch import nn
+
 from nada_ai.client.model_client import ModelClient
 
 __all__ = ["TorchClient"]

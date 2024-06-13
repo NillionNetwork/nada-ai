@@ -1,16 +1,12 @@
 """NN activations logic"""
 
 from typing import Union
+
 import nada_algebra as na
+from nada_dsl import (Integer, NadaType, PublicBoolean, PublicInteger,
+                      SecretBoolean, SecretInteger)
+
 from nada_ai.nn.module import Module
-from nada_dsl import (
-    Integer,
-    NadaType,
-    SecretBoolean,
-    PublicBoolean,
-    SecretInteger,
-    PublicInteger,
-)
 
 __all__ = ["ReLU"]
 

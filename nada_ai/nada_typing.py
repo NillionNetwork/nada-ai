@@ -1,19 +1,13 @@
 """Stores common typing traits"""
 
+from typing import Sequence, Tuple, Union
+
 import nada_algebra as na
 import py_nillion_client as nillion
-from typing import Union, Sequence
-from sklearn.linear_model import (
-    LinearRegression,
-    LogisticRegression,
-    LogisticRegressionCV,
-)
-from nada_dsl import (
-    SecretInteger,
-    SecretUnsignedInteger,
-    PublicInteger,
-    PublicUnsignedInteger,
-)
+from nada_dsl import (PublicInteger, PublicUnsignedInteger, SecretInteger,
+                      SecretUnsignedInteger)
+from sklearn.linear_model import (LinearRegression, LogisticRegression,
+                                  LogisticRegressionCV)
 
 __all__ = ["NillionType", "LinearModel", "ShapeLike", "NadaInteger"]
 
@@ -29,6 +23,7 @@ NillionType = Union[
 LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
 
 ShapeLike = Union[int, Sequence[int]]
+ShapeLike2d = Union[int, Tuple[int, int]]
 
 NadaInteger = Union[
     SecretInteger,

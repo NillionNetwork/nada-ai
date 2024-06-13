@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import time
 import nada_algebra as na
-from nada_ai import TorchClient
+from nada_ai.client import TorchClient
 import torch
 from dotenv import load_dotenv
 

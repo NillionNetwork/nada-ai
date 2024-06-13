@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import time
 import nada_algebra as na
-from nada_ai import SklearnClient
+from nada_ai.client import SklearnClient
 from sklearn.linear_model import LinearRegression
 from dotenv import load_dotenv
 
