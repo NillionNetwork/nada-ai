@@ -4,7 +4,7 @@ import nada_algebra as na
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
 
-__all__ = ["LinearRegression"]
+__all__ = ["LinearRegression", "LogisticRegression"]
 
 
 class LinearRegression(Module):
