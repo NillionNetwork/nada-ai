@@ -1,19 +1,20 @@
 """Model client implementation"""
 
 from abc import ABC, ABCMeta
+from typing import Any, Dict, Sequence
+
 import nada_algebra as na
 import nada_algebra.client as na_client
-from typing import Any, Dict, Sequence
-from nada_ai.typing import NillionType
-
-import torch
 import numpy as np
+import torch
+
+from nada_ai.nada_typing import NillionType
 
 
 class ModelClientMeta(ABCMeta):
     """ML model client metaclass"""
 
-    def __call__(self, *args, **kwargs) -> object:
+    def __call__(cls, *args, **kwargs) -> object:
         """
         Ensures __init__ defines a value for `self.state_dict`.
 
@@ -24,13 +25,15 @@ class ModelClientMeta(ABCMeta):
             object: Result object.
         """
         obj = super().__call__(*args, **kwargs)
-        if not getattr(obj, "state_dict"):
+        if not getattr(obj, "state_dict") or getattr(obj, "state_dict") is None:
             raise AttributeError("Required attribute `state_dict` not set")
         return obj
 
 
 class ModelClient(ABC, metaclass=ModelClientMeta):
     """ML model client"""
+
+    state_dict: Dict[str, Any]
 
     def export_state_as_secrets(
         self,
@@ -82,6 +85,5 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
             return np.array(array_like)
         if isinstance(array_like, (float, int, np.floating)):
             return np.array([array_like])
-        raise TypeError(
-            "Could not convert type `%s` to NumPy array" % type(array_like).__name__
-        )
+        error_msg = f"Could not convert type `{type(array_like)}` to NumPy array"
+        raise TypeError(error_msg)

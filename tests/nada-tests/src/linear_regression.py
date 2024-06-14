@@ -1,5 +1,6 @@
-from nada_dsl import *
 import nada_algebra as na
+from nada_dsl import *
+
 from nada_ai.linear_model import LinearRegression
 
 

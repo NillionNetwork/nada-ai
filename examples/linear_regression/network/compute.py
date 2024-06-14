@@ -1,24 +1,23 @@
 import asyncio
-import py_nillion_client as nillion
 import os
 import sys
-import numpy as np
 import time
+
 import nada_algebra as na
-from nada_ai import SklearnClient
-from sklearn.linear_model import LinearRegression
+import numpy as np
+import py_nillion_client as nillion
 from dotenv import load_dotenv
+from sklearn.linear_model import LinearRegression
+
+from nada_ai.client import SklearnClient
 
 # Add the parent directory to the system path to import modules from it
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-# Import helper functions for creating nillion client and getting keys
-from nillion_python_helpers import (
-    create_nillion_client,
-    getUserKeyFromFile,
-    getNodeKeyFromFile,
-)
 import nada_algebra.client as na_client
+# Import helper functions for creating nillion client and getting keys
+from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
+                                    getUserKeyFromFile)
 
 # Load environment variables from a .env file
 load_dotenv()

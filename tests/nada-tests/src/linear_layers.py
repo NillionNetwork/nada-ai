@@ -1,7 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import Module
 import nada_algebra as na
-from nada_ai.nn import Linear
+from nada_dsl import *
+
+from nada_ai.nn import Linear, Module
 
 
 def nada_main():

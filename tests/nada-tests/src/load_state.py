@@ -1,7 +1,8 @@
-from nada_dsl import *
-import pytest
-from nada_ai.nn import Module, Parameter
 import nada_algebra as na
+import pytest
+from nada_dsl import *
+
+from nada_ai.nn import Module, Parameter
 
 
 def nada_main():

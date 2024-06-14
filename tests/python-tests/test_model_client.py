@@ -1,16 +1,17 @@
 """Model client unit tests"""
 
-import pytest
-import torch
+import nada_algebra as na
 import numpy as np
 import pandas as pd
-
-import nada_algebra as na
+import py_nillion_client as nillion
+import pytest
+import torch
+from prophet import Prophet
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
-from prophet import Prophet
-from nada_ai.client import ModelClient, TorchClient, SklearnClient, ProphetClient
-import py_nillion_client as nillion
+
+from nada_ai.client import (ModelClient, ProphetClient, SklearnClient,
+                            TorchClient)
 
 
 class TestModelClient:

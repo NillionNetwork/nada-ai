@@ -1,6 +1,8 @@
 """Distance implementation"""
 
 import nada_algebra as na
+from typing_extensions import override
+
 from nada_ai.nn.module import Module
 
 __all__ = ["DotProductSimilarity"]
@@ -9,6 +11,8 @@ __all__ = ["DotProductSimilarity"]
 class DotProductSimilarity(Module):
     """Dot product similarity module"""
 
+    # pylint:disable=arguments-differ
+    @override  # type: ignore
     def forward(self, x_1: na.NadaArray, x_2: na.NadaArray) -> na.NadaArray:
         """
         Forward pass logic.

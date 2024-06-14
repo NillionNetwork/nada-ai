@@ -1,6 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import DotProductSimilarity
 import nada_algebra as na
+from nada_dsl import *
+
+from nada_ai.nn import DotProductSimilarity
 
 
 def nada_main():

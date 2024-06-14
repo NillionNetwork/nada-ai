@@ -1,6 +1,7 @@
-from nada_dsl import *
-import numpy as np
 import nada_algebra as na
+import numpy as np
+from nada_dsl import *
+
 from nada_ai.time_series import Prophet
 
 

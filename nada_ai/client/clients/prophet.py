@@ -1,6 +1,7 @@
 """Scikit-learn client implementation"""
 
 import prophet
+
 from nada_ai.client.model_client import ModelClient
 
 __all__ = ["ProphetClient"]

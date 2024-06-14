@@ -1,6 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import AvgPool2d
 import nada_algebra as na
+from nada_dsl import *
+
+from nada_ai.nn import AvgPool2d
 
 
 def nada_main():

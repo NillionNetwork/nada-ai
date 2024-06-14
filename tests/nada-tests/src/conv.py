@@ -1,6 +1,7 @@
-from nada_dsl import *
-from nada_ai.nn import Conv2d
 import nada_algebra as na
+from nada_dsl import *
+
+from nada_ai.nn import Conv2d
 
 
 def nada_main():

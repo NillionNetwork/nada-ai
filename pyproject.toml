@@ -18,8 +18,9 @@ nillion-python-helpers = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
-black = "^24.4.2"
 pandas = "^2.2.2"
+pylint = "^3.2.3"
+mypy = "^1.10.0"
 
 [build-system]
 requires = ["poetry-core"]

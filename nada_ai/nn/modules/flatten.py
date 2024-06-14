@@ -1,7 +1,8 @@
 """Flatten layer implementation"""
 
-import numpy as np
 import nada_algebra as na
+import numpy as np
+
 from nada_ai.nn.module import Module
 
 __all__ = ["Flatten"]

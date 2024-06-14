@@ -1,9 +1,10 @@
 """Parameter logic"""
 
-import numpy as np
 import nada_algebra as na
-from nada_ai.typing import ShapeLike
+import numpy as np
+
 from nada_ai.exceptions import MismatchedShapesException
+from nada_ai.nada_typing import ShapeLike
 
 
 class Parameter(na.NadaArray):
@@ -25,7 +26,7 @@ class Parameter(na.NadaArray):
         Returns:
             int: Number of elements in inner array.
         """
-        return np.prod(self.shape)
+        return int(np.prod(self.shape))
 
     def load_state(self, state: na.NadaArray) -> None:
         """

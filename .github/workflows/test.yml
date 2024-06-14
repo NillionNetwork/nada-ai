@@ -21,10 +21,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install black[jupyter]
-    - name: Check linting
-      run: black --check .  
-      # If PR fails in this stage, it's because of linting issues: run `black .` to fix them
+        pip install poetry
+        poetry install --with dev
+    - name: Run pylint
+      run: poetry run pylint nada_ai
+    - name: Run mypy
+      run: poetry run mypy nada_ai
 
   build:
     needs: check-linting
@@ -55,4 +57,4 @@ jobs:
         pip install poetry
         poetry install --with dev
     - name: Run tests
-      run: poetry run pytest
+      run: poetry run pytest -vv

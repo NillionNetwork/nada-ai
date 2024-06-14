@@ -1,3 +1,5 @@
+"""NN components"""
+
 from .module import Module
-from .parameter import Parameter
 from .modules import *
+from .parameter import Parameter

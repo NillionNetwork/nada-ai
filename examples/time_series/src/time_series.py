@@ -1,5 +1,6 @@
 import nada_algebra as na
 import numpy as np
+
 from nada_ai.time_series import Prophet
 
 

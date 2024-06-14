@@ -1,8 +1,9 @@
 """Scikit-learn client implementation"""
 
 import sklearn
+
 from nada_ai.client.model_client import ModelClient
-from nada_ai.typing import LinearModel
+from nada_ai.nada_typing import LinearModel
 
 __all__ = ["SklearnClient"]
 
@@ -17,13 +18,14 @@ class SklearnClient(ModelClient):
         Args:
             model (sklearn.base.BaseEstimator): Sklearn model object to wrap around.
         """
-        if isinstance(model, LinearModel):
+        if isinstance(model, LinearModel):  # type: ignore
             state_dict = {"coef": model.coef_}
             if model.fit_intercept is True:
                 state_dict.update({"intercept": model.intercept_})
         else:
-            raise NotImplementedError(
-                f"Instantiating ModelClient from Sklearn model type `{type(model).__name__}` is not yet implemented."
+            error_msg = (
+                f"Instantiating SklearnClient from `{type(model)}` is not implemented."
             )
+            raise NotImplementedError(error_msg)
 
         self.state_dict = state_dict

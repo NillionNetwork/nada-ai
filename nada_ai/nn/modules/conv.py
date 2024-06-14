@@ -1,9 +1,11 @@
 """Convolutional operator implementation"""
 
 import nada_algebra as na
+
+from nada_ai.nada_typing import ShapeLike2d
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.typing import ShapeLike
+from nada_ai.utils import ensure_tuple, kernel_output_shape
 
 __all__ = ["Conv2d"]
 
@@ -11,13 +13,14 @@ __all__ = ["Conv2d"]
 class Conv2d(Module):
     """Conv2D layer implementation"""
 
+    # pylint: disable=too-many-arguments
     def __init__(
         self,
         in_channels: int,
         out_channels: int,
-        kernel_size: ShapeLike,
-        padding: ShapeLike = 0,
-        stride: ShapeLike = 1,
+        kernel_size: ShapeLike2d,
+        padding: ShapeLike2d = 0,
+        stride: ShapeLike2d = 1,
         include_bias: bool = True,
     ) -> None:
         """
@@ -26,26 +29,19 @@ class Conv2d(Module):
         Args:
             in_channels (int): Number of input channels.
             out_channels (int): Number of output channels.
-            kernel_size (ShapeLike): Size of convolution kernel.
-            padding (ShapeLike, optional): Padding length. Defaults to 0.
-            stride (ShapeLike, optional): Stride length. Defaults to 1.
+            kernel_size (ShapeLike2d): Size of convolution kernel.
+            padding (ShapeLike2d, optional): Padding length. Defaults to 0.
+            stride (ShapeLike2d, optional): Stride length. Defaults to 1.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
         """
-        if isinstance(kernel_size, int):
-            kernel_size = (kernel_size, kernel_size)
-        self.kernel_size = kernel_size
+        self.kernel_size = ensure_tuple(kernel_size)
+        self.padding = ensure_tuple(padding)
+        self.stride = ensure_tuple(stride)
 
-        if isinstance(padding, int):
-            padding = (padding, padding)
-        self.padding = padding
-
-        if isinstance(stride, int):
-            stride = (stride, stride)
-        self.stride = stride
-
-        self.weight = Parameter((out_channels, in_channels, *kernel_size))
+        self.weight = Parameter((out_channels, in_channels, *self.kernel_size))
         self.bias = Parameter(out_channels) if include_bias else None
 
+    # pylint:disable=too-many-locals
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
         Forward pass.
@@ -77,12 +73,9 @@ class Conv2d(Module):
                 mode="constant",
             )
 
-        out_height = (
-            input_height + 2 * self.padding[0] - self.kernel_size[0]
-        ) // self.stride[0] + 1
-        out_width = (
-            input_width + 2 * self.padding[1] - self.kernel_size[1]
-        ) // self.stride[1] + 1
+        out_height, out_width = kernel_output_shape(
+            (input_height, input_width), self.padding, self.kernel_size, self.stride
+        )
 
         output_tensor = na.zeros((batch_size, out_channels, out_height, out_width))
         for b in range(batch_size):
