@@ -15,9 +15,13 @@ from nada_ai.client import TorchClient
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 import nada_algebra.client as na_client
+
 # Import helper functions for creating nillion client and getting keys
-from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
-                                    getUserKeyFromFile)
+from nillion_python_helpers import (
+    create_nillion_client,
+    getNodeKeyFromFile,
+    getUserKeyFromFile,
+)
 
 # Load environment variables from a .env file
 load_dotenv()

@@ -3,8 +3,14 @@
 from typing import Union
 
 import nada_algebra as na
-from nada_dsl import (Integer, NadaType, PublicBoolean, PublicInteger,
-                      SecretBoolean, SecretInteger)
+from nada_dsl import (
+    Integer,
+    NadaType,
+    PublicBoolean,
+    PublicInteger,
+    SecretBoolean,
+    SecretInteger,
+)
 
 from nada_ai.nn.module import Module
 

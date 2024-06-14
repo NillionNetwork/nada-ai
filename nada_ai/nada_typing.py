@@ -4,12 +4,19 @@ from typing import Sequence, Tuple, Union
 
 import nada_algebra as na
 import nada_dsl as dsl
+
 # pylint:disable=no-name-in-module
-from py_nillion_client import (PublicVariableInteger,
-                               PublicVariableUnsignedInteger, SecretInteger,
-                               SecretUnsignedInteger)
-from sklearn.linear_model import (LinearRegression, LogisticRegression,
-                                  LogisticRegressionCV)
+from py_nillion_client import (
+    PublicVariableInteger,
+    PublicVariableUnsignedInteger,
+    SecretInteger,
+    SecretUnsignedInteger,
+)
+from sklearn.linear_model import (
+    LinearRegression,
+    LogisticRegression,
+    LogisticRegressionCV,
+)
 
 __all__ = ["NillionType", "LinearModel", "ShapeLike", "NadaInteger"]
 
