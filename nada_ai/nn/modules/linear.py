@@ -36,5 +36,5 @@ class Linear(Module):
             na.NadaArray: Module output.
         """
         if self.bias is None:
-            return self.weight @ x
-        return self.weight @ x + self.bias
+            return x @ self.weight.T
+        return x @ self.weight.T + self.bias

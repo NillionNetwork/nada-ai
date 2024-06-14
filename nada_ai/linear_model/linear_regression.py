@@ -33,8 +33,8 @@ class LinearRegression(Module):
             na.NadaArray: Module output.
         """
         if self.intercept is None:
-            return self.coef @ x
-        return self.coef @ x + self.intercept
+            return x @ self.coef.T
+        return x @ self.coef.T + self.intercept
 
 
 class LogisticRegression(Module):
@@ -45,6 +45,10 @@ class LogisticRegression(Module):
     ) -> None:
         """
         Initialization.
+        NOTE: this model will produce logistic regression logits instead of
+        the actual output probabilities!
+        To convert logits to probabilities, they need to be passed through a
+        sigmoid activation function.
 
         Args:
             in_features (int): Number of input features to regression.
@@ -57,6 +61,10 @@ class LogisticRegression(Module):
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
         Forward pass.
+        NOTE: this forward pass will return the logistic regression logits instead
+        of the actual output probabilities!
+        To convert logits to probabilities, they need to be passed through a
+        sigmoid activation function.
 
         Args:
             x (na.NadaArray): Input array.
