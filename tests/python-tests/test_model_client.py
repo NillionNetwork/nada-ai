@@ -10,7 +10,8 @@ from prophet import Prophet
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from torch import nn
 
-from nada_ai.client import ModelClient, ProphetClient, SklearnClient, TorchClient
+from nada_ai.client import (ModelClient, ProphetClient, SklearnClient,
+                            TorchClient)
 
 
 class TestModelClient:
