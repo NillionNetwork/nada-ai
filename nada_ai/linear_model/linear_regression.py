@@ -33,8 +33,8 @@ class LinearRegression(Module):
             na.NadaArray: Module output.
         """
         if self.intercept is None:
-            return self.coef @ x
-        return self.coef @ x + self.intercept
+            return x @ self.coef.T
+        return x @ self.coef.T + self.intercept
 
 
 class LogisticRegression(Module):
