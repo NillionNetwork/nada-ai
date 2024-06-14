@@ -14,15 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install Nillion SDK
-      run: |
-        echo "$HOME/.nilup/bin/" >> $GITHUB_PATH 
-        curl https://nilup.nilogy.xyz/install.sh | bash
-    - name: Setup Nillion SDK
-      run: |
-        nilup init
-        nilup install latest
-        nilup use latest
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
