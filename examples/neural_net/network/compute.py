@@ -116,7 +116,7 @@ async def main():
             self.linear_1 = torch.nn.Linear(4, 2)
             self.relu = torch.nn.ReLU()
 
-        def forward(self, x: np.ndarray) -> np.ndarray:
+        def forward(self, x: torch.tensor) -> torch.tensor:
             """My forward pass logic"""
             x = self.linear_0(x)
             x = self.relu(x)
