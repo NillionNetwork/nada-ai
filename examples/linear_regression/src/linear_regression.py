@@ -9,7 +9,7 @@ def nada_main():
     parties = na.parties(2)
 
     # Step 2: Instantiate linear regression object
-    my_model = LinearRegression(10)
+    my_model = LinearRegression(in_features=10)
 
     # Step 3: Load model weights from Nillion network by passing model name (acts as ID)
     # In this examples Party0 provides the model and Party1 runs inference
