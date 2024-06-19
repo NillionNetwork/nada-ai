@@ -11,8 +11,8 @@ def nada_main():
 
     class TestModule(Module):
         def __init__(self) -> None:
-            self.param1 = Parameter(na.empty((3, 2), na.Rational))
-            self.param2 = Parameter(na.empty((3,), na.Rational))
+            self.param1 = Parameter(na.zeros((3, 2), na.Rational))
+            self.param2 = Parameter(na.zeros((3,), na.Rational))
 
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             return (self.param1 @ x) + self.param2

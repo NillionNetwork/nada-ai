@@ -1,23 +1,18 @@
 import asyncio
 import os
-import sys
 import time
 
 import nada_algebra as na
+import nada_algebra.client as na_client
 import numpy as np
 import py_nillion_client as nillion
 from dotenv import load_dotenv
-from sklearn.linear_model import LinearRegression
-
-from nada_ai.client import SklearnClient
-
-# Add the parent directory to the system path to import modules from it
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-import nada_algebra.client as na_client
 # Import helper functions for creating nillion client and getting keys
 from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
                                     getUserKeyFromFile)
+from sklearn.linear_model import LinearRegression
+
+from nada_ai.client import SklearnClient
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -96,7 +91,7 @@ async def main():
     party_id = client.party_id
     user_id = client.user_id
     party_names = na_client.parties(2)
-    program_name = "main"
+    program_name = "linear_regression"
     program_mir_path = f"./target/{program_name}.nada.bin"
 
     if not os.path.exists("bench"):
@@ -162,7 +157,7 @@ async def main():
         nillion.Secrets({}),
     )
     # Rescale the obtained result by the quantization scale
-    outputs = [na_client.float_from_rational(result["my_output_0"])]
+    outputs = [na_client.float_from_rational(result["my_output"])]
     print(f"🖥️  The result is {outputs}")
 
     expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1, -1))

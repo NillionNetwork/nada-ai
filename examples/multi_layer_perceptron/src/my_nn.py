@@ -8,6 +8,7 @@ class MyNN(nn.Module):
 
     def __init__(self) -> None:
         """Model is a two layers and an activations"""
+        super(MyNN, self).__init__()
         # Input size (1, 1, 16, 16) --> Output size (1, 2)
         self.conv1 = nn.Conv2d(
             in_channels=1, out_channels=2, kernel_size=3, padding=1, stride=4

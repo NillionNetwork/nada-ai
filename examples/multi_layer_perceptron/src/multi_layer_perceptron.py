@@ -1,5 +1,3 @@
-"""MLP Nada program"""
-
 import nada_algebra as na
 from my_nn import MyNN
 

@@ -148,8 +148,10 @@ def check_nada_type(level: str = "error") -> Callable:
                 for param_dtype in param_dtypes
                 for array_dtype in array_dtypes
             ):
-                message = f"Input dtypes `{array_dtypes}` are not compatible with"\
+                message = (
+                    f"Input dtypes `{array_dtypes}` are not compatible with"
                     f" parameter dtypes `{param_dtypes}`"
+                )
                 if level == "warn":
                     warnings.warn(message, UserWarning)
                 elif level == "error":

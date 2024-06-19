@@ -13,6 +13,7 @@ TESTS = [
     "conv",
     "pool",
     "linear_regression",
+    "logistic_regression",
     "end-to-end",
     "distance",
     "prophet",
