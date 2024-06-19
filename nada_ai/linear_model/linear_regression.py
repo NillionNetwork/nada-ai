@@ -38,7 +38,7 @@ class LinearRegression(Module):
         )
 
     @check_nada_type(level="error")
-    def forward(self, x: na.NadaArray) -> na.NadaArray:
+    def forward(self, x: na.NadaArray) -> NadaInteger:
         """
         Forward pass.
 
@@ -46,7 +46,7 @@ class LinearRegression(Module):
             x (na.NadaArray): Input array.
 
         Returns:
-            na.NadaArray: Module output.
+            NadaInteger: Module output.
         """
         if self.intercept is None:
             return x @ self.coef.T
