@@ -2,8 +2,10 @@
 
 import nada_algebra as na
 
+from nada_ai.nada_typing import NadaInteger
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
+from nada_ai.utils import check_nada_type, ensure_cleartext
 
 __all__ = ["Linear"]
 
@@ -12,7 +14,12 @@ class Linear(Module):
     """Linear layer implementation"""
 
     def __init__(
-        self, in_features: int, out_features: int, include_bias: bool = True
+        self,
+        in_features: int,
+        out_features: int,
+        include_bias: bool = True,
+        *,
+        nada_type: NadaInteger = na.SecretRational,
     ) -> None:
         """
         Linear (or fully-connected) layer.
@@ -21,10 +28,20 @@ class Linear(Module):
             in_features (int): Number of input features.
             out_features (int): Number of output features.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
+            nada_type (NadaInteger, optional): Nada data type to use. Defaults to na.SecretRational.
         """
-        self.weight = Parameter((out_features, in_features))
-        self.bias = Parameter(out_features) if include_bias else None
+        super().__init__()
 
+        self.weight = Parameter(
+            na.zeros((out_features, in_features), ensure_cleartext(nada_type))
+        )
+        self.bias = (
+            Parameter(na.zeros((out_features,), ensure_cleartext(nada_type)))
+            if include_bias
+            else None
+        )
+
+    @check_nada_type(level="error")
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
         Forward pass.

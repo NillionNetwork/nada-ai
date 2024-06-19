@@ -2,10 +2,11 @@
 
 import nada_algebra as na
 
-from nada_ai.nada_typing import ShapeLike2d
+from nada_ai.nada_typing import NadaInteger, ShapeLike2d
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.utils import ensure_tuple, kernel_output_shape
+from nada_ai.utils import (check_nada_type, ensure_cleartext, ensure_tuple,
+                           kernel_output_shape)
 
 __all__ = ["Conv2d"]
 
@@ -22,6 +23,8 @@ class Conv2d(Module):
         padding: ShapeLike2d = 0,
         stride: ShapeLike2d = 1,
         include_bias: bool = True,
+        *,
+        nada_type: NadaInteger = na.SecretRational,
     ) -> None:
         """
         2D-convolutional operator.
@@ -33,15 +36,28 @@ class Conv2d(Module):
             padding (ShapeLike2d, optional): Padding length. Defaults to 0.
             stride (ShapeLike2d, optional): Stride length. Defaults to 1.
             include_bias (bool, optional): Whether or not to include a bias term. Defaults to True.
+            nada_type (NadaInteger, optional): Nada data type to use. Defaults to na.SecretRational.
         """
+        super().__init__()
+
         self.kernel_size = ensure_tuple(kernel_size)
         self.padding = ensure_tuple(padding)
         self.stride = ensure_tuple(stride)
 
-        self.weight = Parameter((out_channels, in_channels, *self.kernel_size))
-        self.bias = Parameter(out_channels) if include_bias else None
+        self.weight = Parameter(
+            na.zeros(
+                (out_channels, in_channels, *self.kernel_size),
+                ensure_cleartext(nada_type),
+            )
+        )
+        self.bias = (
+            Parameter(na.zeros((out_channels,), ensure_cleartext(nada_type)))
+            if include_bias
+            else None
+        )
 
     # pylint:disable=too-many-locals
+    @check_nada_type(level="error")
     def forward(self, x: na.NadaArray) -> na.NadaArray:
         """
         Forward pass.
@@ -77,7 +93,10 @@ class Conv2d(Module):
             (input_height, input_width), self.padding, self.kernel_size, self.stride
         )
 
-        output_tensor = na.zeros((batch_size, out_channels, out_height, out_width))
+        output_tensor = na.zeros(
+            (batch_size, out_channels, out_height, out_width),
+            x.cleartext_nada_type,
+        )
         for b in range(batch_size):
             for oc in range(out_channels):
                 for i in range(out_height):

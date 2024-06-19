@@ -10,8 +10,8 @@ def nada_main():
 
     class TestModule(Module):
         def __init__(self) -> None:
-            self.param1 = Parameter((3, 2))
-            self.param2 = Parameter(2)
+            self.param1 = Parameter(na.zeros((3, 2), na.Rational))
+            self.param2 = Parameter(na.zeros((2,), na.Rational))
 
         def forward(self, x: na.NadaArray) -> na.NadaArray: ...
 
@@ -20,7 +20,7 @@ def nada_main():
 
     mod1.load_state_from_network("module1", party, nada_type=na.SecretRational)
 
-    with pytest.raises(NotImplementedError):
+    with pytest.raises(TypeError):
         mod2.load_state_from_network("module2", party, nada_type=SecretInteger)
 
     mod2.load_state_from_network("module2", party, nada_type=na.Rational)

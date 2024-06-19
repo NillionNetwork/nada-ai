@@ -62,7 +62,7 @@ inputs:
       SecretInteger: "3"
     input_y_2_1_1:
       SecretInteger: "3"
-    conv2_bias_0_1_0_0:
+    conv2_bias_1:
       SecretInteger: "3"
     input_y_1_3_1:
       SecretInteger: "3"
@@ -130,7 +130,7 @@ inputs:
       SecretInteger: "3"
     input_x_0_2_2_0:
       SecretInteger: "3"
-    conv2_bias_0_0_0_0:
+    conv2_bias_0:
       SecretInteger: "3"
     conv2_weight_0_2_0_1:
       SecretInteger: "3"
@@ -162,7 +162,7 @@ inputs:
       SecretInteger: "3"
     conv2_weight_0_2_1_1:
       SecretInteger: "3"
-    conv1_bias_0_0_0_0:
+    conv1_bias_0:
       SecretInteger: "3"
     input_x_0_2_2_1:
       SecretInteger: "3"
@@ -178,63 +178,15 @@ inputs:
       SecretInteger: "3"
   public_variables: {}
 expected_outputs:
-  x_conv2_0_1_2_1:
-    SecretInteger: "30"
-  x_conv1_0_0_2_0:
-    SecretInteger: "111"
-  y_conv2_0_2_1:
-    SecretInteger: "30"
-  y_conv2_0_1_1:
+  x_conv_0_0_2_0:
+    SecretInteger: "3"
+  y_conv_0_1_0:
     SecretInteger: "57"
-  x_conv2_0_1_1_0:
-    SecretInteger: "57"
-  x_conv2_0_0_2_0:
+  y_conv_0_2_0:
     SecretInteger: "30"
-  y_conv1_0_1_0:
-    SecretInteger: "111"
-  y_conv1_0_2_0:
-    SecretInteger: "111"
-  x_conv2_0_0_1_0:
-    SecretInteger: "57"
-  x_conv2_0_1_0_0:
-    SecretInteger: "30"
-  y_conv2_0_1_0:
-    SecretInteger: "57"
-  y_conv2_1_0_1:
-    SecretInteger: "30"
-  y_conv2_0_2_0:
-    SecretInteger: "30"
-  x_conv2_0_0_0_1:
-    SecretInteger: "30"
-  y_conv2_0_0_1:
-    SecretInteger: "30"
-  y_conv2_1_0_0:
-    SecretInteger: "30"
-  y_conv2_1_1_1:
-    SecretInteger: "57"
-  y_conv2_1_2_1:
-    SecretInteger: "30"
-  y_conv2_0_0_0:
-    SecretInteger: "30"
-  x_conv2_0_1_2_0:
-    SecretInteger: "30"
-  x_conv1_0_0_0_0:
-    SecretInteger: "111"
-  x_conv2_0_0_2_1:
-    SecretInteger: "30"
-  y_conv2_1_2_0:
-    SecretInteger: "30"
-  x_conv1_0_0_1_0:
-    SecretInteger: "111"
-  x_conv2_0_1_1_1:
-    SecretInteger: "57"
-  y_conv2_1_1_0:
-    SecretInteger: "57"
-  x_conv2_0_0_1_1:
-    SecretInteger: "57"
-  x_conv2_0_0_0_0:
-    SecretInteger: "30"
-  y_conv1_0_0_0:
-    SecretInteger: "111"
-  x_conv2_0_1_0_1:
+  x_conv_0_0_0_0:
+    SecretInteger: "3"
+  x_conv_0_0_1_0:
+    SecretInteger: "3"
+  y_conv_0_0_0:
     SecretInteger: "30"

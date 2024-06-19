@@ -35,3 +35,25 @@ NadaInteger = Union[
     na.Rational,
     na.SecretRational,
 ]
+
+AnyNadaType = Union[
+    dsl.SecretInteger,
+    dsl.SecretUnsignedInteger,
+    dsl.PublicInteger,
+    dsl.PublicUnsignedInteger,
+    dsl.Integer,
+    dsl.UnsignedInteger,
+    dsl.Boolean,
+    dsl.SecretBoolean,
+    na.Rational,
+    na.SecretRational,
+    na.PublicBoolean,
+    na.SecretBoolean,
+]
+
+NadaCleartextType = Union[
+    dsl.Integer,
+    dsl.UnsignedInteger,
+    dsl.Boolean,
+    na.Rational,
+]

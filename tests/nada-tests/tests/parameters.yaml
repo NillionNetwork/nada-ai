@@ -27,8 +27,8 @@ inputs:
   public_variables: {}
 expected_outputs:
   output_0:
-    SecretInteger: "12"
+    SecretInteger: "7"
   output_1:
-    SecretInteger: "19"
+    SecretInteger: "8"
   output_2:
-    SecretInteger: "26"
+    SecretInteger: "9"

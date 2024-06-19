@@ -22,5 +22,5 @@ inputs:
       SecretInteger: "3"
   public_variables: {}
 expected_outputs:
-  output_0:
+  output:
     SecretInteger: "22"

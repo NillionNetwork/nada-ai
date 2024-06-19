@@ -24,4 +24,8 @@ class DotProductSimilarity(Module):
         Returns:
             na.NadaArray: Dot product between input arrays.
         """
+        if x_1.dtype != x_2.dtype:
+            raise TypeError(
+                f"Incompatible nada types detected: {x_1.dtype} and {x_2.dtype}"
+            )
         return x_1 @ x_2.T

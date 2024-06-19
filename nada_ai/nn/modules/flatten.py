@@ -19,6 +19,8 @@ class Flatten(Module):
             start_dim (int, optional): Flatten start dimension. Defaults to 1.
             end_dim (int, optional): Flatten end dimenion. Defaults to -1.
         """
+        super().__init__()
+
         self.start_dim = start_dim
         self.end_dim = end_dim
 

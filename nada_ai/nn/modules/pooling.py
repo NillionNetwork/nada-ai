@@ -3,11 +3,10 @@
 from typing import Optional
 
 import nada_algebra as na
-from nada_dsl import Integer
 
 from nada_ai.nada_typing import ShapeLike2d
 from nada_ai.nn.module import Module
-from nada_ai.utils import ensure_tuple, kernel_output_shape
+from nada_ai.utils import ensure_tuple, kernel_output_shape, to_nada_type
 
 __all__ = ["AvgPool2d"]
 
@@ -30,6 +29,8 @@ class AvgPool2d(Module):
                 size of the pooling kernel.
             padding (ShapeLike2d, optional): Padding length. Defaults to 0.
         """
+        super().__init__()
+
         self.kernel_size = ensure_tuple(kernel_size)
         self.padding = ensure_tuple(padding)
 
@@ -56,7 +57,6 @@ class AvgPool2d(Module):
             unbatched = True
 
         batch_size, channels, input_height, input_width = x.shape
-        is_rational = x.is_rational
 
         if any(pad > 0 for pad in self.padding):
             x = na.pad(
@@ -74,7 +74,9 @@ class AvgPool2d(Module):
             (input_height, input_width), self.padding, self.kernel_size, self.stride
         )
 
-        output_tensor = na.zeros((batch_size, channels, out_height, out_width))
+        output_tensor = na.zeros(
+            (batch_size, channels, out_height, out_width), x.cleartext_nada_type
+        )
         for b in range(batch_size):
             for c in range(channels):
                 for i in range(out_height):
@@ -85,11 +87,9 @@ class AvgPool2d(Module):
                         end_w = start_w + self.kernel_size[1]
 
                         pool_region = x[b, c, start_h:end_h, start_w:end_w]
-
-                        if is_rational:
-                            pool_size = na.rational(pool_region.size)
-                        else:
-                            pool_size = Integer(pool_region.size)
+                        pool_size = to_nada_type(
+                            pool_region.size, x.cleartext_nada_type
+                        )
 
                         output_tensor[b, c, i, j] = na.sum(pool_region) / pool_size
 

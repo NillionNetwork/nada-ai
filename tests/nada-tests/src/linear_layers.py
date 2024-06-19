@@ -7,12 +7,13 @@ from nada_ai.nn import Linear, Module
 def nada_main():
     party = Party("party")
 
-    x = na.array([3], party, "input", na.Rational)
+    x = na.array([3], party, "input", SecretInteger)
 
     class TestModule(Module):
         def __init__(self) -> None:
-            self.linear_0 = Linear(3, 2)
-            self.linear_1 = Linear(2, 1)
+            super().__init__()
+            self.linear_0 = Linear(3, 2, nada_type=SecretInteger)
+            self.linear_1 = Linear(2, 1, nada_type=SecretInteger)
 
         def forward(self, x: na.NadaArray) -> na.NadaArray:
             x = self.linear_0(x)
@@ -21,7 +22,7 @@ def nada_main():
 
     mod = TestModule()
 
-    mod.load_state_from_network("testmod", party, na.Rational)
+    mod.load_state_from_network("testmod", party, SecretInteger)
 
     result = mod(x)
 

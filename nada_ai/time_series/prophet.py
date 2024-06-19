@@ -6,9 +6,10 @@ import nada_algebra as na
 import numpy as np
 from typing_extensions import override
 
+from nada_ai.nada_typing import NadaInteger
 from nada_ai.nn.module import Module
 from nada_ai.nn.parameter import Parameter
-from nada_ai.utils import fourier_series
+from nada_ai.utils import ensure_cleartext, fourier_series
 
 
 class Prophet(Module):  # pylint:disable=too-many-instance-attributes
@@ -23,6 +24,8 @@ class Prophet(Module):  # pylint:disable=too-many-instance-attributes
         weekly_seasonality: bool = True,
         daily_seasonality: bool = False,
         seasonality_mode: str = "additive",
+        *,
+        nada_type: NadaInteger = na.SecretRational,
     ) -> None:
         """
         Prophet model initialization.
@@ -37,7 +40,9 @@ class Prophet(Module):  # pylint:disable=too-many-instance-attributes
             daily_seasonality (bool, optional): Whether or not to include a daily
                 seasonality term. Defaults to False.
             seasonality_mode (str, optional): Seasonality mode. Defaults to 'additive'.
+            nada_type (NadaInteger, optional): Nada data type to use. Defaults to na.SecretRational.
         """
+        super().__init__()
         self.growth = growth
 
         self.seasonalities: Dict[str, Any] = {
@@ -65,16 +70,20 @@ class Prophet(Module):  # pylint:disable=too-many-instance-attributes
         # NOTE: MAP estimation is assumed, so M=1 guaranteed
         M = 1  # pylint:disable=invalid-name
 
-        self.k = Parameter((M, 1))
-        self.m = Parameter((M, 1))
+        self.k = Parameter(na.zeros((M, 1), ensure_cleartext(nada_type)))
+        self.m = Parameter(na.zeros((M, 1), ensure_cleartext(nada_type)))
         self.beta = (
-            Parameter((M, num_fourier))
+            Parameter(na.zeros((M, num_fourier), ensure_cleartext(nada_type)))
             if num_fourier != 0
             else na.NadaArray(np.array([None]))
         )
-        self.delta = Parameter((M, n_changepoints))
-        self.changepoints_t = Parameter(n_changepoints)
-        self.y_scale = Parameter(1)
+        self.delta = Parameter(
+            na.zeros((M, n_changepoints), ensure_cleartext(nada_type))
+        )
+        self.changepoints_t = Parameter(
+            na.zeros((n_changepoints,), ensure_cleartext(nada_type))
+        )
+        self.y_scale = Parameter(na.zeros((1,), ensure_cleartext(nada_type)))
 
     def _num_fourier_terms(self) -> int:
         """

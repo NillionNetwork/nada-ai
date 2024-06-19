@@ -7,14 +7,12 @@ from nada_ai.linear_model import LinearRegression
 def nada_main():
     party = Party("party")
 
-    x = na.array([4], party, "input", na.SecretRational)
+    x = na.array([4], party, "input", SecretInteger)
 
-    model = LinearRegression(4)
+    model = LinearRegression(4, nada_type=SecretInteger)
 
-    model.load_state_from_network("testmod", party, na.SecretRational)
+    model.load_state_from_network("testmod", party, SecretInteger)
 
     result = model(x)
 
-    assert result.shape == (1,), result.shape
-
-    return result.output(party, "output")
+    return [Output(result, "output", party)]

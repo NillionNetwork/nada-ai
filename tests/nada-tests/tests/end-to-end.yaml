@@ -123,6 +123,6 @@ inputs:
   public_variables: {}
 expected_outputs:
   output_0:
-    SecretInteger: "169"
+    SecretInteger: "669"
   output_1:
-    SecretInteger: "169"
+    SecretInteger: "669"
