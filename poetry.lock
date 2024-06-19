@@ -731,16 +731,20 @@ name = "nada-algebra"
 version = "0.3.4"
 description = "Nada-Algebra is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
 optional = false
-python-versions = "<4.0,>=3.10"
-files = [
-    {file = "nada_algebra-0.3.4-py3-none-any.whl", hash = "sha256:b9ac86f35b5ed29b12439c9aacf929287a6eafcbd5075ff51f05b25354794117"},
-    {file = "nada_algebra-0.3.4.tar.gz", hash = "sha256:8fe57e4b2efd6abbda59660aad053fc1c1d13dedfa0e7109d9ecb11a173ca334"},
-]
+python-versions = "^3.10"
+files = []
+develop = false
 
 [package.dependencies]
-nada-dsl = ">=0.2.1,<0.3.0"
-numpy = ">=1.26.4,<2.0.0"
-py-nillion-client = ">=0.2.1,<0.3.0"
+nada-dsl = "^0.2.1"
+numpy = "^1.26.4"
+py-nillion-client = "^0.2.1"
+
+[package.source]
+type = "git"
+url = "https://github.com/NillionNetwork/nada-algebra.git"
+reference = "HEAD"
+resolved_reference = "83d2f243c621bcfbb22bb501bfcc9f3463643d0e"
 
 [[package]]
 name = "nada-dsl"
@@ -1684,4 +1688,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "48c3ef21f9729ce50605d4320083567e4e36a4981b680b4cc796d2a038b1ac81"
+content-hash = "24a7dc7252c9e9008895ad416948869db837f064cbeb330c982a41ed6bc84a0c"

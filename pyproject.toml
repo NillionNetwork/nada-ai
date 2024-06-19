@@ -13,7 +13,7 @@ scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
 nada-dsl = "^0.2.1"
 py-nillion-client = "^0.2.1"
-nada-algebra = "^0.3.4"
+nada-algebra = {git = "https://github.com/NillionNetwork/nada-algebra.git"}
 nillion-python-helpers = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
