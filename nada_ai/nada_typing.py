@@ -2,7 +2,7 @@
 
 from typing import Sequence, Tuple, Union
 
-import nada_algebra as na
+import nada_numpy as na
 import nada_dsl as dsl
 # pylint:disable=no-name-in-module
 from py_nillion_client import (PublicVariableInteger,
@@ -34,4 +34,26 @@ NadaInteger = Union[
     dsl.PublicUnsignedInteger,
     na.Rational,
     na.SecretRational,
+]
+
+AnyNadaType = Union[
+    dsl.SecretInteger,
+    dsl.SecretUnsignedInteger,
+    dsl.PublicInteger,
+    dsl.PublicUnsignedInteger,
+    dsl.Integer,
+    dsl.UnsignedInteger,
+    dsl.Boolean,
+    dsl.SecretBoolean,
+    na.Rational,
+    na.SecretRational,
+    na.PublicBoolean,
+    na.SecretBoolean,
+]
+
+NadaCleartextType = Union[
+    dsl.Integer,
+    dsl.UnsignedInteger,
+    dsl.Boolean,
+    na.Rational,
 ]

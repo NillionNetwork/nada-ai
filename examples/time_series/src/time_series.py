@@ -1,4 +1,4 @@
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 
 from nada_ai.time_series import Prophet
@@ -7,7 +7,7 @@ from nada_ai.time_series import Prophet
 def nada_main():
     na.set_log_scale(50)
 
-    # Step 1: We use Nada Algebra wrapper to create "Party0" and "Party1"
+    # Step 1: We use Nada NumPy wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 
     # Step 2: Instantiate model object

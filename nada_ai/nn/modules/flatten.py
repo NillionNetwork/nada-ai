@@ -1,6 +1,6 @@
 """Flatten layer implementation"""
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 
 from nada_ai.nn.module import Module
@@ -19,6 +19,8 @@ class Flatten(Module):
             start_dim (int, optional): Flatten start dimension. Defaults to 1.
             end_dim (int, optional): Flatten end dimenion. Defaults to -1.
         """
+        super().__init__()
+
         self.start_dim = start_dim
         self.end_dim = end_dim
 

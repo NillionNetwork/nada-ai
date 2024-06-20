@@ -1,6 +1,6 @@
 """Distance implementation"""
 
-import nada_algebra as na
+import nada_numpy as na
 from typing_extensions import override
 
 from nada_ai.nn.module import Module
@@ -24,4 +24,8 @@ class DotProductSimilarity(Module):
         Returns:
             na.NadaArray: Dot product between input arrays.
         """
+        if x_1.dtype != x_2.dtype:
+            raise TypeError(
+                f"Incompatible nada types detected: {x_1.dtype} and {x_2.dtype}"
+            )
         return x_1 @ x_2.T

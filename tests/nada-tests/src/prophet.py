@@ -1,4 +1,4 @@
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 from nada_dsl import *
 
@@ -19,6 +19,7 @@ def nada_main():
         weekly_seasonality=True,
         daily_seasonality=False,
         seasonality_mode="additive",
+        nada_type=na.SecretRational,
     )
 
     prophet.load_state_from_network("my_prophet", party, na.SecretRational)

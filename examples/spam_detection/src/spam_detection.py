@@ -1,4 +1,4 @@
-import nada_algebra as na
+import nada_numpy as na
 from config import NUM_FEATS
 from nada_dsl import Party
 
@@ -6,7 +6,7 @@ from nada_ai.linear_model import LogisticRegression
 
 
 def nada_main():
-    # Step 1: We use Nada Algebra wrapper to create "Party" and "Party1"
+    # Step 1: We use Nada NumPy wrapper to create "Party" and "Party1"
     # Define parties
     user = Party(name="User")
     provider = Party(name="Provider")

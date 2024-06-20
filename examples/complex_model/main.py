@@ -1,23 +1,18 @@
 import asyncio
 import os
-import sys
 import time
 
-import nada_algebra as na
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
 import py_nillion_client as nillion
 import torch
 from dotenv import load_dotenv
-
-from nada_ai.client import TorchClient
-
-# Add the parent directory to the system path to import modules from it
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-import nada_algebra.client as na_client
 # Import helper functions for creating nillion client and getting keys
 from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
                                     getUserKeyFromFile)
+
+from nada_ai.client import TorchClient
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -94,7 +89,7 @@ async def main():
     party_id = client.party_id
     user_id = client.user_id
     party_names = na_client.parties(2)
-    program_name = "main"
+    program_name = "complex_model"
     program_mir_path = f"./target/{program_name}.nada.bin"
 
     if not os.path.exists("bench"):

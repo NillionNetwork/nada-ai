@@ -1,23 +1,19 @@
 import asyncio
 import os
-import sys
 import time
 
-import nada_algebra as na
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
+import pandas as pd
 import py_nillion_client as nillion
-import torch
 from dotenv import load_dotenv
-
-from nada_ai.client import TorchClient
-
-# Add the parent directory to the system path to import modules from it
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-import nada_algebra.client as na_client
 # Import helper functions for creating nillion client and getting keys
 from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
                                     getUserKeyFromFile)
+from prophet import Prophet
+
+from nada_ai.client import ProphetClient
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -100,37 +96,28 @@ async def main():
     if not os.path.exists("bench"):
         os.mkdir("bench")
 
+    na.set_log_scale(50)
+
     # Store the program
     program_id = await store_program(
         client, user_id, cluster_id, program_name, program_mir_path
     )
 
-    # Create custom torch Module
-    class MyNN(torch.nn.Module):
-        """My simple neural net"""
+    # Train prophet model
+    model = Prophet()
 
-        def __init__(self) -> None:
-            """Model is a two layers and an activations"""
-            super(MyNN, self).__init__()
-            self.linear_0 = torch.nn.Linear(8, 4)
-            self.linear_1 = torch.nn.Linear(4, 2)
-            self.relu = torch.nn.ReLU()
+    ds = pd.date_range("2024-05-01", "2024-05-17").tolist()
+    y = np.arange(1, 18).tolist()
 
-        def forward(self, x: torch.tensor) -> torch.tensor:
-            """My forward pass logic"""
-            x = self.linear_0(x)
-            x = self.relu(x)
-            x = self.linear_1(x)
-            return x
+    fit_model = model.fit(df=pd.DataFrame({"ds": ds, "y": y}))
 
-    my_nn = MyNN()
-
-    print("Model state is:", my_nn.state_dict())
+    print("Model params are:", fit_model.params)
+    print("Number of detected changepoints:", fit_model.n_changepoints)
 
     # Create and store model secrets via ModelClient
-    model_client = TorchClient(my_nn)
+    model_client = ProphetClient(fit_model)
     model_secrets = nillion.Secrets(
-        model_client.export_state_as_secrets("my_nn", na.SecretRational)
+        model_client.export_state_as_secrets("my_prophet", na.SecretRational)
     )
 
     model_store_id = await store_secrets(
@@ -138,7 +125,17 @@ async def main():
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((8,)), "my_input", na.SecretRational)
+    future_df = fit_model.make_future_dataframe(periods=3)
+    inference_ds = fit_model.setup_dataframe(future_df.copy())
+
+    my_input = {}
+    my_input.update(
+        na_client.array(inference_ds["floor"].to_numpy(), "floor", na.SecretRational)
+    )
+    my_input.update(
+        na_client.array(inference_ds["t"].to_numpy(), "t", na.SecretRational)
+    )
+
     input_secrets = nillion.Secrets(my_input)
 
     data_store_id = await store_secrets(
@@ -176,7 +173,7 @@ async def main():
 
     print(f"🖥️  The result is {outputs}")
 
-    expected = my_nn.forward(torch.ones((8,))).detach().numpy().tolist()
+    expected = fit_model.predict(inference_ds)["yhat"].to_numpy()
     print(f"🖥️  VS expected plain-text result {expected}")
     return result
 

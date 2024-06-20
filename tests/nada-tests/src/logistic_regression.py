@@ -1,7 +1,7 @@
 import nada_numpy as na
 from nada_dsl import *
 
-from nada_ai.linear_model import LinearRegression
+from nada_ai.linear_model import LogisticRegression
 
 
 def nada_main():
@@ -9,10 +9,10 @@ def nada_main():
 
     x = na.array([4], party, "input", SecretInteger)
 
-    model = LinearRegression(4, nada_type=SecretInteger)
+    model = LogisticRegression(4, 3, nada_type=SecretInteger)
 
     model.load_state_from_network("testmod", party, SecretInteger)
 
     result = model(x)
 
-    return [Output(result, "output", party)]
+    return result.output(party, "my_output")

@@ -1,7 +1,7 @@
-name = "text_classification"
+name = "spam_detection"
 version = "0.1.0"
 authors = [""]
 
 [[programs]]
-path = "src/main.py"
+path = "src/spam_detection.py"
 prime_size = 128

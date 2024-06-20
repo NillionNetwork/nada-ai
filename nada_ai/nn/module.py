@@ -4,7 +4,7 @@ import inspect
 from abc import ABC, abstractmethod
 from typing import Iterator, Tuple
 
-import nada_algebra as na
+import nada_numpy as na
 from nada_dsl import Party
 
 from nada_ai.nada_typing import NadaInteger
@@ -99,14 +99,8 @@ class Module(ABC):
             name (str): Name to be used to find state secrets in the network.
             party (Party): Party that provided the model state in the network.
             nada_type (NadaInteger): NadaType to interpret the state values as.
-
-        Raises:
-            NotImplementedError: When state is attempted to be loaded as non-rationals.
         """
-        if nada_type not in (na.Rational, na.SecretRational):
-            raise NotImplementedError("Loading non-rational state is not supported")
-
         for param_name, param in self.named_parameters():
             param_state_name = f"{name}_{param_name}"
             param_state = na.array(param.shape, party, param_state_name, nada_type)
-            param.load_state(param_state)
+            param.load(param_state, nada_type)

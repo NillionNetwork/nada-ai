@@ -1,0 +1,5 @@
+# This directory is kept purposely, so that no compilation errors arise.
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore

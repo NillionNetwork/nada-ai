@@ -21,7 +21,7 @@ pip install nada-ai
 ```
 
 ### From Sources
-You can install the nada-algebra library using Poetry:
+You can install the nada-numpy library using Poetry:
 
 ```bash
 git clone https://github.com/NillionNetwork/nada-ai.git

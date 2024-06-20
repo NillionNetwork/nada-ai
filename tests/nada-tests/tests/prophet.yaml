@@ -47,10 +47,10 @@ inputs:
   public_variables: {}
 expected_outputs:
   forecast_2:
-    SecretInteger: "6"
+    SecretInteger: "3"
   forecast_0:
-    SecretInteger: "6"
+    SecretInteger: "3"
   forecast_3:
-    SecretInteger: "6"
+    SecretInteger: "3"
   forecast_1:
-    SecretInteger: "5"
+    SecretInteger: "2"
