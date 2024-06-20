@@ -157,7 +157,7 @@ async def main():
         nillion.Secrets({}),
     )
     # Rescale the obtained result by the quantization scale
-    outputs = [na_client.float_from_rational(result["my_output"])]
+    outputs = [na_client.float_from_rational(result["my_output_0"])]
     print(f"🖥️  The result is {outputs}")
 
     expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1, -1))

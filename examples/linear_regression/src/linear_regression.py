@@ -23,4 +23,4 @@ def nada_main():
     result = my_model.forward(my_input)
 
     # Step 6: We can use result.output() to produce the output for Party1 and variable name "my_output"
-    return [Output(result.value, "my_output", parties[1])]
+    return na.output(result, parties[1], "my_output")

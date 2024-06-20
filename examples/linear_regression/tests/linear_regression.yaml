@@ -54,5 +54,5 @@ inputs:
 expected_outputs:
   # If you go in and crunch the numbers of this one, the result should be 16.877471923828125
   # 16.877471923828125 * 2**16 = 1106085
-  my_output:
+  my_output_0:
     SecretInteger: "1106085"
