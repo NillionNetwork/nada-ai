@@ -748,13 +748,13 @@ test = ["pytest (>=7.4,<9.0)", "pytest-cov (>=4,<6)"]
 
 [[package]]
 name = "nada-numpy"
-version = "0.1.0"
+version = "0.1.1"
 description = "Nada-Numpy is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "nada_numpy-0.1.0-py3-none-any.whl", hash = "sha256:8b5fda786d0e1f5436b0f0e7aa0abd204f0527396f1f11183db3d2cf4c8e0e8b"},
-    {file = "nada_numpy-0.1.0.tar.gz", hash = "sha256:e844c4908feb41698e71fd65479fb7ef78336ff1a801877e6a1c4008a5ac3e0d"},
+    {file = "nada_numpy-0.1.1-py3-none-any.whl", hash = "sha256:46bb62ae19f23ca592bafe374c44c4ed3c431c8e22827e80670a291a19e40c32"},
+    {file = "nada_numpy-0.1.1.tar.gz", hash = "sha256:811af2bfa0769ad2096867097b0e50b312893e03a1408fc78ec68c8fd90aec55"},
 ]
 
 [package.dependencies]
@@ -1684,4 +1684,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "8b46b389c67e658bf69bdddfe7d831c05e5a05fdb0f0d99a8068f062970250c4"
+content-hash = "6b0aeec804ab44dc180885bdd7957a7faa2bf00a45491e5ed1f4bf4c797acc12"
