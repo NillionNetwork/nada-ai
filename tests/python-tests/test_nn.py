@@ -1,6 +1,6 @@
 """NN components unit tests"""
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 import pytest
 from nada_dsl import Integer

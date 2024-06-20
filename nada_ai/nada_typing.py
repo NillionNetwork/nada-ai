@@ -2,7 +2,7 @@
 
 from typing import Sequence, Tuple, Union
 
-import nada_algebra as na
+import nada_numpy as na
 import nada_dsl as dsl
 # pylint:disable=no-name-in-module
 from py_nillion_client import (PublicVariableInteger,

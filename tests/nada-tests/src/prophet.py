@@ -1,4 +1,4 @@
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 from nada_dsl import *
 

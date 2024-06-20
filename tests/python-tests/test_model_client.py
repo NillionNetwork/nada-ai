@@ -1,6 +1,6 @@
 """Model client unit tests"""
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 import pandas as pd
 import py_nillion_client as nillion

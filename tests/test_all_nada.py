@@ -77,7 +77,7 @@ class TestSuite:
 
 
 def test_client():
-    import nada_algebra.client as na_client  # For use with Python Client
+    import nada_numpy.client as na_client  # For use with Python Client
     import numpy as np
     import py_nillion_client as nillion
 

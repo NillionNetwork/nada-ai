@@ -1,11 +1,11 @@
-import nada_algebra as na
+import nada_numpy as na
 from nada_dsl import Output
 
 from nada_ai.linear_model import LinearRegression
 
 
 def nada_main():
-    # Step 1: We use Nada Algebra wrapper to create "Party0" and "Party1"
+    # Step 1: We use Nada NumPy wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 
     # Step 2: Instantiate linear regression object

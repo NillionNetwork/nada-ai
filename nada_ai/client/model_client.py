@@ -3,8 +3,8 @@
 from abc import ABC, ABCMeta
 from typing import Any, Dict, Sequence
 
-import nada_algebra as na
-import nada_algebra.client as na_client
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
 import torch
 

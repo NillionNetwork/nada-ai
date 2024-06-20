@@ -1,6 +1,6 @@
 """Logistic regression implementation"""
 
-import nada_algebra as na
+import nada_numpy as na
 
 from nada_ai.nada_typing import NadaInteger
 from nada_ai.nn.module import Module

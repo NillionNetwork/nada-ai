@@ -3,7 +3,7 @@
 import warnings
 from typing import Any, Callable, Tuple
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 from nada_dsl import (Boolean, Integer, PublicBoolean, PublicInteger,
                       PublicUnsignedInteger, SecretBoolean, SecretInteger,

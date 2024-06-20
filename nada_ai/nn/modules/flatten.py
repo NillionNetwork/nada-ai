@@ -1,6 +1,6 @@
 """Flatten layer implementation"""
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 
 from nada_ai.nn.module import Module

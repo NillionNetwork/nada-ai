@@ -2,7 +2,7 @@
 
 from typing import Union
 
-import nada_algebra as na
+import nada_numpy as na
 from nada_dsl import (Integer, NadaType, PublicBoolean, PublicInteger,
                       SecretBoolean, SecretInteger)
 

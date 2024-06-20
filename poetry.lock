@@ -174,18 +174,18 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "filelock"
-version = "3.15.1"
+version = "3.15.3"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "filelock-3.15.1-py3-none-any.whl", hash = "sha256:71b3102950e91dfc1bb4209b64be4dc8854f40e5f534428d8684f953ac847fac"},
-    {file = "filelock-3.15.1.tar.gz", hash = "sha256:58a2549afdf9e02e10720eaa4d4470f56386d7a6f72edd7d0596337af8ed7ad8"},
+    {file = "filelock-3.15.3-py3-none-any.whl", hash = "sha256:0151273e5b5d6cf753a61ec83b3a9b7d8821c39ae9af9d7ecf2f9e2f17404103"},
+    {file = "filelock-3.15.3.tar.gz", hash = "sha256:e1199bf5194a2277273dacd50269f0d87d0682088a3c561c15674ea9005d8635"},
 ]
 
 [package.extras]
 docs = ["furo (>=2023.9.10)", "sphinx (>=7.2.6)", "sphinx-autodoc-typehints (>=1.25.2)"]
-testing = ["covdefaults (>=2.3)", "coverage (>=7.3.2)", "diff-cover (>=8.0.1)", "pytest (>=7.4.3)", "pytest-asyncio (>=0.21)", "pytest-cov (>=4.1)", "pytest-mock (>=3.12)", "pytest-timeout (>=2.2)"]
+testing = ["covdefaults (>=2.3)", "coverage (>=7.3.2)", "diff-cover (>=8.0.1)", "pytest (>=7.4.3)", "pytest-asyncio (>=0.21)", "pytest-cov (>=4.1)", "pytest-mock (>=3.12)", "pytest-timeout (>=2.2)", "virtualenv (>=20.26.2)"]
 typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
@@ -727,22 +727,6 @@ files = [
 ]
 
 [[package]]
-name = "nada-algebra"
-version = "0.3.4"
-description = "Nada-Algebra is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
-optional = false
-python-versions = "<4.0,>=3.10"
-files = [
-    {file = "nada_algebra-0.3.4-py3-none-any.whl", hash = "sha256:b9ac86f35b5ed29b12439c9aacf929287a6eafcbd5075ff51f05b25354794117"},
-    {file = "nada_algebra-0.3.4.tar.gz", hash = "sha256:8fe57e4b2efd6abbda59660aad053fc1c1d13dedfa0e7109d9ecb11a173ca334"},
-]
-
-[package.dependencies]
-nada-dsl = ">=0.2.1,<0.3.0"
-numpy = ">=1.26.4,<2.0.0"
-py-nillion-client = ">=0.2.1,<0.3.0"
-
-[[package]]
 name = "nada-dsl"
 version = "0.2.1"
 description = "Nillion Nada DSL to create Nillion MPC programs."
@@ -761,6 +745,22 @@ richreports = ">=0.2,<1.0"
 docs = ["sphinx (>=5,<8)", "sphinx-rtd-theme (>=1.0,<2.1)", "toml (>=0.10.2,<0.11.0)"]
 lint = ["pylint (>=2.17,<3.2)"]
 test = ["pytest (>=7.4,<9.0)", "pytest-cov (>=4,<6)"]
+
+[[package]]
+name = "nada-numpy"
+version = "0.1.0"
+description = "Nada-Numpy is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
+optional = false
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "nada_numpy-0.1.0-py3-none-any.whl", hash = "sha256:8b5fda786d0e1f5436b0f0e7aa0abd204f0527396f1f11183db3d2cf4c8e0e8b"},
+    {file = "nada_numpy-0.1.0.tar.gz", hash = "sha256:e844c4908feb41698e71fd65479fb7ef78336ff1a801877e6a1c4008a5ac3e0d"},
+]
+
+[package.dependencies]
+nada-dsl = ">=0.2.1,<0.3.0"
+numpy = ">=1.26.4,<2.0.0"
+py-nillion-client = ">=0.2.1,<0.3.0"
 
 [[package]]
 name = "networkx"
@@ -1684,4 +1684,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "48c3ef21f9729ce50605d4320083567e4e36a4981b680b4cc796d2a038b1ac81"
+content-hash = "8b46b389c67e658bf69bdddfe7d831c05e5a05fdb0f0d99a8068f062970250c4"

@@ -2,8 +2,8 @@ import asyncio
 import os
 import time
 
-import nada_algebra as na
-import nada_algebra.client as na_client
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
 import pandas as pd
 import py_nillion_client as nillion

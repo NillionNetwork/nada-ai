@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, Tuple
 
-import nada_algebra as na
+import nada_numpy as na
 import numpy as np
 from typing_extensions import override
 

@@ -1,6 +1,6 @@
 """Distance implementation"""
 
-import nada_algebra as na
+import nada_numpy as na
 from typing_extensions import override
 
 from nada_ai.nn.module import Module
