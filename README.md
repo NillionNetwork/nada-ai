@@ -1,8 +1,5 @@
 # Nada AI
 
-![GitHub License](https://img.shields.io/github/license/NillionNetwork/nada-ai?style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NillionNetwork/nada-ai/test?style=for-the-badge)
-
 Nada AI is a Python library designed for performing ML/AI on top of Nada DSL and the Nillion Network.
 
 It provides an intuitive ML interface and frictionless integration with existing ML frameworks such as PyTorch and Sci-kit learn.
