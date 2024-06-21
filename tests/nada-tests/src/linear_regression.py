@@ -15,4 +15,4 @@ def nada_main():
 
     result = model(x)
 
-    return [Output(result, "output", party)]
+    return na.output(result, party, "my_output")
