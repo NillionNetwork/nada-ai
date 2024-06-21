@@ -1,6 +1,5 @@
 import asyncio
 import os
-import time
 
 import nada_numpy as na
 import nada_numpy.client as na_client
@@ -12,74 +11,13 @@ from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
                                     getUserKeyFromFile)
 from sklearn.linear_model import LinearRegression
 
+from examples.common.utils import compute, store_program, store_secrets
 from nada_ai.client import SklearnClient
 
 # Load environment variables from a .env file
 load_dotenv()
 
 NUM_FEATS = 10
-
-
-# Decorator function to measure and log the execution time of asynchronous functions
-def async_timer(file_path):
-    def decorator(func):
-        async def wrapper(*args, **kwargs):
-            start_time = time.time()
-            result = await func(*args, **kwargs)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
-
-            # Log the execution time to a file
-            with open(file_path, "a") as file:
-                file.write(f"{NUM_FEATS} feats: {elapsed_time:.6f},\n")
-            return result
-
-        return wrapper
-
-    return decorator
-
-
-# Asynchronous function to store a program on the nillion client
-@async_timer("bench/store_program.txt")
-async def store_program(client, user_id, cluster_id, program_name, program_mir_path):
-    action_id = await client.store_program(cluster_id, program_name, program_mir_path)
-    program_id = f"{user_id}/{program_name}"
-    print("Stored program. action_id:", action_id)
-    print("Stored program_id:", program_id)
-    return program_id
-
-
-# Asynchronous function to store secrets on the nillion client
-@async_timer("bench/store_secrets.txt")
-async def store_secrets(client, cluster_id, program_id, party_id, party_name, secrets):
-    secret_bindings = nillion.ProgramBindings(program_id)
-    secret_bindings.add_input_party(party_name, party_id)
-
-    # Store the secret for the specified party
-    store_id = await client.store_secrets(cluster_id, secret_bindings, secrets, None)
-    return store_id
-
-
-# Asynchronous function to perform computation on the nillion client
-@async_timer("bench/compute.txt")
-async def compute(
-    client, cluster_id, compute_bindings, store_ids, computation_time_secrets
-):
-    compute_id = await client.compute(
-        cluster_id,
-        compute_bindings,
-        store_ids,
-        computation_time_secrets,
-        nillion.PublicVariables({}),
-    )
-
-    # Monitor and print the computation result
-    print(f"The computation was sent to the network. compute_id: {compute_id}")
-    while True:
-        compute_event = await client.next_compute_event()
-        if isinstance(compute_event, nillion.ComputeFinishedEvent):
-            print(f"✅  Compute complete for compute_id {compute_event.uuid}")
-            return compute_event.result.value
 
 
 # Main asynchronous function to coordinate the process
