@@ -1,7 +1,7 @@
 # Nada AI
 
-![GitHub License](https://img.shields.io/github/license/NillionNetwork/nada-ai?style=for-the-badge&logo=apache&logoColor=white&color=%23D22128&link=https%3A%2F%2Fgithub.com%2FNillionNetwork%2Fnada-ai%2Fblob%2Fmain%2FLICENSE&link=https%3A%2F%2Fgithub.com%2FNillionNetwork%2Fnada-ai%2Fblob%2Fmain%2FLICENSE)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NillionNetwork/nada-ai/test.yml?style=for-the-badge&logo=python&logoColor=white&link=https://github.com/NillionNetwork/nada-ai/actions/workflows/test.yml&link=https://github.com/NillionNetwork/nada-ai/actions/workflows/test.yml)
+![GitHub License](https://img.shields.io/github/license/NillionNetwork/nada-ai?style=for-the-badge&logo=apache&logoColor=white&color=%23D22128&link=https%3A%2F%2Fgithub.com%2FNillionNetwork%2Fnada-ai%2Fblob%2Fmain%2FLICENSE)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NillionNetwork/nada-ai/test.yml?style=for-the-badge&logo=python&logoColor=white&link=https://github.com/NillionNetwork/nada-ai/actions/workflows/test.yml)
 ![GitHub Release](https://img.shields.io/github/v/release/NillionNetwork/nada-ai?sort=date&display_name=release&style=for-the-badge&logo=dependabot&label=LATEST%20RELEASE&color=0000FE&link=https%3A%2F%2Fpypi.org%2Fproject%2Fnada-ai&link=https%3A%2F%2Fpypi.org%2Fproject%2Fnada-ai)
 
 Nada AI is a Python library designed for performing ML/AI on top of Nada DSL and the Nillion Network.
