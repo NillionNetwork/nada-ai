@@ -190,9 +190,7 @@ async def store_secrets(
     """
     secret_bindings = nillion.ProgramBindings(program_id)
     secret_bindings.add_input_party(party_name, party_id)
-    store_id = await client.store_secrets(
-        cluster_id, secret_bindings, secrets, None
-    )
+    store_id = await client.store_secrets(cluster_id, secret_bindings, secrets, None)
     return store_id
 
 

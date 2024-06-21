@@ -1,5 +1,11 @@
-import asyncio
+"""Complex model example"""
+
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+import asyncio
 
 import nada_numpy as na
 import nada_numpy.client as na_client
@@ -84,7 +90,9 @@ async def main():
 
     # Create and store model secrets via ModelClient
     model_client = TorchClient(my_model)
-    model_secrets = nillion.Secrets(model_client.export_state_as_secrets("my_model", na.SecretRational))
+    model_secrets = nillion.Secrets(
+        model_client.export_state_as_secrets("my_model", na.SecretRational)
+    )
 
     model_store_id = await store_secrets(
         client, cluster_id, program_id, party_id, party_names[0], model_secrets

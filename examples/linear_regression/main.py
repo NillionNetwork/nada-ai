@@ -1,5 +1,11 @@
-import asyncio
+"""Linear regression example"""
+
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+import asyncio
 
 import nada_numpy as na
 import nada_numpy.client as na_client
