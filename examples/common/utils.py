@@ -147,8 +147,13 @@ async def store_secret_value(
     Returns:
         str: Store ID.
     """
-    if nada_type in (na.Rational, na.SecretRational):
-        secret_value *= 2 ** na.get_log_scale()
+    if nada_type == na.Rational:
+        secret_value = round(secret_value * 2 ** na.get_log_scale())
+        nada_type = nillion.PublicVariableInteger
+    elif nada_type == na.SecretRational:
+        secret_value = round(secret_value * 2 ** na.get_log_scale())
+        nada_type = nillion.SecretInteger
+
     secrets = nillion.Secrets({name: nada_type(secret_value)})
     store_id = await store_secrets(
         client,
