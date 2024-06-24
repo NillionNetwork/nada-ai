@@ -105,7 +105,7 @@ async def store_secret_array(
         secret_array (np.ndarray): Secret array.
         name (str): Secrets name.
         nada_type (Any): Nada type.
-        permissions: nillion.Permissions: Optional Permissions.
+        permissions (nillion.Permissions): Optional Permissions.
         
 
     Returns:
@@ -149,7 +149,7 @@ async def store_secret_value(
         secret_value (Any): Secret single value.
         name (str): Secrets name.
         nada_type (Any): Nada type.
-        permissions: nillion.Permissions: Optional Permissions.
+        permissions (nillion.Permissions): Optional Permissions.
 
     Returns:
         str: Store ID.
@@ -193,7 +193,7 @@ async def store_secrets(
         party_id (str): Party ID.
         party_name (str): Party name.
         secrets (nillion.Secrets): Secrets.
-        permissions: nillion.Permissions: Optional Permissions.
+        permissions (nillion.Permissions): Optional Permissions.
 
     Returns:
         str: Store ID.
