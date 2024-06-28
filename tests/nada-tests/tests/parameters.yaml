@@ -1,34 +1,31 @@
----
 program: parameters
 inputs:
-  secrets:
-    input_0:
-      SecretInteger: "1"
-    input_1:
-      SecretInteger: "2"
-    testmod_param1_0_0:
-      SecretInteger: "1"
-    testmod_param1_0_1:
-      SecretInteger: "2"
-    testmod_param1_1_0:
-      SecretInteger: "3"
-    testmod_param1_1_1:
-      SecretInteger: "4"
-    testmod_param1_2_0:
-      SecretInteger: "5"
-    testmod_param1_2_1:
-      SecretInteger: "6"
-    testmod_param2_0:
-      SecretInteger: "7"
-    testmod_param2_1:
-      SecretInteger: "8"
-    testmod_param2_2:
-      SecretInteger: "9"
-  public_variables: {}
+  input_0:
+    SecretInteger: '1'
+  input_1:
+    SecretInteger: '2'
+  testmod_param1_0_0:
+    SecretInteger: '1'
+  testmod_param1_0_1:
+    SecretInteger: '2'
+  testmod_param1_1_0:
+    SecretInteger: '3'
+  testmod_param1_1_1:
+    SecretInteger: '4'
+  testmod_param1_2_0:
+    SecretInteger: '5'
+  testmod_param1_2_1:
+    SecretInteger: '6'
+  testmod_param2_0:
+    SecretInteger: '7'
+  testmod_param2_1:
+    SecretInteger: '8'
+  testmod_param2_2:
+    SecretInteger: '9'
 expected_outputs:
   output_0:
-    SecretInteger: "7"
+    SecretInteger: '7'
   output_1:
-    SecretInteger: "8"
+    SecretInteger: '8'
   output_2:
-    SecretInteger: "9"
+    SecretInteger: '9'

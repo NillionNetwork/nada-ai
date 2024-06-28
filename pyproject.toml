@@ -11,9 +11,6 @@ numpy = "^1.26.4"
 torch = "^2.0.0"
 scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
-nada-dsl = "^0.2.1"
-py-nillion-client = "^0.2.1"
-nada-numpy = "~0.1" # Any version starting with 0.1
 nillion-python-helpers = "~0.1" # Any version starting with 0.1
 
 [tool.poetry.group.dev.dependencies]

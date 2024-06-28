@@ -1,161 +1,151 @@
----
 program: complex_model
 inputs:
-  secrets:
-    # We assume all values were originally floats, scaled & rounded by a factor of 2**16
-
-    # For simplicity's sake, we assume all coefficients and inputs are 2.5
-    # 2.5 * 2**16 = 163840
-
-    my_input_2_1_0:
-      SecretInteger: "163840"
-    my_input_2_2_0:
-      SecretInteger: "163840"
-    my_input_0_0_2:
-      SecretInteger: "163840"
-    my_model_linear.bias_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_0_0_0:
-      SecretInteger: "163840"
-    my_model_linear.weight_1_1:
-      SecretInteger: "163840"
-    my_input_0_1_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_1_1_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_2_0_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_0_1_0:
-      SecretInteger: "163840"
-    my_input_2_1_1:
-      SecretInteger: "163840"
-    my_input_1_1_2:
-      SecretInteger: "163840"
-    my_input_2_1_2:
-      SecretInteger: "163840"
-    my_input_1_2_2:
-      SecretInteger: "163840"
-    my_input_2_3_0:
-      SecretInteger: "163840"
-    my_input_0_2_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_2_0_1:
-      SecretInteger: "163840"
-    my_input_1_1_1:
-      SecretInteger: "163840"
-    my_input_2_2_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_1_0_0:
-      SecretInteger: "163840"
-    my_input_0_2_1:
-      SecretInteger: "163840"
-    my_input_0_0_1:
-      SecretInteger: "163840"
-    my_model_linear.weight_1_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_1_0_1:
-      SecretInteger: "163840"
-    my_model_linear.weight_1_3:
-      SecretInteger: "163840"
-    my_input_0_0_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_0_1_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.bias_1:
-      SecretInteger: "163840"
-    my_input_1_1_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_2_1_0:
-      SecretInteger: "163840"
-    my_input_1_3_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.bias_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_1_1_1:
-      SecretInteger: "163840"
-    my_input_0_3_1:
-      SecretInteger: "163840"
-    my_input_2_0_0:
-      SecretInteger: "163840"
-    my_input_2_2_2:
-      SecretInteger: "163840"
-    my_model_linear.weight_0_0:
-      SecretInteger: "163840"
-    my_model_linear.weight_0_3:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_2_1_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_0_0_1:
-      SecretInteger: "163840"
-    my_model_linear.weight_0_1:
-      SecretInteger: "163840"
-    my_input_2_3_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_1_1_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_0_1_0:
-      SecretInteger: "163840"
-    my_input_2_0_1:
-      SecretInteger: "163840"
-    my_input_1_3_2:
-      SecretInteger: "163840"
-    my_input_1_0_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_0_0_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_1_0_0:
-      SecretInteger: "163840"
-    my_model_linear.weight_1_0:
-      SecretInteger: "163840"
-    my_input_2_0_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_2_0_0:
-      SecretInteger: "163840"
-    my_input_1_0_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_0_0_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_2_1_1:
-      SecretInteger: "163840"
-    my_input_0_2_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_2_0_0:
-      SecretInteger: "163840"
-    my_model_linear.bias_1:
-      SecretInteger: "163840"
-    my_input_1_0_0:
-      SecretInteger: "163840"
-    my_input_0_3_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_0_1_1:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_1_1_1_0:
-      SecretInteger: "163840"
-    my_input_1_2_0:
-      SecretInteger: "163840"
-    my_input_0_1_1:
-      SecretInteger: "163840"
-    my_input_0_3_0:
-      SecretInteger: "163840"
-    my_model_linear.weight_0_2:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_2_1_0:
-      SecretInteger: "163840"
-    my_model_conv_module.conv.weight_0_1_0_1:
-      SecretInteger: "163840"
-    my_input_1_2_1:
-      SecretInteger: "163840"
-    my_input_1_3_1:
-      SecretInteger: "163840"
-    my_input_0_1_0:
-      SecretInteger: "163840"
-    my_input_2_3_2:
-      SecretInteger: "163840"
-  public_variables: {}
+  my_input_2_1_0:
+    SecretInteger: '163840'
+  my_input_2_2_0:
+    SecretInteger: '163840'
+  my_input_0_0_2:
+    SecretInteger: '163840'
+  my_model_linear.bias_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_0_0_0:
+    SecretInteger: '163840'
+  my_model_linear.weight_1_1:
+    SecretInteger: '163840'
+  my_input_0_1_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_1_1_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_2_0_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_0_1_0:
+    SecretInteger: '163840'
+  my_input_2_1_1:
+    SecretInteger: '163840'
+  my_input_1_1_2:
+    SecretInteger: '163840'
+  my_input_2_1_2:
+    SecretInteger: '163840'
+  my_input_1_2_2:
+    SecretInteger: '163840'
+  my_input_2_3_0:
+    SecretInteger: '163840'
+  my_input_0_2_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_2_0_1:
+    SecretInteger: '163840'
+  my_input_1_1_1:
+    SecretInteger: '163840'
+  my_input_2_2_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_1_0_0:
+    SecretInteger: '163840'
+  my_input_0_2_1:
+    SecretInteger: '163840'
+  my_input_0_0_1:
+    SecretInteger: '163840'
+  my_model_linear.weight_1_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_1_0_1:
+    SecretInteger: '163840'
+  my_model_linear.weight_1_3:
+    SecretInteger: '163840'
+  my_input_0_0_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_0_1_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.bias_1:
+    SecretInteger: '163840'
+  my_input_1_1_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_2_1_0:
+    SecretInteger: '163840'
+  my_input_1_3_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.bias_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_1_1_1:
+    SecretInteger: '163840'
+  my_input_0_3_1:
+    SecretInteger: '163840'
+  my_input_2_0_0:
+    SecretInteger: '163840'
+  my_input_2_2_2:
+    SecretInteger: '163840'
+  my_model_linear.weight_0_0:
+    SecretInteger: '163840'
+  my_model_linear.weight_0_3:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_2_1_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_0_0_1:
+    SecretInteger: '163840'
+  my_model_linear.weight_0_1:
+    SecretInteger: '163840'
+  my_input_2_3_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_1_1_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_0_1_0:
+    SecretInteger: '163840'
+  my_input_2_0_1:
+    SecretInteger: '163840'
+  my_input_1_3_2:
+    SecretInteger: '163840'
+  my_input_1_0_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_0_0_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_1_0_0:
+    SecretInteger: '163840'
+  my_model_linear.weight_1_0:
+    SecretInteger: '163840'
+  my_input_2_0_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_2_0_0:
+    SecretInteger: '163840'
+  my_input_1_0_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_0_0_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_2_1_1:
+    SecretInteger: '163840'
+  my_input_0_2_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_2_0_0:
+    SecretInteger: '163840'
+  my_model_linear.bias_1:
+    SecretInteger: '163840'
+  my_input_1_0_0:
+    SecretInteger: '163840'
+  my_input_0_3_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_0_1_1:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_1_1_1_0:
+    SecretInteger: '163840'
+  my_input_1_2_0:
+    SecretInteger: '163840'
+  my_input_0_1_1:
+    SecretInteger: '163840'
+  my_input_0_3_0:
+    SecretInteger: '163840'
+  my_model_linear.weight_0_2:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_2_1_0:
+    SecretInteger: '163840'
+  my_model_conv_module.conv.weight_0_1_0_1:
+    SecretInteger: '163840'
+  my_input_1_2_1:
+    SecretInteger: '163840'
+  my_input_1_3_1:
+    SecretInteger: '163840'
+  my_input_0_1_0:
+    SecretInteger: '163840'
+  my_input_2_3_2:
+    SecretInteger: '163840'
 expected_outputs:
-  # If you go in and crunch the numbers of this one, the result should be 1542.5
-  # 1542.5 * 2**16 = 101_089_280
   my_output_1:
-    SecretInteger: "101089280"
+    SecretInteger: '101089280'
   my_output_0:
-    SecretInteger: "101089280"
+    SecretInteger: '101089280'
