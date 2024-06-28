@@ -87,7 +87,7 @@ def test_client():
 
     assert parties is not None
 
-    secrets = nillion.Secrets(
+    secrets = nillion.NadaValues(
         na_client.concat(
             [
                 na_client.array(np.ones((3, 3)), "A", nillion.SecretInteger),
@@ -98,12 +98,12 @@ def test_client():
 
     assert secrets is not None
 
-    public_variables = nillion.PublicVariables(
+    public_variables = nillion.NadaValues(
         na_client.concat(
             [
-                na_client.array(np.zeros((4, 4)), "C", nillion.PublicVariableInteger),
+                na_client.array(np.zeros((4, 4)), "C", nillion.Integer),
                 na_client.array(
-                    np.zeros((3, 3)), "D", nillion.PublicVariableUnsignedInteger
+                    np.zeros((3, 3)), "D", nillion.UnsignedInteger
                 ),
             ]
         )

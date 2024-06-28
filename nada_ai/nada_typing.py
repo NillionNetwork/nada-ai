@@ -5,9 +5,8 @@ from typing import Sequence, Tuple, Union
 import nada_dsl as dsl
 import nada_numpy as na
 # pylint:disable=no-name-in-module
-from py_nillion_client import (PublicVariableInteger,
-                               PublicVariableUnsignedInteger, SecretInteger,
-                               SecretUnsignedInteger)
+from py_nillion_client import (Integer, SecretInteger, SecretUnsignedInteger,
+                               UnsignedInteger)
 from sklearn.linear_model import (LinearRegression, LogisticRegression,
                                   LogisticRegressionCV)
 
@@ -18,8 +17,8 @@ NillionType = Union[
     na.SecretRational,
     SecretInteger,
     SecretUnsignedInteger,
-    PublicVariableInteger,
-    PublicVariableUnsignedInteger,
+    Integer,
+    UnsignedInteger,
 ]
 
 LinearModel = Union[LinearRegression, LogisticRegression, LogisticRegressionCV]
