@@ -3,7 +3,6 @@
 from abc import ABC, ABCMeta
 from typing import Any, Dict, Sequence
 
-import nada_numpy as na
 import nada_numpy.client as na_client
 import numpy as np
 import torch
@@ -54,9 +53,6 @@ class ModelClient(ABC, metaclass=ModelClientMeta):
         Returns:
             Dict[str, NillionType]: Dict of Nillion secret types that represents model state.
         """
-        if nada_type not in (na.Rational, na.SecretRational):
-            raise NotImplementedError("Exporting non-rational state is not supported")
-
         state_secrets = {}
         for state_layer_name, state_layer_weight in self.state_dict.items():
             layer_name = f"{name}_{state_layer_name}"
