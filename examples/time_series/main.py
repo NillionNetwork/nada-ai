@@ -3,7 +3,7 @@
 import os
 import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
 
@@ -12,39 +12,55 @@ import nada_numpy.client as na_client
 import numpy as np
 import pandas as pd
 import py_nillion_client as nillion
-from dotenv import load_dotenv
-# Import helper functions for creating nillion client and getting keys
-from nillion_python_helpers import (create_nillion_client, getNodeKeyFromFile,
-                                    getUserKeyFromFile)
 from prophet import Prophet
-
-from examples.common.utils import compute, store_program, store_secrets
+from common.utils import compute, store_program, store_secrets
+from cosmpy.aerial.client import LedgerClient
+from cosmpy.aerial.wallet import LocalWallet
+from cosmpy.crypto.keypairs import PrivateKey
+from dotenv import load_dotenv
 from nada_ai.client import ProphetClient
+from nillion_python_helpers import (create_nillion_client,
+                                    create_payments_config)
+from py_nillion_client import NodeKey, UserKey
 
-# Load environment variables from a .env file
-load_dotenv()
+home = os.getenv("HOME")
+load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
 
 
-# Main asynchronous function to coordinate the process
-async def main():
+async def main() -> None:
+    """Main nada program"""
+
     cluster_id = os.getenv("NILLION_CLUSTER_ID")
-    userkey = getUserKeyFromFile(os.getenv("NILLION_USERKEY_PATH_PARTY_1"))
-    nodekey = getNodeKeyFromFile(os.getenv("NILLION_NODEKEY_PATH_PARTY_1"))
+    grpc_endpoint = os.getenv("NILLION_NILCHAIN_GRPC")
+    chain_id = os.getenv("NILLION_NILCHAIN_CHAIN_ID")
+    seed = "my_seed"
+    userkey = UserKey.from_seed((seed))
+    nodekey = NodeKey.from_seed((seed))
     client = create_nillion_client(userkey, nodekey)
     party_id = client.party_id
     user_id = client.user_id
+
     party_names = na_client.parties(2)
-    program_name = "main"
-    program_mir_path = f"./target/{program_name}.nada.bin"
+    program_name = "time_series"
+    program_mir_path = f"target/{program_name}.nada.bin"
 
-    if not os.path.exists("bench"):
-        os.mkdir("bench")
+    # Configure payments
+    payments_config = create_payments_config(chain_id, grpc_endpoint)
+    payments_client = LedgerClient(payments_config)
+    payments_wallet = LocalWallet(
+        PrivateKey(bytes.fromhex(os.getenv("NILLION_NILCHAIN_PRIVATE_KEY_0"))),
+        prefix="nillion",
+    )
 
-    na.set_log_scale(50)
-
-    # Store the program
+    # Store program
     program_id = await store_program(
-        client, user_id, cluster_id, program_name, program_mir_path
+        client,
+        payments_wallet,
+        payments_client,
+        user_id,
+        cluster_id,
+        program_name,
+        program_mir_path,
     )
 
     # Train prophet model
@@ -60,12 +76,20 @@ async def main():
 
     # Create and store model secrets via ModelClient
     model_client = ProphetClient(fit_model)
-    model_secrets = nillion.Secrets(
+    model_secrets = nillion.NadaValues(
         model_client.export_state_as_secrets("my_prophet", na.SecretRational)
     )
+    permissions = nillion.Permissions.default_for_user(client.user_id)
+    permissions.add_compute_permissions({client.user_id: {program_id}})
 
     model_store_id = await store_secrets(
-        client, cluster_id, program_id, party_id, party_names[0], model_secrets
+        client,
+        payments_wallet,
+        payments_client,
+        cluster_id,
+        model_secrets,
+        1,
+        permissions,
     )
 
     # Store inputs to perform inference for
@@ -80,30 +104,42 @@ async def main():
         na_client.array(inference_ds["t"].to_numpy(), "t", na.SecretRational)
     )
 
-    input_secrets = nillion.Secrets(my_input)
+    input_secrets = nillion.NadaValues(my_input)
 
     data_store_id = await store_secrets(
-        client, cluster_id, program_id, party_id, party_names[1], input_secrets
+        client,
+        payments_wallet,
+        payments_client,
+        cluster_id,
+        input_secrets,
+        1,
+        permissions,
     )
 
     # Set up the compute bindings for the parties
     compute_bindings = nillion.ProgramBindings(program_id)
-    [
+
+    for party_name in party_names:
         compute_bindings.add_input_party(party_name, party_id)
-        for party_name in party_names
-    ]
-    compute_bindings.add_output_party(party_names[1], party_id)
+    compute_bindings.add_output_party(party_names[-1], party_id)
 
     print(f"Computing using program {program_id}")
     print(f"Use secret store_id: {model_store_id} {data_store_id}")
 
-    # Perform the computation and return the result
+    # Create a computation time secret to use
+    computation_time_secrets = nillion.NadaValues({})
+
+    # Compute, passing all params including the receipt that shows proof of payment
     result = await compute(
         client,
+        payments_wallet,
+        payments_client,
+        program_id,
         cluster_id,
         compute_bindings,
         [model_store_id, data_store_id],
-        nillion.Secrets({}),
+        computation_time_secrets,
+        verbose=True,
     )
 
     # Sort & rescale the obtained results by the quantization scale
@@ -115,13 +151,12 @@ async def main():
         )
     ]
 
-    print(f"🖥️  The result is {outputs}")
+    print(f"🖥️  The processed result is {outputs} @ {na.get_log_scale()}-bit precision")
 
     expected = fit_model.predict(inference_ds)["yhat"].to_numpy()
-    print(f"🖥️  VS expected plain-text result {expected}")
-    return result
+
+    print(f"🖥️  VS expected result {expected}")
 
 
-# Run the main function if the script is executed directly
 if __name__ == "__main__":
     asyncio.run(main())

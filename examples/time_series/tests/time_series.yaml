@@ -148,42 +148,42 @@ inputs:
     SecretInteger: '3'
 expected_outputs:
   my_output_1:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_16:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_17:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_14:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_19:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_3:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_2:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_0:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_11:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_10:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_5:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_6:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_7:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_12:
-    SecretInteger: '3'
+    SecretInteger: '1'
   my_output_9:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_4:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_8:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_15:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_18:
-    SecretInteger: '3'
+    SecretInteger: '2'
   my_output_13:
-    SecretInteger: '3'
+    SecretInteger: '1'

@@ -1,325 +1,636 @@
+---
 program: multi_layer_perceptron
 inputs:
-  my_input_0_0_12_7:
-    SecretInteger: '3'
-  my_input_0_0_11_12:
-    SecretInteger: '3'
-  my_input_0_0_0_11:
-    SecretInteger: '3'
-  my_input_0_0_8_0:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_4:
-    SecretInteger: '3'
-  my_input_0_0_8_5:
-    SecretInteger: '3'
-  my_input_0_0_3_0:
-    SecretInteger: '3'
-  my_input_0_0_9_3:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_7:
-    SecretInteger: '3'
-  my_input_0_0_13_3:
-    SecretInteger: '3'
-  my_input_0_0_11_9:
-    SecretInteger: '3'
-  my_input_0_0_9_8:
-    SecretInteger: '3'
-  my_input_0_0_3_12:
-    SecretInteger: '3'
-  my_input_0_0_4_3:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_2_2:
-    SecretInteger: '3'
-  my_input_0_0_1_1:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_5:
-    SecretInteger: '3'
-  my_input_0_0_1_0:
-    SecretInteger: '3'
-  my_input_0_0_9_1:
-    SecretInteger: '3'
-  my_input_0_0_4_8:
-    SecretInteger: '3'
-  my_input_0_0_4_9:
-    SecretInteger: '3'
-  my_input_0_0_1_7:
-    SecretInteger: '3'
-  my_nn_fc1.bias_0:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_2_2:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_1:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_1_0:
-    SecretInteger: '3'
-  my_input_0_0_12_9:
-    SecretInteger: '3'
-  my_input_0_0_8_1:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_0_1:
-    SecretInteger: '3'
-  my_input_0_0_13_5:
-    SecretInteger: '3'
-  my_input_0_0_0_4:
-    SecretInteger: '3'
-  my_input_0_0_11_7:
-    SecretInteger: '3'
-  my_input_0_0_0_9:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_1:
-    SecretInteger: '3'
-  my_input_0_0_0_0:
-    SecretInteger: '3'
-  my_input_0_0_8_4:
-    SecretInteger: '3'
-  my_input_0_0_7_9:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_7:
-    SecretInteger: '3'
-  my_input_0_0_4_13:
-    SecretInteger: '3'
-  my_input_0_0_12_0:
-    SecretInteger: '3'
-  my_input_0_0_1_12:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_1_2:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_6:
-    SecretInteger: '3'
-  my_input_0_0_0_1:
-    SecretInteger: '3'
-  my_input_0_0_7_1:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_2_1:
-    SecretInteger: '3'
-  my_input_0_0_3_7:
-    SecretInteger: '3'
-  my_input_0_0_0_3:
-    SecretInteger: '3'
-  my_input_0_0_5_1:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_0_2:
-    SecretInteger: '3'
-  my_input_0_0_3_13:
-    SecretInteger: '3'
-  my_input_0_0_4_1:
-    SecretInteger: '3'
-  my_input_0_0_7_11:
-    SecretInteger: '3'
-  my_input_0_0_3_9:
-    SecretInteger: '3'
-  my_input_0_0_8_9:
-    SecretInteger: '3'
-  my_input_0_0_11_1:
-    SecretInteger: '3'
-  my_input_0_0_12_12:
-    SecretInteger: '3'
-  my_input_0_0_9_0:
-    SecretInteger: '3'
-  my_input_0_0_4_0:
-    SecretInteger: '3'
-  my_input_0_0_8_7:
-    SecretInteger: '3'
-  my_input_0_0_3_3:
-    SecretInteger: '3'
-  my_input_0_0_7_5:
-    SecretInteger: '3'
-  my_input_0_0_9_5:
-    SecretInteger: '3'
-  my_input_0_0_8_11:
-    SecretInteger: '3'
-  my_input_0_0_13_8:
-    SecretInteger: '3'
-  my_input_0_0_5_5:
-    SecretInteger: '3'
-  my_input_0_0_7_7:
-    SecretInteger: '3'
-  my_input_0_0_4_11:
-    SecretInteger: '3'
-  my_input_0_0_12_5:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_2_0:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_2:
-    SecretInteger: '3'
-  my_input_0_0_5_12:
-    SecretInteger: '3'
-  my_input_0_0_13_13:
-    SecretInteger: '3'
-  my_input_0_0_5_7:
-    SecretInteger: '3'
-  my_input_0_0_7_3:
-    SecretInteger: '3'
-  my_input_0_0_1_5:
-    SecretInteger: '3'
-  my_input_0_0_1_9:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_0:
-    SecretInteger: '3'
-  my_input_0_0_7_12:
-    SecretInteger: '3'
-  my_input_0_0_11_11:
-    SecretInteger: '3'
-  my_input_0_0_8_8:
-    SecretInteger: '3'
-  my_input_0_0_5_8:
-    SecretInteger: '3'
-  my_input_0_0_12_3:
-    SecretInteger: '3'
-  my_input_0_0_1_4:
-    SecretInteger: '3'
-  my_input_0_0_11_8:
-    SecretInteger: '3'
-  my_input_0_0_0_13:
-    SecretInteger: '3'
-  my_input_0_0_12_4:
-    SecretInteger: '3'
-  my_input_0_0_3_11:
-    SecretInteger: '3'
-  my_input_0_0_11_0:
-    SecretInteger: '3'
-  my_input_0_0_8_12:
-    SecretInteger: '3'
-  my_input_0_0_0_7:
-    SecretInteger: '3'
-  my_input_0_0_9_12:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_1_2:
-    SecretInteger: '3'
-  my_input_0_0_0_12:
-    SecretInteger: '3'
-  my_input_0_0_13_4:
-    SecretInteger: '3'
-  my_input_0_0_5_13:
-    SecretInteger: '3'
-  my_nn_conv1.bias_0:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_1_1:
-    SecretInteger: '3'
-  my_input_0_0_7_8:
-    SecretInteger: '3'
-  my_input_0_0_1_11:
-    SecretInteger: '3'
-  my_input_0_0_8_3:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_2_1:
-    SecretInteger: '3'
-  my_input_0_0_11_5:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_3:
-    SecretInteger: '3'
-  my_input_0_0_3_8:
-    SecretInteger: '3'
-  my_input_0_0_9_7:
-    SecretInteger: '3'
-  my_input_0_0_12_11:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_6:
-    SecretInteger: '3'
-  my_nn_fc1.bias_1:
-    SecretInteger: '3'
-  my_input_0_0_7_13:
-    SecretInteger: '3'
+  my_input_0_0_1_6:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_16:
+    SecretInteger: "3"
+  my_input_0_0_8_15:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_12:
+    SecretInteger: "3"
+  my_input_0_0_14_9:
+    SecretInteger: "3"
+  my_input_0_0_14_7:
+    SecretInteger: "3"
+  my_input_0_0_2_7:
+    SecretInteger: "3"
   my_input_0_0_11_3:
-    SecretInteger: '3'
-  my_input_0_0_9_4:
-    SecretInteger: '3'
-  my_nn_conv1.weight_1_0_0_0:
-    SecretInteger: '3'
-  my_input_0_0_13_12:
-    SecretInteger: '3'
-  my_input_0_0_0_5:
-    SecretInteger: '3'
-  my_input_0_0_5_0:
-    SecretInteger: '3'
-  my_input_0_0_7_0:
-    SecretInteger: '3'
-  my_input_0_0_4_4:
-    SecretInteger: '3'
-  my_input_0_0_4_12:
-    SecretInteger: '3'
-  my_input_0_0_5_9:
-    SecretInteger: '3'
-  my_input_0_0_12_8:
-    SecretInteger: '3'
+    SecretInteger: "3"
   my_input_0_0_13_9:
-    SecretInteger: '3'
-  my_input_0_0_1_13:
-    SecretInteger: '3'
-  my_input_0_0_12_13:
-    SecretInteger: '3'
-  my_input_0_0_3_5:
-    SecretInteger: '3'
-  my_input_0_0_11_4:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_0_0:
-    SecretInteger: '3'
-  my_input_0_0_5_11:
-    SecretInteger: '3'
-  my_input_0_0_13_1:
-    SecretInteger: '3'
-  my_input_0_0_8_13:
-    SecretInteger: '3'
-  my_input_0_0_3_4:
-    SecretInteger: '3'
-  my_nn_conv1.bias_1:
-    SecretInteger: '3'
-  my_input_0_0_5_4:
-    SecretInteger: '3'
-  my_input_0_0_4_5:
-    SecretInteger: '3'
-  my_input_0_0_0_8:
-    SecretInteger: '3'
-  my_input_0_0_4_7:
-    SecretInteger: '3'
-  my_input_0_0_9_11:
-    SecretInteger: '3'
-  my_input_0_0_13_11:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_2_0:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_0_1:
-    SecretInteger: '3'
+    SecretInteger: "3"
+  my_input_0_0_8_2:
+    SecretInteger: "3"
+  my_input_0_0_0_11:
+    SecretInteger: "3"
+  my_input_0_0_4_10:
+    SecretInteger: "3"
+  my_input_0_0_0_1:
+    SecretInteger: "3"
   my_input_0_0_13_7:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_0_2:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_1_1:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_0:
-    SecretInteger: '3'
-  my_input_0_0_1_3:
-    SecretInteger: '3'
-  my_input_0_0_5_3:
-    SecretInteger: '3'
-  my_nn_conv1.weight_0_0_1_0:
-    SecretInteger: '3'
-  my_input_0_0_12_1:
-    SecretInteger: '3'
-  my_input_0_0_9_9:
-    SecretInteger: '3'
-  my_input_0_0_9_13:
-    SecretInteger: '3'
-  my_input_0_0_11_13:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_4:
-    SecretInteger: '3'
-  my_input_0_0_3_1:
-    SecretInteger: '3'
-  my_nn_fc1.weight_1_5:
-    SecretInteger: '3'
-  my_nn_fc1.weight_0_2:
-    SecretInteger: '3'
-  my_input_0_0_13_0:
-    SecretInteger: '3'
-  my_input_0_0_1_8:
-    SecretInteger: '3'
+    SecretInteger: "3"
+  my_input_0_0_10_1:
+    SecretInteger: "3"
+  my_nn_fc1.bias_1:
+    SecretInteger: "3"
+  my_input_0_0_12_14:
+    SecretInteger: "3"
+  my_input_0_0_11_12:
+    SecretInteger: "3"
+  my_input_0_0_15_10:
+    SecretInteger: "3"
+  my_input_0_0_14_5:
+    SecretInteger: "3"
+  my_input_0_0_15_3:
+    SecretInteger: "3"
+  my_input_0_0_5_15:
+    SecretInteger: "3"
   my_input_0_0_7_4:
-    SecretInteger: '3'
+    SecretInteger: "3"
+  my_input_0_0_3_14:
+    SecretInteger: "3"
+  my_input_0_0_2_13:
+    SecretInteger: "3"
+  my_input_0_0_2_12:
+    SecretInteger: "3"
+  my_input_0_0_0_12:
+    SecretInteger: "3"
+  my_input_0_0_11_6:
+    SecretInteger: "3"
+  my_input_0_0_4_8:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_9:
+    SecretInteger: "3"
+  my_input_0_0_13_3:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_0_0:
+    SecretInteger: "3"
+  my_input_0_0_2_14:
+    SecretInteger: "3"
+  my_input_0_0_10_10:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_12:
+    SecretInteger: "3"
+  my_input_0_0_13_8:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_2_0:
+    SecretInteger: "3"
+  my_input_0_0_1_11:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_2_2:
+    SecretInteger: "3"
+  my_input_0_0_3_15:
+    SecretInteger: "3"
+  my_input_0_0_4_14:
+    SecretInteger: "3"
+  my_input_0_0_9_4:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_0:
+    SecretInteger: "3"
+  my_input_0_0_11_14:
+    SecretInteger: "3"
+  my_input_0_0_12_6:
+    SecretInteger: "3"
+  my_input_0_0_7_11:
+    SecretInteger: "3"
+  my_input_0_0_5_1:
+    SecretInteger: "3"
+  my_input_0_0_0_8:
+    SecretInteger: "3"
+  my_input_0_0_12_3:
+    SecretInteger: "3"
+  my_input_0_0_15_1:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_13:
+    SecretInteger: "3"
+  my_input_0_0_12_0:
+    SecretInteger: "3"
+  my_input_0_0_8_9:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_6:
+    SecretInteger: "3"
+  my_input_0_0_7_7:
+    SecretInteger: "3"
+  my_input_0_0_0_15:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_1_0:
+    SecretInteger: "3"
+  my_input_0_0_13_14:
+    SecretInteger: "3"
+  my_input_0_0_1_1:
+    SecretInteger: "3"
+  my_input_0_0_11_0:
+    SecretInteger: "3"
+  my_input_0_0_5_14:
+    SecretInteger: "3"
+  my_input_0_0_15_2:
+    SecretInteger: "3"
+  my_input_0_0_8_3:
+    SecretInteger: "3"
+  my_input_0_0_9_2:
+    SecretInteger: "3"
+  my_input_0_0_9_1:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_10:
+    SecretInteger: "3"
+  my_input_0_0_10_4:
+    SecretInteger: "3"
+  my_input_0_0_6_0:
+    SecretInteger: "3"
+  my_input_0_0_6_4:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_1_1:
+    SecretInteger: "3"
+  my_input_0_0_12_7:
+    SecretInteger: "3"
+  my_nn_conv1.bias_1:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_1_1:
+    SecretInteger: "3"
+  my_input_0_0_5_12:
+    SecretInteger: "3"
+  my_input_0_0_5_10:
+    SecretInteger: "3"
+  my_input_0_0_9_0:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_10:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_2_1:
+    SecretInteger: "3"
+  my_input_0_0_9_3:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_7:
+    SecretInteger: "3"
+  my_input_0_0_4_4:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_17:
+    SecretInteger: "3"
+  my_input_0_0_14_11:
+    SecretInteger: "3"
+  my_input_0_0_12_8:
+    SecretInteger: "3"
+  my_input_0_0_9_5:
+    SecretInteger: "3"
+  my_input_0_0_10_12:
+    SecretInteger: "3"
   my_nn_fc1.weight_0_3:
-    SecretInteger: '3'
+    SecretInteger: "3"
+  my_input_0_0_13_5:
+    SecretInteger: "3"
+  my_input_0_0_7_6:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_1_2:
+    SecretInteger: "3"
+  my_input_0_0_12_2:
+    SecretInteger: "3"
+  my_input_0_0_12_11:
+    SecretInteger: "3"
+  my_input_0_0_13_11:
+    SecretInteger: "3"
+  my_input_0_0_14_6:
+    SecretInteger: "3"
+  my_input_0_0_11_1:
+    SecretInteger: "3"
+  my_input_0_0_5_11:
+    SecretInteger: "3"
+  my_input_0_0_7_1:
+    SecretInteger: "3"
+  my_input_0_0_2_10:
+    SecretInteger: "3"
+  my_input_0_0_1_2:
+    SecretInteger: "3"
+  my_input_0_0_11_11:
+    SecretInteger: "3"
+  my_input_0_0_9_11:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_5:
+    SecretInteger: "3"
+  my_input_0_0_10_13:
+    SecretInteger: "3"
+  my_input_0_0_8_6:
+    SecretInteger: "3"
+  my_input_0_0_7_5:
+    SecretInteger: "3"
+  my_input_0_0_15_14:
+    SecretInteger: "3"
+  my_input_0_0_10_15:
+    SecretInteger: "3"
+  my_input_0_0_6_1:
+    SecretInteger: "3"
+  my_input_0_0_2_9:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_0_2:
+    SecretInteger: "3"
+  my_input_0_0_8_13:
+    SecretInteger: "3"
+  my_input_0_0_8_7:
+    SecretInteger: "3"
+  my_input_0_0_15_4:
+    SecretInteger: "3"
+  my_input_0_0_1_9:
+    SecretInteger: "3"
+  my_input_0_0_0_5:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_15:
+    SecretInteger: "3"
+  my_input_0_0_12_5:
+    SecretInteger: "3"
+  my_input_0_0_9_7:
+    SecretInteger: "3"
+  my_input_0_0_0_7:
+    SecretInteger: "3"
+  my_input_0_0_4_1:
+    SecretInteger: "3"
+  my_input_0_0_3_10:
+    SecretInteger: "3"
+  my_input_0_0_0_9:
+    SecretInteger: "3"
+  my_input_0_0_1_4:
+    SecretInteger: "3"
+  my_input_0_0_7_15:
+    SecretInteger: "3"
+  my_input_0_0_11_13:
+    SecretInteger: "3"
+  my_input_0_0_12_9:
+    SecretInteger: "3"
+  my_input_0_0_1_10:
+    SecretInteger: "3"
+  my_input_0_0_13_1:
+    SecretInteger: "3"
+  my_input_0_0_11_15:
+    SecretInteger: "3"
+  my_input_0_0_0_10:
+    SecretInteger: "3"
+  my_input_0_0_1_15:
+    SecretInteger: "3"
+  my_input_0_0_1_7:
+    SecretInteger: "3"
+  my_input_0_0_3_4:
+    SecretInteger: "3"
+  my_input_0_0_11_5:
+    SecretInteger: "3"
+  my_input_0_0_12_13:
+    SecretInteger: "3"
+  my_input_0_0_11_4:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_0:
+    SecretInteger: "3"
+  my_input_0_0_14_13:
+    SecretInteger: "3"
+  my_input_0_0_13_12:
+    SecretInteger: "3"
+  my_input_0_0_10_8:
+    SecretInteger: "3"
+  my_input_0_0_13_15:
+    SecretInteger: "3"
+  my_input_0_0_3_0:
+    SecretInteger: "3"
+  my_input_0_0_0_2:
+    SecretInteger: "3"
+  my_input_0_0_3_6:
+    SecretInteger: "3"
+  my_input_0_0_11_8:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_1:
+    SecretInteger: "3"
+  my_input_0_0_6_6:
+    SecretInteger: "3"
+  my_input_0_0_1_8:
+    SecretInteger: "3"
+  my_input_0_0_1_0:
+    SecretInteger: "3"
+  my_input_0_0_14_12:
+    SecretInteger: "3"
+  my_input_0_0_15_13:
+    SecretInteger: "3"
+  my_input_0_0_7_14:
+    SecretInteger: "3"
+  my_input_0_0_3_11:
+    SecretInteger: "3"
+  my_input_0_0_14_10:
+    SecretInteger: "3"
+  my_input_0_0_14_1:
+    SecretInteger: "3"
+  my_input_0_0_14_3:
+    SecretInteger: "3"
+  my_input_0_0_10_6:
+    SecretInteger: "3"
+  my_input_0_0_10_0:
+    SecretInteger: "3"
+  my_input_0_0_8_8:
+    SecretInteger: "3"
+  my_input_0_0_15_12:
+    SecretInteger: "3"
+  my_input_0_0_3_1:
+    SecretInteger: "3"
+  my_input_0_0_2_8:
+    SecretInteger: "3"
+  my_input_0_0_7_12:
+    SecretInteger: "3"
+  my_input_0_0_0_0:
+    SecretInteger: "3"
+  my_input_0_0_4_0:
+    SecretInteger: "3"
+  my_input_0_0_15_9:
+    SecretInteger: "3"
+  my_input_0_0_0_13:
+    SecretInteger: "3"
+  my_input_0_0_2_4:
+    SecretInteger: "3"
+  my_input_0_0_1_12:
+    SecretInteger: "3"
+  my_input_0_0_11_10:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_7:
+    SecretInteger: "3"
+  my_input_0_0_8_10:
+    SecretInteger: "3"
+  my_input_0_0_2_2:
+    SecretInteger: "3"
+  my_input_0_0_13_10:
+    SecretInteger: "3"
+  my_input_0_0_6_13:
+    SecretInteger: "3"
+  my_input_0_0_8_4:
+    SecretInteger: "3"
+  my_input_0_0_6_9:
+    SecretInteger: "3"
+  my_input_0_0_14_4:
+    SecretInteger: "3"
+  my_input_0_0_6_14:
+    SecretInteger: "3"
+  my_input_0_0_6_11:
+    SecretInteger: "3"
+  my_input_0_0_4_3:
+    SecretInteger: "3"
+  my_input_0_0_7_13:
+    SecretInteger: "3"
+  my_input_0_0_4_6:
+    SecretInteger: "3"
+  my_input_0_0_10_2:
+    SecretInteger: "3"
+  my_input_0_0_9_15:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_14:
+    SecretInteger: "3"
+  my_input_0_0_0_14:
+    SecretInteger: "3"
+  my_input_0_0_9_6:
+    SecretInteger: "3"
+  my_input_0_0_10_11:
+    SecretInteger: "3"
+  my_input_0_0_3_12:
+    SecretInteger: "3"
+  my_input_0_0_1_13:
+    SecretInteger: "3"
+  my_input_0_0_13_2:
+    SecretInteger: "3"
+  my_input_0_0_3_7:
+    SecretInteger: "3"
+  my_input_0_0_3_2:
+    SecretInteger: "3"
+  my_input_0_0_4_5:
+    SecretInteger: "3"
+  my_input_0_0_12_4:
+    SecretInteger: "3"
+  my_input_0_0_2_15:
+    SecretInteger: "3"
+  my_input_0_0_15_11:
+    SecretInteger: "3"
+  my_input_0_0_13_0:
+    SecretInteger: "3"
+  my_input_0_0_10_7:
+    SecretInteger: "3"
+  my_input_0_0_7_8:
+    SecretInteger: "3"
+  my_input_0_0_4_13:
+    SecretInteger: "3"
+  my_input_0_0_4_2:
+    SecretInteger: "3"
+  my_input_0_0_8_1:
+    SecretInteger: "3"
+  my_input_0_0_14_14:
+    SecretInteger: "3"
+  my_input_0_0_5_0:
+    SecretInteger: "3"
+  my_nn_fc1.bias_0:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_15:
+    SecretInteger: "3"
+  my_input_0_0_5_4:
+    SecretInteger: "3"
+  my_input_0_0_0_4:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_8:
+    SecretInteger: "3"
+  my_input_0_0_9_9:
+    SecretInteger: "3"
+  my_input_0_0_2_3:
+    SecretInteger: "3"
+  my_input_0_0_0_3:
+    SecretInteger: "3"
+  my_input_0_0_9_13:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_9:
+    SecretInteger: "3"
+  my_input_0_0_3_5:
+    SecretInteger: "3"
+  my_input_0_0_7_0:
+    SecretInteger: "3"
+  my_input_0_0_6_10:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_6:
+    SecretInteger: "3"
+  my_input_0_0_8_5:
+    SecretInteger: "3"
+  my_input_0_0_10_9:
+    SecretInteger: "3"
+  my_input_0_0_5_9:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_16:
+    SecretInteger: "3"
+  my_input_0_0_14_15:
+    SecretInteger: "3"
+  my_input_0_0_2_6:
+    SecretInteger: "3"
+  my_input_0_0_14_0:
+    SecretInteger: "3"
+  my_input_0_0_10_3:
+    SecretInteger: "3"
+  my_input_0_0_10_5:
+    SecretInteger: "3"
+  my_input_0_0_4_11:
+    SecretInteger: "3"
+  my_input_0_0_1_14:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_1_2:
+    SecretInteger: "3"
+  my_input_0_0_15_8:
+    SecretInteger: "3"
+  my_input_0_0_3_13:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_0_1:
+    SecretInteger: "3"
+  my_input_0_0_2_0:
+    SecretInteger: "3"
+  my_input_0_0_1_3:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_11:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_13:
+    SecretInteger: "3"
+  my_input_0_0_12_1:
+    SecretInteger: "3"
+  my_input_0_0_15_7:
+    SecretInteger: "3"
+  my_input_0_0_14_8:
+    SecretInteger: "3"
+  my_input_0_0_15_15:
+    SecretInteger: "3"
+  my_input_0_0_6_8:
+    SecretInteger: "3"
+  my_input_0_0_5_2:
+    SecretInteger: "3"
+  my_input_0_0_2_5:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_5:
+    SecretInteger: "3"
+  my_input_0_0_12_10:
+    SecretInteger: "3"
+  my_nn_conv1.bias_0:
+    SecretInteger: "3"
+  my_input_0_0_7_10:
+    SecretInteger: "3"
+  my_input_0_0_8_14:
+    SecretInteger: "3"
+  my_input_0_0_7_3:
+    SecretInteger: "3"
+  my_input_0_0_6_2:
+    SecretInteger: "3"
+  my_input_0_0_5_13:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_2:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_1:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_17:
+    SecretInteger: "3"
+  my_input_0_0_13_6:
+    SecretInteger: "3"
+  my_input_0_0_1_5:
+    SecretInteger: "3"
+  my_input_0_0_0_6:
+    SecretInteger: "3"
+  my_input_0_0_7_2:
+    SecretInteger: "3"
+  my_input_0_0_9_12:
+    SecretInteger: "3"
+  my_input_0_0_6_12:
+    SecretInteger: "3"
+  my_input_0_0_4_7:
+    SecretInteger: "3"
+  my_input_0_0_9_14:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_4:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_2_0:
+    SecretInteger: "3"
+  my_input_0_0_13_4:
+    SecretInteger: "3"
+  my_input_0_0_6_5:
+    SecretInteger: "3"
+  my_input_0_0_3_3:
+    SecretInteger: "3"
+  my_input_0_0_5_3:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_0_1:
+    SecretInteger: "3"
+  my_input_0_0_4_9:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_4:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_0_0:
+    SecretInteger: "3"
+  my_input_0_0_15_6:
+    SecretInteger: "3"
+  my_input_0_0_8_12:
+    SecretInteger: "3"
+  my_input_0_0_10_14:
+    SecretInteger: "3"
+  my_input_0_0_9_8:
+    SecretInteger: "3"
+  my_input_0_0_5_7:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_14:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_2_2:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_1_0:
+    SecretInteger: "3"
+  my_input_0_0_4_15:
+    SecretInteger: "3"
+  my_input_0_0_6_7:
+    SecretInteger: "3"
+  my_input_0_0_8_11:
+    SecretInteger: "3"
+  my_input_0_0_5_8:
+    SecretInteger: "3"
+  my_input_0_0_4_12:
+    SecretInteger: "3"
+  my_input_0_0_12_12:
+    SecretInteger: "3"
+  my_input_0_0_2_11:
+    SecretInteger: "3"
+  my_nn_fc1.weight_1_3:
+    SecretInteger: "3"
+  my_input_0_0_3_9:
+    SecretInteger: "3"
+  my_input_0_0_2_1:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_8:
+    SecretInteger: "3"
+  my_input_0_0_5_5:
+    SecretInteger: "3"
+  my_input_0_0_11_2:
+    SecretInteger: "3"
+  my_input_0_0_6_3:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_11:
+    SecretInteger: "3"
+  my_input_0_0_11_7:
+    SecretInteger: "3"
+  my_input_0_0_15_0:
+    SecretInteger: "3"
+  my_nn_conv1.weight_1_0_0_2:
+    SecretInteger: "3"
+  my_input_0_0_15_5:
+    SecretInteger: "3"
+  my_input_0_0_13_13:
+    SecretInteger: "3"
+  my_input_0_0_11_9:
+    SecretInteger: "3"
+  my_input_0_0_6_15:
+    SecretInteger: "3"
+  my_input_0_0_9_10:
+    SecretInteger: "3"
+  my_input_0_0_5_6:
+    SecretInteger: "3"
+  my_nn_fc1.weight_0_2:
+    SecretInteger: "3"
+  my_input_0_0_14_2:
+    SecretInteger: "3"
+  my_nn_conv1.weight_0_0_2_1:
+    SecretInteger: "3"
+  my_input_0_0_7_9:
+    SecretInteger: "3"
+  my_input_0_0_8_0:
+    SecretInteger: "3"
+  my_input_0_0_3_8:
+    SecretInteger: "3"
+  my_input_0_0_12_15:
+    SecretInteger: "3"
 expected_outputs:
   my_output_0_0:
-    SecretInteger: '3'
+    SecretInteger: "3"
   my_output_0_1:
-    SecretInteger: '3'
+    SecretInteger: "3"

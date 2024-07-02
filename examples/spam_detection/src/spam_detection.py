@@ -1,8 +1,8 @@
 import nada_numpy as na
-from config import NUM_FEATS
+from nada_ai.linear_model import LogisticRegression
 from nada_dsl import Party
 
-from nada_ai.linear_model import LogisticRegression
+from config import NUM_FEATS
 
 
 def nada_main():

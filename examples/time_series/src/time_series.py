@@ -5,8 +5,6 @@ from nada_ai.time_series import Prophet
 
 
 def nada_main():
-    na.set_log_scale(50)
-
     # Step 1: We use Nada NumPy wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 

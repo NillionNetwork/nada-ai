@@ -8,14 +8,12 @@ class MyNN(nn.Module):
 
     def __init__(self) -> None:
         """Model is a two layers and an activations"""
-        super(MyNN, self).__init__()
-        # Input size (1, 1, 16, 16) --> Output size (1, 2)
+        super().__init__()
         self.conv1 = nn.Conv2d(
-            in_channels=1, out_channels=2, kernel_size=3, padding=1, stride=4
+            in_channels=1, out_channels=2, kernel_size=3, padding=1, stride=3
         )
-        # Input size (1, 2) --> Output size (1, 2)
         self.pool = nn.AvgPool2d(kernel_size=2, stride=2)
-        self.fc1 = nn.Linear(in_features=8, out_features=2)
+        self.fc1 = nn.Linear(in_features=18, out_features=2)
 
         self.relu = nn.ReLU()
         self.flatten = nn.Flatten()

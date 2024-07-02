@@ -8,6 +8,9 @@ import nada_numpy as na
 import nada_numpy.client as na_client
 import numpy as np
 import py_nillion_client as nillion
+from cosmpy.aerial.client import LedgerClient
+from cosmpy.aerial.wallet import LocalWallet
+from nillion_python_helpers import get_quote, get_quote_and_pay, pay_with_quote
 
 
 def async_timer(file_path: os.PathLike) -> Callable:
@@ -54,6 +57,8 @@ def async_timer(file_path: os.PathLike) -> Callable:
 
 async def store_program(
     client: nillion.NillionClient,
+    payments_wallet: LocalWallet,
+    payments_client: LedgerClient,
     user_id: str,
     cluster_id: str,
     program_name: str,
@@ -74,23 +79,35 @@ async def store_program(
     Returns:
         str: Program ID.
     """
-    action_id = await client.store_program(cluster_id, program_name, program_mir_path)
+    quote_store_program = await get_quote(
+        client, nillion.Operation.store_program(program_mir_path), cluster_id
+    )
+
+    receipt_store_program = await pay_with_quote(
+        quote_store_program, payments_wallet, payments_client
+    )
+
+    action_id = await client.store_program(
+        cluster_id, program_name, program_mir_path, receipt_store_program
+    )
+
     program_id = f"{user_id}/{program_name}"
     if verbose:
         print("Stored program. action_id:", action_id)
         print("Stored program_id:", program_id)
+
     return program_id
 
 
 async def store_secret_array(
     client: nillion.NillionClient,
+    payments_wallet: LocalWallet,
+    payments_client: LedgerClient,
     cluster_id: str,
-    program_id: str,
-    party_id: str,
-    party_name: str,
     secret_array: np.ndarray,
-    name: str,
+    secret_name: str,
     nada_type: Any,
+    ttl_days: int = 1,
     permissions: nillion.Permissions = None,
 ):
     """
@@ -99,7 +116,6 @@ async def store_secret_array(
     Args:
         client (nillion.NillionClient): Nillion client.
         cluster_id (str): Cluster ID.
-        program_id (str): Program ID.
         party_id (str): Party ID.
         party_name (str): Party name.
         secret_array (np.ndarray): Secret array.
@@ -111,29 +127,32 @@ async def store_secret_array(
     Returns:
         str: Store ID.
     """
-    secret = na_client.array(secret_array, name, nada_type)
-    secrets = nillion.Secrets(secret)
+    stored_secret = nillion.NadaValues(
+        na_client.array(secret_array, secret_name, nada_type)
+    )
+
     store_id = await store_secrets(
         client,
+        payments_wallet,
+        payments_client,
         cluster_id,
-        program_id,
-        party_id,
-        party_name,
-        secrets,
+        stored_secret,
+        ttl_days,
         permissions,
     )
+
     return store_id
 
 
 async def store_secret_value(
     client: nillion.NillionClient,
+    payments_wallet: LocalWallet,
+    payments_client: LedgerClient,
     cluster_id: str,
-    program_id: str,
-    party_id: str,
-    party_name: str,
     secret_value: Any,
-    name: str,
+    secret_name: str,
     nada_type: Any,
+    ttl_days: int = 1,
     permissions: nillion.Permissions = None,
 ):
     """
@@ -142,7 +161,6 @@ async def store_secret_value(
     Args:
         client (nillion.NillionClient): Nillion client.
         cluster_id (str): Cluster ID.
-        program_id (str): Program ID.
         party_id (str): Party ID.
         party_name (str): Party name.
         secret_value (Any): Secret single value.
@@ -155,62 +173,76 @@ async def store_secret_value(
     """
     if nada_type == na.Rational:
         secret_value = round(secret_value * 2 ** na.get_log_scale())
-        nada_type = nillion.PublicVariableInteger
+        nada_type = nillion.Integer
     elif nada_type == na.SecretRational:
         secret_value = round(secret_value * 2 ** na.get_log_scale())
         nada_type = nillion.SecretInteger
 
-    secrets = nillion.Secrets({name: nada_type(secret_value)})
+    stored_secret = nillion.NadaValues(
+        {
+            secret_name: nada_type(secret_value),
+        }
+    )
+
     store_id = await store_secrets(
         client,
+        payments_wallet,
+        payments_client,
         cluster_id,
-        program_id,
-        party_id,
-        party_name,
-        secrets,
+        stored_secret,
+        ttl_days,
         permissions,
     )
+
     return store_id
 
 
 async def store_secrets(
     client: nillion.NillionClient,
+    payments_wallet: LocalWallet,
+    payments_client: LedgerClient,
     cluster_id: str,
-    program_id: str,
-    party_id: str,
-    party_name: str,
-    secrets: nillion.Secrets,
+    secret: nillion.NadaValues,
+    ttl_days: int = 1,
     permissions: nillion.Permissions = None,
 ):
     """
-    Asynchronous function to store secret values on the nillion client.
+    Asynchronous function to store secrets on the nillion client.
 
     Args:
         client (nillion.NillionClient): Nillion client.
         cluster_id (str): Cluster ID.
-        program_id (str): Program ID.
         party_id (str): Party ID.
         party_name (str): Party name.
-        secrets (nillion.Secrets): Secrets.
+        secret (nillion.NadaValues): Stored secret.
         permissions (nillion.Permissions): Optional Permissions.
+
 
     Returns:
         str: Store ID.
     """
-    secret_bindings = nillion.ProgramBindings(program_id)
-    secret_bindings.add_input_party(party_name, party_id)
-    store_id = await client.store_secrets(
-        cluster_id, secret_bindings, secrets, permissions
+    receipt_store = await get_quote_and_pay(
+        client,
+        nillion.Operation.store_values(secret, ttl_days=ttl_days),
+        payments_wallet,
+        payments_client,
+        cluster_id,
     )
+
+    store_id = await client.store_values(cluster_id, secret, permissions, receipt_store)
+
     return store_id
 
 
 async def compute(
     client: nillion.NillionClient,
+    payments_wallet: LocalWallet,
+    payments_client: LedgerClient,
+    program_id: str,
     cluster_id: str,
     compute_bindings: nillion.ProgramBindings,
     store_ids: List[str],
-    computation_time_secrets: nillion.Secrets,
+    computation_time_secrets: nillion.NadaValues,
     verbose: bool = True,
 ) -> Dict[str, Any]:
     """
@@ -227,20 +259,26 @@ async def compute(
     Returns:
         Dict[str, Any]: Result of computation.
     """
-    compute_id = await client.compute(
+    receipt_compute = await get_quote_and_pay(
+        client,
+        nillion.Operation.compute(program_id, computation_time_secrets),
+        payments_wallet,
+        payments_client,
+        cluster_id,
+    )
+
+    _ = await client.compute(
         cluster_id,
         compute_bindings,
         store_ids,
         computation_time_secrets,
-        nillion.PublicVariables({}),
+        receipt_compute,
     )
 
-    if verbose:
-        print(f"The computation was sent to the network. compute_id: {compute_id}")
     while True:
         compute_event = await client.next_compute_event()
         if isinstance(compute_event, nillion.ComputeFinishedEvent):
             if verbose:
-                print(f"✅  Compute complete for compute_id {compute_event.uuid}")
+                print(f"✅ Compute complete for compute_id {compute_event.uuid}")
                 print(f"🖥️  The result is {compute_event.result.value}")
             return compute_event.result.value
