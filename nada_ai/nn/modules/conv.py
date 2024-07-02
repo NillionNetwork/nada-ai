@@ -97,22 +97,26 @@ class Conv2d(Module):
             (batch_size, out_channels, out_height, out_width),
             x.cleartext_nada_type,
         )
-        for b in range(batch_size):
-            for oc in range(out_channels):
-                for i in range(out_height):
-                    for j in range(out_width):
-                        start_i = i * self.stride[0]
-                        start_j = j * self.stride[1]
+        with na.context.UnsafeArithmeticSession():
+            for b in range(batch_size):
+                for oc in range(out_channels):
+                    for i in range(out_height):
+                        for j in range(out_width):
+                            start_i = i * self.stride[0]
+                            start_j = j * self.stride[1]
 
-                        receptive_field = x[
-                            b,
-                            :,
-                            start_i : start_i + kernel_rows,
-                            start_j : start_j + kernel_cols,
-                        ]
-                        output_tensor[b, oc, i, j] = na.sum(
-                            self.weight[oc] * receptive_field
-                        )
+                            receptive_field = x[
+                                b,
+                                :,
+                                start_i : start_i + kernel_rows,
+                                start_j : start_j + kernel_cols,
+                            ]
+                            output_tensor[b, oc, i, j] = na.sum(
+                                self.weight[oc] * receptive_field
+                            )
+
+        if x.is_rational:
+            output_tensor = output_tensor.apply(lambda value: value.rescale_down())
 
         if self.bias is not None:
             output_tensor += self.bias.reshape(1, out_channels, 1, 1)
