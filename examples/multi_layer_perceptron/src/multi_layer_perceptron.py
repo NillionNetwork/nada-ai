@@ -1,6 +1,6 @@
 import nada_numpy as na
-from nada_dsl import Party
 from my_nn import MyNN
+from nada_dsl import Party
 
 
 def nada_main():

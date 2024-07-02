@@ -1,5 +1,4 @@
 import nada_numpy as na
-
 from my_model import MyModel
 
 

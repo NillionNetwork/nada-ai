@@ -12,16 +12,17 @@ import nada_numpy.client as na_client
 import numpy as np
 import pandas as pd
 import py_nillion_client as nillion
-from prophet import Prophet
 from common.utils import compute, store_program, store_secrets
 from cosmpy.aerial.client import LedgerClient
 from cosmpy.aerial.wallet import LocalWallet
 from cosmpy.crypto.keypairs import PrivateKey
 from dotenv import load_dotenv
-from nada_ai.client import ProphetClient
 from nillion_python_helpers import (create_nillion_client,
                                     create_payments_config)
+from prophet import Prophet
 from py_nillion_client import NodeKey, UserKey
+
+from nada_ai.client import ProphetClient
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
