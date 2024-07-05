@@ -25,7 +25,7 @@ EXAMPLES = [
     "multi_layer_perceptron",
     "neural_net",
     "spam_detection",
-    # "time_series",
+    "time_series",
 ]
 
 TESTS = [("tests/nada-tests/", test) for test in TESTS] + [
@@ -39,20 +39,21 @@ def testname(request):
 
 
 def build_nada(test_dir):
-    print(test_dir)
     result = subprocess.run(
         ["nada", "build", test_dir[1]], cwd=test_dir[0], capture_output=True, text=True
     )
-    if result.returncode != 0:
-        pytest.fail(f"Build failed: {result.stderr}")
+    err = result.stderr.lower() + result.stdout.lower()
+    if result.returncode != 0 or "error" in err or "fail" in err:
+        pytest.fail(f"Build {test_dir}:\n{result.stdout + result.stderr}")
 
 
 def run_nada(test_dir):
     result = subprocess.run(
         ["nada", "test", test_dir[1]], cwd=test_dir[0], capture_output=True, text=True
     )
-    if result.returncode != 0:
-        pytest.fail(f"Tests failed: {result.stderr}")
+    err = result.stderr.lower() + result.stdout.lower()
+    if result.returncode != 0 or "error" in err or "fail" in err:
+        pytest.fail(f"Run {test_dir}:\n{result.stdout + result.stderr}")
 
 
 class TestSuite:
@@ -87,7 +88,7 @@ def test_client():
 
     assert parties is not None
 
-    secrets = nillion.Secrets(
+    secrets = nillion.NadaValues(
         na_client.concat(
             [
                 na_client.array(np.ones((3, 3)), "A", nillion.SecretInteger),
@@ -98,13 +99,11 @@ def test_client():
 
     assert secrets is not None
 
-    public_variables = nillion.PublicVariables(
+    public_variables = nillion.NadaValues(
         na_client.concat(
             [
-                na_client.array(np.zeros((4, 4)), "C", nillion.PublicVariableInteger),
-                na_client.array(
-                    np.zeros((3, 3)), "D", nillion.PublicVariableUnsignedInteger
-                ),
+                na_client.array(np.zeros((4, 4)), "C", nillion.Integer),
+                na_client.array(np.zeros((3, 3)), "D", nillion.UnsignedInteger),
             ]
         )
     )

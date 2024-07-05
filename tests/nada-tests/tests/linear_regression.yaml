@@ -1,26 +1,23 @@
----
 program: linear_regression
 inputs:
-  secrets:
-    input_0:
-      SecretInteger: "1"
-    input_1:
-      SecretInteger: "2"
-    input_2:
-      SecretInteger: "3"
-    input_3:
-      SecretInteger: "3"
-    testmod_coef_0:
-      SecretInteger: "4"
-    testmod_coef_1:
-      SecretInteger: "3"
-    testmod_coef_2:
-      SecretInteger: "2"
-    testmod_coef_3:
-      SecretInteger: "1"
-    testmod_intercept_0:
-      SecretInteger: "3"
-  public_variables: {}
+  input_0:
+    SecretInteger: '1'
+  input_1:
+    SecretInteger: '2'
+  input_2:
+    SecretInteger: '3'
+  input_3:
+    SecretInteger: '3'
+  testmod_coef_0:
+    SecretInteger: '4'
+  testmod_coef_1:
+    SecretInteger: '3'
+  testmod_coef_2:
+    SecretInteger: '2'
+  testmod_coef_3:
+    SecretInteger: '1'
+  testmod_intercept_0:
+    SecretInteger: '3'
 expected_outputs:
-  output:
-    SecretInteger: "22"
+  my_output:
+    SecretInteger: '22'

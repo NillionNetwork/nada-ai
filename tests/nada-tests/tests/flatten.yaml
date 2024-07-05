@@ -1,38 +1,35 @@
----
 program: flatten
 inputs:
-  secrets:
-    input_x_0_0_0_0:
-      SecretInteger: "1"
-    input_x_0_0_1_0:
-      SecretInteger: "2"
-    input_x_0_1_0_0:
-      SecretInteger: "3"
-    input_x_0_1_1_0:
-      SecretInteger: "4"
-    input_x_1_0_0_0:
-      SecretInteger: "5"
-    input_x_1_0_1_0:
-      SecretInteger: "6"
-    input_x_1_1_0_0:
-      SecretInteger: "7"
-    input_x_1_1_1_0:
-      SecretInteger: "8"
-  public_variables: {}
+  input_x_0_0_0_0:
+    SecretInteger: '1'
+  input_x_0_0_1_0:
+    SecretInteger: '2'
+  input_x_0_1_0_0:
+    SecretInteger: '3'
+  input_x_0_1_1_0:
+    SecretInteger: '4'
+  input_x_1_0_0_0:
+    SecretInteger: '5'
+  input_x_1_0_1_0:
+    SecretInteger: '6'
+  input_x_1_1_0_0:
+    SecretInteger: '7'
+  input_x_1_1_1_0:
+    SecretInteger: '8'
 expected_outputs:
   x_flat_0:
-    SecretInteger: "1"
+    SecretInteger: '1'
   x_flat_1:
-    SecretInteger: "2"
+    SecretInteger: '2'
   x_flat_2:
-    SecretInteger: "3"
+    SecretInteger: '3'
   x_flat_3:
-    SecretInteger: "4"
+    SecretInteger: '4'
   x_flat_4:
-    SecretInteger: "5"
+    SecretInteger: '5'
   x_flat_5:
-    SecretInteger: "6"
+    SecretInteger: '6'
   x_flat_6:
-    SecretInteger: "7"
+    SecretInteger: '7'
   x_flat_7:
-    SecretInteger: "8"
+    SecretInteger: '8'

@@ -1,68 +1,65 @@
----
 program: distance
 inputs:
-  secrets:
-    input_x_0_0:
-      SecretInteger: "1"
-    input_x_0_1:
-      SecretInteger: "2"
-    input_x_0_2:
-      SecretInteger: "3"
-    input_x_1_0:
-      SecretInteger: "4"
-    input_x_1_1:
-      SecretInteger: "5"
-    input_x_1_2:
-      SecretInteger: "6"
-    input_y_0_0:
-      SecretInteger: "1"
-    input_y_0_1:
-      SecretInteger: "2"
-    input_y_0_2:
-      SecretInteger: "3"
-    input_y_1_0:
-      SecretInteger: "4"
-    input_y_1_1:
-      SecretInteger: "5"
-    input_y_1_2:
-      SecretInteger: "6"
-    input_y_2_0:
-      SecretInteger: "7"
-    input_y_2_1:
-      SecretInteger: "8"
-    input_y_2_2:
-      SecretInteger: "9"
-    input_y_3_0:
-      SecretInteger: "10"
-    input_y_3_1:
-      SecretInteger: "11"
-    input_y_3_2:
-      SecretInteger: "12"
-    input_y_4_0:
-      SecretInteger: "13"
-    input_y_4_1:
-      SecretInteger: "14"
-    input_y_4_2:
-      SecretInteger: "15"
-  public_variables: {}
+  input_x_0_0:
+    SecretInteger: '1'
+  input_x_0_1:
+    SecretInteger: '2'
+  input_x_0_2:
+    SecretInteger: '3'
+  input_x_1_0:
+    SecretInteger: '4'
+  input_x_1_1:
+    SecretInteger: '5'
+  input_x_1_2:
+    SecretInteger: '6'
+  input_y_0_0:
+    SecretInteger: '1'
+  input_y_0_1:
+    SecretInteger: '2'
+  input_y_0_2:
+    SecretInteger: '3'
+  input_y_1_0:
+    SecretInteger: '4'
+  input_y_1_1:
+    SecretInteger: '5'
+  input_y_1_2:
+    SecretInteger: '6'
+  input_y_2_0:
+    SecretInteger: '7'
+  input_y_2_1:
+    SecretInteger: '8'
+  input_y_2_2:
+    SecretInteger: '9'
+  input_y_3_0:
+    SecretInteger: '10'
+  input_y_3_1:
+    SecretInteger: '11'
+  input_y_3_2:
+    SecretInteger: '12'
+  input_y_4_0:
+    SecretInteger: '13'
+  input_y_4_1:
+    SecretInteger: '14'
+  input_y_4_2:
+    SecretInteger: '15'
 expected_outputs:
   my_output_0_0:
-    SecretInteger: "14"
+    SecretInteger: '14'
   my_output_0_1:
-    SecretInteger: "32"
+    SecretInteger: '32'
   my_output_0_2:
-    SecretInteger: "50"
+    SecretInteger: '50'
   my_output_0_3:
-    SecretInteger: "68"
+    SecretInteger: '68'
   my_output_0_4:
-    SecretInteger: "86"
+    SecretInteger: '86'
   my_output_1_0:
-    SecretInteger: "32"
+    SecretInteger: '32'
   my_output_1_1:
-    SecretInteger: "77"
+    SecretInteger: '77'
   my_output_1_2:
-    SecretInteger: "122"
+    SecretInteger: '122'
   my_output_1_3:
-    SecretInteger: "167"
+    SecretInteger: '167'
   my_output_1_4:
-    SecretInteger: "212"
+    SecretInteger: '212'

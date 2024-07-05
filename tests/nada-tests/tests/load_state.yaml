@@ -1,70 +1,67 @@
----
 program: load_state
 inputs:
-  secrets:
-    module1_param1_0_0:
-      SecretInteger: "1"
-    module1_param1_0_1:
-      SecretInteger: "2"
-    module1_param1_1_0:
-      SecretInteger: "3"
-    module1_param1_1_1:
-      SecretInteger: "4"
-    module1_param1_2_0:
-      SecretInteger: "5"
-    module1_param1_2_1:
-      SecretInteger: "6"
-    module1_param2_0:
-      SecretInteger: "7"
-    module1_param2_1:
-      SecretInteger: "8"
-  public_variables:
-    module2_param1_0_0:
-      Integer: "1"
-    module2_param1_0_1:
-      Integer: "2"
-    module2_param1_1_0:
-      Integer: "3"
-    module2_param1_1_1:
-      Integer: "4"
-    module2_param1_2_0:
-      Integer: "5"
-    module2_param1_2_1:
-      Integer: "6"
-    module2_param2_0:
-      Integer: "7"
-    module2_param2_1:
-      Integer: "8"
+  module1_param1_0_0:
+    SecretInteger: '1'
+  module1_param1_0_1:
+    SecretInteger: '2'
+  module1_param1_1_0:
+    SecretInteger: '3'
+  module1_param1_1_1:
+    SecretInteger: '4'
+  module1_param1_2_0:
+    SecretInteger: '5'
+  module1_param1_2_1:
+    SecretInteger: '6'
+  module1_param2_0:
+    SecretInteger: '7'
+  module1_param2_1:
+    SecretInteger: '8'
+  module2_param1_0_0:
+    Integer: '1'
+  module2_param1_0_1:
+    Integer: '2'
+  module2_param1_1_0:
+    Integer: '3'
+  module2_param1_1_1:
+    Integer: '4'
+  module2_param1_2_0:
+    Integer: '5'
+  module2_param1_2_1:
+    Integer: '6'
+  module2_param2_0:
+    Integer: '7'
+  module2_param2_1:
+    Integer: '8'
 expected_outputs:
   module1_param1_0_0:
-    SecretInteger: "1"
+    SecretInteger: '1'
   module1_param1_0_1:
-    SecretInteger: "2"
+    SecretInteger: '2'
   module1_param1_1_0:
-    SecretInteger: "3"
+    SecretInteger: '3'
   module1_param1_1_1:
-    SecretInteger: "4"
+    SecretInteger: '4'
   module1_param1_2_0:
-    SecretInteger: "5"
+    SecretInteger: '5'
   module1_param1_2_1:
-    SecretInteger: "6"
+    SecretInteger: '6'
   module1_param2_0:
-    SecretInteger: "7"
+    SecretInteger: '7'
   module1_param2_1:
-    SecretInteger: "8"
+    SecretInteger: '8'
   module2_param1_0_0:
-    Integer: "1"
+    Integer: '1'
   module2_param1_0_1:
-    Integer: "2"
+    Integer: '2'
   module2_param1_1_0:
-    Integer: "3"
+    Integer: '3'
   module2_param1_1_1:
-    Integer: "4"
+    Integer: '4'
   module2_param1_2_0:
-    Integer: "5"
+    Integer: '5'
   module2_param1_2_1:
-    Integer: "6"
+    Integer: '6'
   module2_param2_0:
-    Integer: "7"
+    Integer: '7'
   module2_param2_1:
-    Integer: "8"
+    Integer: '8'

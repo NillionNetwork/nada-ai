@@ -62,19 +62,6 @@ class TestModelClient:
         assert "test_model_coef_0_1" in secrets.keys()
         assert "test_model_coef_0_2" in secrets.keys()
 
-    def test_sklearn_4(self):
-        log_reg = LogisticRegression(fit_intercept=False)
-
-        X = np.array([[1, 2, 3], [2, 3, 4]])
-        y = np.array([0, 1])
-
-        log_reg_fit = log_reg.fit(X, y)
-
-        model_client = SklearnClient(log_reg_fit)
-
-        with pytest.raises(NotImplementedError):
-            model_client.export_state_as_secrets("test_model", nillion.SecretInteger)
-
     def test_custom_client_1(self):
         class MyModelClient(ModelClient):
             def __init__(self) -> None:

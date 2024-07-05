@@ -1,50 +1,47 @@
----
 program: logistic_regression
 inputs:
-  secrets:
-    testmod_coef_1_2:
-      SecretInteger: "3"
-    testmod_intercept_2:
-      SecretInteger: "3"
-    testmod_coef_1_1:
-      SecretInteger: "3"
-    testmod_coef_0_0:
-      SecretInteger: "3"
-    input_1:
-      SecretInteger: "3"
-    testmod_coef_2_1:
-      SecretInteger: "3"
-    testmod_coef_1_0:
-      SecretInteger: "3"
-    testmod_coef_1_3:
-      SecretInteger: "3"
-    testmod_coef_0_2:
-      SecretInteger: "3"
-    input_3:
-      SecretInteger: "3"
-    testmod_intercept_0:
-      SecretInteger: "3"
-    testmod_coef_2_2:
-      SecretInteger: "3"
-    testmod_coef_0_3:
-      SecretInteger: "3"
-    input_2:
-      SecretInteger: "3"
-    testmod_coef_2_3:
-      SecretInteger: "3"
-    testmod_coef_0_1:
-      SecretInteger: "3"
-    testmod_intercept_1:
-      SecretInteger: "3"
-    input_0:
-      SecretInteger: "3"
-    testmod_coef_2_0:
-      SecretInteger: "3"
-  public_variables: {}
+  testmod_coef_1_2:
+    SecretInteger: '3'
+  testmod_intercept_2:
+    SecretInteger: '3'
+  testmod_coef_1_1:
+    SecretInteger: '3'
+  testmod_coef_0_0:
+    SecretInteger: '3'
+  input_1:
+    SecretInteger: '3'
+  testmod_coef_2_1:
+    SecretInteger: '3'
+  testmod_coef_1_0:
+    SecretInteger: '3'
+  testmod_coef_1_3:
+    SecretInteger: '3'
+  testmod_coef_0_2:
+    SecretInteger: '3'
+  input_3:
+    SecretInteger: '3'
+  testmod_intercept_0:
+    SecretInteger: '3'
+  testmod_coef_2_2:
+    SecretInteger: '3'
+  testmod_coef_0_3:
+    SecretInteger: '3'
+  input_2:
+    SecretInteger: '3'
+  testmod_coef_2_3:
+    SecretInteger: '3'
+  testmod_coef_0_1:
+    SecretInteger: '3'
+  testmod_intercept_1:
+    SecretInteger: '3'
+  input_0:
+    SecretInteger: '3'
+  testmod_coef_2_0:
+    SecretInteger: '3'
 expected_outputs:
   my_output_0:
-    SecretInteger: "39"
+    SecretInteger: '39'
   my_output_1:
-    SecretInteger: "39"
+    SecretInteger: '39'
   my_output_2:
-    SecretInteger: "39"
+    SecretInteger: '39'
