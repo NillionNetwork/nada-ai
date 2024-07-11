@@ -12,7 +12,7 @@ torch = "^2.0.0"
 scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
 nillion-python-helpers = "~0.2.3" # Works for 0.2.3 version
-#nada-numpy="~0.3" # Works for any 0.2.x version
+nada-numpy="~0.3" # Works for any 0.2.x version
 nada-dsl="~0.4" # Works for any 0.3.x version
 py-nillion-client="~0.4" # Works for any 0.3.x version
 
