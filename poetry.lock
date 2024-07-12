@@ -1049,6 +1049,23 @@ lint = ["pylint (>=2.17,<3.3)"]
 test = ["pytest (>=7.4,<9.0)", "pytest-cov (>=4,<6)"]
 
 [[package]]
+name = "nada-numpy"
+version = "0.3.0"
+description = "Nada-Numpy is a Python library designed for algebraic operations on NumPy-like array objects on top of Nada DSL and Nillion Network."
+optional = false
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "nada_numpy-0.3.0-py3-none-any.whl", hash = "sha256:17ce586198a89d20c455663a6a88ba6687a5b98c57e0cdcd5b1828a4ba035b70"},
+    {file = "nada_numpy-0.3.0.tar.gz", hash = "sha256:a4464c2a48a0049d013dd7fad61fc9fb2484c64578bad06c2c4df0a1dcafe67f"},
+]
+
+[package.dependencies]
+nada-dsl = ">=0.4,<0.5"
+nillion-python-helpers = ">=0.2.3,<0.3.0"
+numpy = ">=1.26.4,<2.0.0"
+py-nillion-client = ">=0.4,<0.5"
+
+[[package]]
 name = "networkx"
 version = "3.3"
 description = "Python package for creating and manipulating graphs and networks"
@@ -2220,4 +2237,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "76e23d1e884c1318d3f16e14cbad1192ca5a4a57bb81044bc5cb9f023e849663"
+content-hash = "e1db0c3c32f6c2f506a47c33864bfb55b1402b504ea13e73b021b1d840d7b704"
