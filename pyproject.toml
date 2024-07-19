@@ -7,14 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-numpy = "^1.26.4"
 torch = "^2.0.0"
 scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
-nillion-python-helpers = "~0.2.3" # Works for 0.2.3 version
-nada-numpy="~0.3" # Works for any 0.3.x version
-nada-dsl="~0.4" # Works for any 0.4.x version
-py-nillion-client="~0.4" # Works for any 0.4.x version
+nillion-python-helpers = "^0.2.3"
+nada-numpy="^0.3.0"
+nada-dsl="^0.4.0"
+py-nillion-client="^0.4.0"
+torchvision = {version="^0.18.1", optional=true}
+black = {version="^24.4.2", optional=true}
+isort = {version="^5.13.2", optional=true}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
@@ -25,3 +27,8 @@ mypy = "^1.10.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.extras]
+linter = ["black", "isort"]
+examples = ["torchvision"]

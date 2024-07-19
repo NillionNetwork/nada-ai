@@ -26,10 +26,18 @@ You can install the nada-ai library using Poetry:
 
 ```bash
 git clone https://github.com/NillionNetwork/nada-ai.git
-pip3 install poetry
-poetry install nada-ai
+pip install ./nada-ai
 ```
 
+## Installation Options.
+
+In certain cases, you may want to install Nada AI with different development libraries. The options may be installed as follows:
+```
+pip install ./nada-ai[examples] # To include the libraries required for the examples
+pip install ./nada-ai[linter] # To include automatic linting tools for development
+```
+
+In a normal scenario, these libraries won't be installed by Nada AI.
 ## License
 
 This project is licensed under the Apache2 License. See the LICENSE file for details.
