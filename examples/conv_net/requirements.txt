@@ -1,0 +1,6 @@
+pandas~=2.2.2
+python-dotenv~=1.0.0
+torchvision~=0.18.1
+matplotlib~=3.9.0
+pillow==10.3.0
+kaggle==1.6.14

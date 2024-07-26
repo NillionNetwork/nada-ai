@@ -1,0 +1,7 @@
+name = "conv_net"
+version = "0.1.0"
+authors = [""]
+
+[[programs]]
+path = "src/conv_net.py"
+prime_size = 128
