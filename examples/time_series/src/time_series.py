@@ -1,10 +1,19 @@
+from typing import List
+
 import nada_numpy as na
 import numpy as np
-
+from config import TIME_HORIZON
 from nada_ai.time_series import Prophet
+from nada_dsl import Output
 
 
-def nada_main():
+def nada_main() -> List[Output]:
+    """
+    Main Nada program.
+
+    Returns:
+        List[Output]: Program outputs.
+    """
     # Step 1: We use Nada NumPy wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 
@@ -21,10 +30,12 @@ def nada_main():
     my_prophet.load_state_from_network("my_prophet", parties[0], na.SecretRational)
 
     # Step 4: Load input data to be used for inference (provided by Party1)
-    dates = np.arange(np.datetime64("2024-05-01"), np.datetime64("2024-05-21"))
+    start_date = np.datetime64("2024-05-01")
+    end_date = start_date + TIME_HORIZON
+    dates = np.arange(start_date, end_date)
 
-    floor = na.array((20,), parties[1], "floor", na.SecretRational)
-    t = na.array((20,), parties[1], "t", na.SecretRational)
+    floor = na.array((TIME_HORIZON,), parties[1], "floor", na.SecretRational)
+    t = na.array((TIME_HORIZON,), parties[1], "t", na.SecretRational)
 
     # Step 5: Compute inference
     # Note: completely equivalent to `my_model.forward(...)` or `model.predict(...)`

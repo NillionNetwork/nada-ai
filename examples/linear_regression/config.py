@@ -1,3 +1,3 @@
 """Configuration variables"""
 
-DIM = 500
+DIM = 10

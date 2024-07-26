@@ -1,5 +1,5 @@
 ---
-program: multi_layer_perceptron
+program: conv_net
 inputs:
   my_input_0_0_1_6:
     SecretInteger: "3"

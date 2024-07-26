@@ -1,8 +1,17 @@
+from typing import List
+
 import nada_numpy as na
 from my_model import MyModel
+from nada_dsl import Output
 
 
-def nada_main():
+def nada_main() -> List[Output]:
+    """
+    Main Nada program.
+
+    Returns:
+        List[Output]: Program outputs.
+    """
     # Step 1: We use Nada NumPy wrapper to create "Party0" and "Party1"
     parties = na.parties(2)
 

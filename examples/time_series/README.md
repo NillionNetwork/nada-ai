@@ -1,12 +1,25 @@
-# Time Series
+# Time series Tutorial
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NillionNetwork/nada-ai/blob/main/examples/time_series/time_series.ipynb)
 
 This example shows how you can run time series forecasting using Nada AI. It highlights that, although there exists a major parallel between Nada AI's design and that of PyTorch, it also integrates with other frameworks such as in this case `prophet`
 
 You will find the nada program in `src/time_series.py`
 
-What this script does is simply:
-- Load the model provided by Party0 via `my_prophet = Prophet(n_changepoints=12, yearly_seasonality=False, weekly_seasonality=True, daily_seasonality=False)` and `my_model.load_state_from_network("my_prophet", parties[0], na.SecretRational)`. Note that we explicitly provide some Prophet configurations (i.e. seasonalities and number of changepoints) that it picked up during training.
-- Establish the desired forecasting horizon (20 days: 2024-05-01 to 2024-05-21) via `dates = np.arange(np.datetime64("2024-05-01"), np.datetime64("2024-05-21"))`
-- Load in input secrets via `floor = na.array((20,), parties[1], "floor", na.SecretRational)` and `t = na.array((20,), parties[1], "t", na.SecretRational)`.
-- Run inference via `result = my_prophet(dates, floor, t)` 
-- Return the inference result to Party1 via `return result.output(parties[1], "my_output")`
+## 🚨 Limitations
+The choice for blind computing implies certain trade-offs in comparison to conventional computing. What you gain in privacy, you pay in extra computational overhead & capacity constraints.
+
+Therefore, you will notice that large-scale computational workloads may lead to long compilation and/or execution times or hitting network capacity guardrails.
+
+That said, the Nillion team is working around the clock to push the boundaries of this technology and bring the potential of blind computing to reality 🚀
+
+👉 This example has been tested on local devnet for time series up to 25 elements and a forecasting horizon of up to 5 periods.
+
+## ➡️ Stay in touch
+If you want to get involved in the blind computing community and be the first to know all big updates, join our Discord
+
+[![Discord](https://img.shields.io/badge/Discord-nillionnetwork-%235865F2?logo=discord)](https://discord.gg/nillionnetwork)
+
+And if you want to contribute to the blind computing revolution, we welcome open-source contributors!
+
+[![GitHub Discussions](https://img.shields.io/badge/GitHub_Discussions-NillionNetwork-%23181717?logo=github)](https://github.com/orgs/NillionNetwork/discussions)

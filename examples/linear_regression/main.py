@@ -11,22 +11,20 @@ import nada_numpy as na
 import nada_numpy.client as na_client
 import numpy as np
 import py_nillion_client as nillion
-from common.utils import compute, store_program, store_secrets
+from config import DIM
 from cosmpy.aerial.client import LedgerClient
 from cosmpy.aerial.wallet import LocalWallet
 from cosmpy.crypto.keypairs import PrivateKey
 from dotenv import load_dotenv
-from nillion_python_helpers import (create_nillion_client,
-                                    create_payments_config)
+from nada_ai.client import SklearnClient
+from nillion_python_helpers import create_nillion_client, create_payments_config
 from py_nillion_client import NodeKey, UserKey
 from sklearn.linear_model import LinearRegression
 
-from nada_ai.client import SklearnClient
+from common.utils import compute, store_program, store_secrets
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
-
-NUM_FEATS = 10
 
 
 # Main asynchronous function to coordinate the process
@@ -67,10 +65,10 @@ async def main() -> None:
     )
 
     # Train a linear regression
-    X = np.random.randn(1_000, NUM_FEATS)
+    X = np.random.randn(1_000, DIM)
     # We generate the data from a specific linear model
     coeffs_gt = np.ones(
-        NUM_FEATS,
+        DIM,
     )
     bias_gt = 4.2
 
@@ -102,7 +100,7 @@ async def main() -> None:
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((NUM_FEATS,)), "my_input", na.SecretRational)
+    my_input = na_client.array(np.ones((DIM,)), "my_input", na.SecretRational)
     input_secrets = nillion.NadaValues(my_input)
 
     data_store_id = await store_secrets(
@@ -145,7 +143,7 @@ async def main() -> None:
     outputs = [na_client.float_from_rational(result["my_output"])]
     print(f"🖥️  The result is {outputs} @ {na.get_log_scale()}-bit precision")
 
-    expected = fit_model.predict(np.ones((NUM_FEATS,)).reshape(1, -1))
+    expected = fit_model.predict(np.ones((DIM,)).reshape(1, -1))
     print(f"🖥️  VS expected result {expected}")
 
 
