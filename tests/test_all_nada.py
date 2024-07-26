@@ -22,7 +22,7 @@ TESTS = [
 EXAMPLES = [
     "complex_model",
     "linear_regression",
-    "multi_layer_perceptron",
+    "conv_net",
     "neural_net",
     "spam_detection",
     "time_series",

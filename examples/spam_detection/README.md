@@ -1,15 +1,21 @@
-# Spam detection
+# Spam detection Tutorial
 
-To execute this tutorial, you may potentially need to install the `requirements.txt` apart from nada-ai:
-```bash
-pip install -r requirements.txt
-```
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NillionNetwork/nada-ai/blob/main/examples/spam_detection/spam_detection.ipynb)
 
-## How to run this test:
+This example shows how you can build and run a spam detection model!
 
-0. Make sure all the dependencies are installed.
-1. Run `cd examples/spam_detection` to changed directory.
-2. Then, we can create our local devnet with: `bootstrap-nillion-devnet`. This command produces a local environment file `.env` file in the specific directory. So make sure to execute it in the specific directory.
-2. Compile the project using `nada build`.
-3. Run through the model provider script.
-4. Run through the client script.
+## 🚨 Limitations
+The choice for blind computing implies certain trade-offs in comparison to conventional computing. What you gain in privacy, you pay in extra computational overhead & capacity constraints.
+
+Therefore, you will notice that large-scale computational workloads may lead to long compilation and/or execution times or hitting network capacity guardrails.
+
+That said, the Nillion team is working around the clock to push the boundaries of this technology and bring the potential of blind computing to reality 🚀
+
+## ➡️ Stay in touch
+If you want to get involved in the blind computing community and be the first to know all big updates, join our Discord
+
+[![Discord](https://img.shields.io/badge/Discord-nillionnetwork-%235865F2?logo=discord)](https://discord.gg/nillionnetwork)
+
+And if you want to contribute to the blind computing revolution, we welcome open-source contributors!
+
+[![GitHub Discussions](https://img.shields.io/badge/GitHub_Discussions-NillionNetwork-%23181717?logo=github)](https://github.com/orgs/NillionNetwork/discussions)

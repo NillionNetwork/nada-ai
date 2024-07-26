@@ -1,7 +1,0 @@
-name = "multi_layer_perceptron"
-version = "0.1.0"
-authors = [""]
-
-[[programs]]
-path = "src/multi_layer_perceptron.py"
-prime_size = 128

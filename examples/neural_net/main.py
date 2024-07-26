@@ -12,16 +12,16 @@ import nada_numpy.client as na_client
 import numpy as np
 import py_nillion_client as nillion
 import torch
-from common.utils import compute, store_program, store_secrets
+from config import DIM
 from cosmpy.aerial.client import LedgerClient
 from cosmpy.aerial.wallet import LocalWallet
 from cosmpy.crypto.keypairs import PrivateKey
 from dotenv import load_dotenv
-from nillion_python_helpers import (create_nillion_client,
-                                    create_payments_config)
+from nada_ai.client import TorchClient
+from nillion_python_helpers import create_nillion_client, create_payments_config
 from py_nillion_client import NodeKey, UserKey
 
-from nada_ai.client import TorchClient
+from common.utils import compute, store_program, store_secrets
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
@@ -70,7 +70,7 @@ async def main() -> None:
         def __init__(self) -> None:
             """Model is a two layers and an activations"""
             super().__init__()
-            self.linear_0 = torch.nn.Linear(8, 4)
+            self.linear_0 = torch.nn.Linear(DIM, 4)
             self.linear_1 = torch.nn.Linear(4, 2)
             self.relu = torch.nn.ReLU()
 
@@ -104,7 +104,7 @@ async def main() -> None:
     )
 
     # Store inputs to perform inference for
-    my_input = na_client.array(np.ones((8,)), "my_input", na.SecretRational)
+    my_input = na_client.array(np.ones((DIM,)), "my_input", na.SecretRational)
     input_secrets = nillion.NadaValues(my_input)
 
     data_store_id = await store_secrets(
@@ -154,7 +154,7 @@ async def main() -> None:
 
     print(f"🖥️  The processed result is {outputs} @ {na.get_log_scale()}-bit precision")
 
-    expected = my_nn.forward(torch.ones((8,))).detach().numpy().tolist()
+    expected = my_nn.forward(torch.ones((DIM,))).detach().numpy().tolist()
 
     print(f"🖥️  VS expected result {expected}")
 

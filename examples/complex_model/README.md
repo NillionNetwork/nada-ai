@@ -1,11 +1,23 @@
-# Complex model
+# Complex model Tutorial
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NillionNetwork/nada-ai/blob/main/examples/complex_model/complex_model.ipynb)
 
 This example shows how you can build and run an arbitrarily complex AI model - much like you can in PyTorch!
 
 The model architecture is defined in `src/my_model.py`. You will notice that it is syntactically nearly identical to the equivalent PyTorch model.
 
-This model is then used in the main Nada program - defined in `src/complex_model.py`. What this script does is simply:
-- Load the model provided by Party0 via `my_model = MyModel()` and `my_model.load_state_from_network("my_model", parties[0], na.SecretRational)`
-- Load in the (3, 4, 3) input data matrix called "my_input" provided by Party1 via `na.array((3, 4, 3), parties[1], "my_input", na.SecretRational)`
-- Run inference via `result = my_model(my_input)` 
-- Return the inference result to Party1 via `return result.output(parties[1], "my_output")`
+## 🚨 Limitations
+The choice for blind computing implies certain trade-offs in comparison to conventional computing. What you gain in privacy, you pay in extra computational overhead & capacity constraints.
+
+Therefore, you will notice that large-scale computational workloads may lead to long compilation and/or execution times or hitting network capacity guardrails.
+
+That said, the Nillion team is working around the clock to push the boundaries of this technology and bring the potential of blind computing to reality 🚀
+
+## ➡️ Stay in touch
+If you want to get involved in the blind computing community and be the first to know all big updates, join our Discord
+
+[![Discord](https://img.shields.io/badge/Discord-nillionnetwork-%235865F2?logo=discord)](https://discord.gg/nillionnetwork)
+
+And if you want to contribute to the blind computing revolution, we welcome open-source contributors!
+
+[![GitHub Discussions](https://img.shields.io/badge/GitHub_Discussions-NillionNetwork-%23181717?logo=github)](https://github.com/orgs/NillionNetwork/discussions)

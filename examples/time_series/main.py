@@ -12,20 +12,32 @@ import nada_numpy.client as na_client
 import numpy as np
 import pandas as pd
 import py_nillion_client as nillion
-from common.utils import compute, store_program, store_secrets
+from config import DIM, FORECAST_HORIZON
 from cosmpy.aerial.client import LedgerClient
 from cosmpy.aerial.wallet import LocalWallet
 from cosmpy.crypto.keypairs import PrivateKey
 from dotenv import load_dotenv
-from nillion_python_helpers import (create_nillion_client,
-                                    create_payments_config)
+from nada_ai.client import ProphetClient
+from nillion_python_helpers import create_nillion_client, create_payments_config
 from prophet import Prophet
 from py_nillion_client import NodeKey, UserKey
 
-from nada_ai.client import ProphetClient
+from common.utils import compute, store_program, store_secrets
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
+
+# Train prophet model
+model = Prophet()
+start_date = np.datetime64("2024-05-01")
+end_date = start_date + DIM - 1
+ds = pd.date_range(start_date, end_date).tolist()
+
+y = np.random.randint(-100, 100, (DIM,)).tolist()
+
+fit_model = model.fit(df=pd.DataFrame({"ds": ds, "y": y}))
+print("Model params are:", fit_model.params)
+print("Number of detected changepoints:", fit_model.n_changepoints)
 
 
 async def main() -> None:
@@ -64,17 +76,6 @@ async def main() -> None:
         program_mir_path,
     )
 
-    # Train prophet model
-    model = Prophet()
-
-    ds = pd.date_range("2024-05-01", "2024-05-17").tolist()
-    y = np.arange(1, 18).tolist()
-
-    fit_model = model.fit(df=pd.DataFrame({"ds": ds, "y": y}))
-
-    print("Model params are:", fit_model.params)
-    print("Number of detected changepoints:", fit_model.n_changepoints)
-
     # Create and store model secrets via ModelClient
     model_client = ProphetClient(fit_model)
     model_secrets = nillion.NadaValues(
@@ -94,7 +95,7 @@ async def main() -> None:
     )
 
     # Store inputs to perform inference for
-    future_df = fit_model.make_future_dataframe(periods=3)
+    future_df = fit_model.make_future_dataframe(periods=FORECAST_HORIZON)
     inference_ds = fit_model.setup_dataframe(future_df.copy())
 
     my_input = {}
