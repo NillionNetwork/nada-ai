@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nada-ai"
-version = "0.3.0"
+version = "0.3.1"
 description = "Nada-AI is a Python library designed for AI/ML on top of Nada DSL and Nillion Network."
 authors = ["Mathias Leys <mathias.leys@nillion.com>"]
 readme = "README.md"
