@@ -28,8 +28,7 @@ You can install the nada-ai library using Poetry:
 git clone https://github.com/NillionNetwork/nada-ai.git
 pip install ./nada-ai
 ```
-
-## Installation Options.
+### Advanced Options
 
 In certain cases, you may want to install Nada AI with different development libraries. The options may be installed as follows:
 ```
