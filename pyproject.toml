@@ -22,7 +22,7 @@ isort = {version="^5.13.2", optional=true}
 pytest = "^8.2.0"
 pandas = "^2.2.2"
 pylint = "^3.2.3"
-mypy = "^1.10.0"
+mypy = "^1.11.2"
 
 [build-system]
 requires = ["poetry-core"]
