@@ -1,35 +1,19 @@
 program: activations
 inputs:
-  input_x_0:
-    SecretInteger: '-2'
-  input_x_1:
-    SecretInteger: '0'
-  input_x_2:
-    SecretInteger: '4'
-  input_x_3:
-    SecretInteger: '-121'
-  input_y_0:
-    SecretInteger: '-131072'
-  input_y_1:
-    SecretInteger: '0'
-  input_y_2:
-    SecretInteger: '262144'
-  input_y_3:
-    SecretInteger: '-7929856'
+  input_x_0: -2
+  input_x_1: 0
+  input_x_2: 4
+  input_x_3: -121
+  input_y_0: -131072
+  input_y_1: 0
+  input_y_2: 262144
+  input_y_3: -7929856
 expected_outputs:
-  relu_x_0:
-    SecretInteger: '0'
-  relu_x_1:
-    SecretInteger: '0'
-  relu_x_2:
-    SecretInteger: '4'
-  relu_x_3:
-    SecretInteger: '0'
-  relu_y_0:
-    SecretInteger: '0'
-  relu_y_1:
-    SecretInteger: '0'
-  relu_y_2:
-    SecretInteger: '262144'
-  relu_y_3:
-    SecretInteger: '0'
+  relu_x_0: 0
+  relu_x_1: 0
+  relu_x_2: 4
+  relu_x_3: 0
+  relu_y_0: 0
+  relu_y_1: 0
+  relu_y_2: 262144
+  relu_y_3: 0

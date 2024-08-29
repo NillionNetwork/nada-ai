@@ -1,23 +1,13 @@
 program: linear_regression
 inputs:
-  input_0:
-    SecretInteger: '1'
-  input_1:
-    SecretInteger: '2'
-  input_2:
-    SecretInteger: '3'
-  input_3:
-    SecretInteger: '3'
-  testmod_coef_0:
-    SecretInteger: '4'
-  testmod_coef_1:
-    SecretInteger: '3'
-  testmod_coef_2:
-    SecretInteger: '2'
-  testmod_coef_3:
-    SecretInteger: '1'
-  testmod_intercept_0:
-    SecretInteger: '3'
+  input_0: 1
+  input_1: 2
+  input_2: 3
+  input_3: 3
+  testmod_coef_0: 4
+  testmod_coef_1: 3
+  testmod_coef_2: 2
+  testmod_coef_3: 1
+  testmod_intercept_0: 3
 expected_outputs:
-  my_output:
-    SecretInteger: '22'
+  my_output: 22

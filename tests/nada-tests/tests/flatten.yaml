@@ -1,35 +1,19 @@
 program: flatten
 inputs:
-  input_x_0_0_0_0:
-    SecretInteger: '1'
-  input_x_0_0_1_0:
-    SecretInteger: '2'
-  input_x_0_1_0_0:
-    SecretInteger: '3'
-  input_x_0_1_1_0:
-    SecretInteger: '4'
-  input_x_1_0_0_0:
-    SecretInteger: '5'
-  input_x_1_0_1_0:
-    SecretInteger: '6'
-  input_x_1_1_0_0:
-    SecretInteger: '7'
-  input_x_1_1_1_0:
-    SecretInteger: '8'
+  input_x_0_0_0_0: 1
+  input_x_0_0_1_0: 2
+  input_x_0_1_0_0: 3
+  input_x_0_1_1_0: 4
+  input_x_1_0_0_0: 5
+  input_x_1_0_1_0: 6
+  input_x_1_1_0_0: 7
+  input_x_1_1_1_0: 8
 expected_outputs:
-  x_flat_0:
-    SecretInteger: '1'
-  x_flat_1:
-    SecretInteger: '2'
-  x_flat_2:
-    SecretInteger: '3'
-  x_flat_3:
-    SecretInteger: '4'
-  x_flat_4:
-    SecretInteger: '5'
-  x_flat_5:
-    SecretInteger: '6'
-  x_flat_6:
-    SecretInteger: '7'
-  x_flat_7:
-    SecretInteger: '8'
+  x_flat_0: 1
+  x_flat_1: 2
+  x_flat_2: 3
+  x_flat_3: 4
+  x_flat_4: 5
+  x_flat_5: 6
+  x_flat_6: 7
+  x_flat_7: 8
