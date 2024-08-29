@@ -1,5 +1,6 @@
 import nada_numpy as na
 from config import DIM
+
 from nada_ai import nn
 
 
