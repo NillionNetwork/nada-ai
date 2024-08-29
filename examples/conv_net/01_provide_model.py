@@ -9,19 +9,20 @@ import argparse
 import asyncio
 import json
 
-import torch
-from torch import nn
 import nada_numpy as na
 import py_nillion_client as nillion
+import torch
+from common.utils import store_program, store_secrets
 from cosmpy.aerial.client import LedgerClient
 from cosmpy.aerial.wallet import LocalWallet
 from cosmpy.crypto.keypairs import PrivateKey
 from dotenv import load_dotenv
-from nada_ai.client import TorchClient
-from nillion_python_helpers import create_nillion_client, create_payments_config
+from nillion_python_helpers import (create_nillion_client,
+                                    create_payments_config)
 from py_nillion_client import NodeKey, UserKey
+from torch import nn
 
-from common.utils import store_program, store_secrets
+from nada_ai.client import TorchClient
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument(
