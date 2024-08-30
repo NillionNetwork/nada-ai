@@ -1,47 +1,25 @@
 program: linear_regression
 inputs:
-  my_model_coef_0:
-    SecretInteger: '30669'
-  my_model_coef_1:
-    SecretInteger: '22411'
-  my_model_coef_2:
-    SecretInteger: '61182'
-  my_model_coef_3:
-    SecretInteger: '23548'
-  my_model_coef_4:
-    SecretInteger: '52068'
-  my_model_coef_5:
-    SecretInteger: '49177'
-  my_model_coef_6:
-    SecretInteger: '60541'
-  my_model_coef_7:
-    SecretInteger: '55932'
-  my_model_coef_8:
-    SecretInteger: '7771'
-  my_model_coef_9:
-    SecretInteger: '61119'
-  my_model_intercept_0:
-    SecretInteger: '45040'
-  my_input_0:
-    SecretInteger: '163840'
-  my_input_1:
-    SecretInteger: '163840'
-  my_input_2:
-    SecretInteger: '163840'
-  my_input_3:
-    SecretInteger: '163840'
-  my_input_4:
-    SecretInteger: '163840'
-  my_input_5:
-    SecretInteger: '163840'
-  my_input_6:
-    SecretInteger: '163840'
-  my_input_7:
-    SecretInteger: '163840'
-  my_input_8:
-    SecretInteger: '163840'
-  my_input_9:
-    SecretInteger: '163840'
+  my_model_coef_0: 30669
+  my_model_coef_1: 22411
+  my_model_coef_2: 61182
+  my_model_coef_3: 23548
+  my_model_coef_4: 52068
+  my_model_coef_5: 49177
+  my_model_coef_6: 60541
+  my_model_coef_7: 55932
+  my_model_coef_8: 7771
+  my_model_coef_9: 61119
+  my_model_intercept_0: 45040
+  my_input_0: 163840
+  my_input_1: 163840
+  my_input_2: 163840
+  my_input_3: 163840
+  my_input_4: 163840
+  my_input_5: 163840
+  my_input_6: 163840
+  my_input_7: 163840
+  my_input_8: 163840
+  my_input_9: 163840
 expected_outputs:
-  my_output:
-    SecretInteger: '1106085'
+  my_output: 1106085

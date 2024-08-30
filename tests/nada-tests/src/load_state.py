@@ -8,6 +8,7 @@ from nada_ai.nn import Module, Parameter
 def nada_main():
     party = Party("party")
 
+
     class TestModule(Module):
         def __init__(self) -> None:
             self.param1 = Parameter(na.zeros((3, 2), na.Rational))
@@ -24,7 +25,8 @@ def nada_main():
         mod2.load_state_from_network("module2", party, nada_type=SecretInteger)
 
     mod2.load_state_from_network("module2", party, nada_type=na.Rational)
-
+    mod1.param1 += na.rational(0)
+    
     m1_p1_out = mod1.param1.output(party, "module1_param1")
     m1_p2_out = mod1.param2.output(party, "module1_param2")
 

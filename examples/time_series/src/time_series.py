@@ -3,8 +3,9 @@ from typing import List
 import nada_numpy as na
 import numpy as np
 from config import TIME_HORIZON
-from nada_ai.time_series import Prophet
 from nada_dsl import Output
+
+from nada_ai.time_series import Prophet
 
 
 def nada_main() -> List[Output]:

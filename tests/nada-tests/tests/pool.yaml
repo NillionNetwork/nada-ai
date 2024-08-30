@@ -1,275 +1,139 @@
 program: pool
 inputs:
-  input_x_0_0_0_0:
-    SecretInteger: '4'
-  input_x_0_2_0_0:
-    SecretInteger: '4'
-  input_x_0_3_1_0:
-    SecretInteger: '4'
-  input_x_0_2_2_1:
-    SecretInteger: '4'
-  input_x_0_1_2_0:
-    SecretInteger: '4'
-  input_x_0_1_0_1:
-    SecretInteger: '4'
-  input_x_0_1_1_1:
-    SecretInteger: '4'
-  input_x_0_1_2_1:
-    SecretInteger: '4'
-  input_x_0_2_0_1:
-    SecretInteger: '4'
-  input_x_0_2_1_1:
-    SecretInteger: '4'
-  input_x_0_0_2_1:
-    SecretInteger: '4'
-  input_x_0_0_1_0:
-    SecretInteger: '4'
-  input_x_0_2_3_0:
-    SecretInteger: '4'
-  input_x_0_3_3_1:
-    SecretInteger: '4'
-  input_x_0_2_3_1:
-    SecretInteger: '4'
-  input_x_0_2_2_0:
-    SecretInteger: '4'
-  input_x_0_0_3_1:
-    SecretInteger: '4'
-  input_x_0_1_3_0:
-    SecretInteger: '4'
-  input_x_0_3_3_0:
-    SecretInteger: '4'
-  input_x_0_2_1_0:
-    SecretInteger: '4'
-  input_x_0_0_2_0:
-    SecretInteger: '4'
-  input_x_0_0_3_0:
-    SecretInteger: '4'
-  input_x_0_1_3_1:
-    SecretInteger: '4'
-  input_x_0_0_0_1:
-    SecretInteger: '4'
-  input_x_0_1_1_0:
-    SecretInteger: '4'
-  input_x_0_1_0_0:
-    SecretInteger: '4'
-  input_x_0_3_2_0:
-    SecretInteger: '4'
-  input_x_0_3_0_1:
-    SecretInteger: '4'
-  input_x_0_3_0_0:
-    SecretInteger: '4'
-  input_x_0_3_2_1:
-    SecretInteger: '4'
-  input_x_0_3_1_1:
-    SecretInteger: '4'
-  input_x_0_0_1_1:
-    SecretInteger: '4'
-  input_y_0_0_0:
-    SecretInteger: '4'
-  input_y_2_0_0:
-    SecretInteger: '4'
-  input_y_3_1_0:
-    SecretInteger: '4'
-  input_y_2_2_1:
-    SecretInteger: '4'
-  input_y_1_2_0:
-    SecretInteger: '4'
-  input_y_1_0_1:
-    SecretInteger: '4'
-  input_y_1_1_1:
-    SecretInteger: '4'
-  input_y_1_2_1:
-    SecretInteger: '4'
-  input_y_2_0_1:
-    SecretInteger: '4'
-  input_y_2_1_1:
-    SecretInteger: '4'
-  input_y_0_2_1:
-    SecretInteger: '4'
-  input_y_0_1_0:
-    SecretInteger: '4'
-  input_y_2_3_0:
-    SecretInteger: '4'
-  input_y_3_3_1:
-    SecretInteger: '4'
-  input_y_2_3_1:
-    SecretInteger: '4'
-  input_y_2_2_0:
-    SecretInteger: '4'
-  input_y_0_3_1:
-    SecretInteger: '4'
-  input_y_1_3_0:
-    SecretInteger: '4'
-  input_y_3_3_0:
-    SecretInteger: '4'
-  input_y_2_1_0:
-    SecretInteger: '4'
-  input_y_0_2_0:
-    SecretInteger: '4'
-  input_y_0_3_0:
-    SecretInteger: '4'
-  input_y_1_3_1:
-    SecretInteger: '4'
-  input_y_0_0_1:
-    SecretInteger: '4'
-  input_y_1_1_0:
-    SecretInteger: '4'
-  input_y_1_0_0:
-    SecretInteger: '4'
-  input_y_3_2_0:
-    SecretInteger: '4'
-  input_y_3_0_1:
-    SecretInteger: '4'
-  input_y_3_0_0:
-    SecretInteger: '4'
-  input_y_3_2_1:
-    SecretInteger: '4'
-  input_y_3_1_1:
-    SecretInteger: '4'
-  input_y_0_1_1:
-    SecretInteger: '4'
+  input_x_0_0_0_0: 4
+  input_x_0_2_0_0: 4
+  input_x_0_3_1_0: 4
+  input_x_0_2_2_1: 4
+  input_x_0_1_2_0: 4
+  input_x_0_1_0_1: 4
+  input_x_0_1_1_1: 4
+  input_x_0_1_2_1: 4
+  input_x_0_2_0_1: 4
+  input_x_0_2_1_1: 4
+  input_x_0_0_2_1: 4
+  input_x_0_0_1_0: 4
+  input_x_0_2_3_0: 4
+  input_x_0_3_3_1: 4
+  input_x_0_2_3_1: 4
+  input_x_0_2_2_0: 4
+  input_x_0_0_3_1: 4
+  input_x_0_1_3_0: 4
+  input_x_0_3_3_0: 4
+  input_x_0_2_1_0: 4
+  input_x_0_0_2_0: 4
+  input_x_0_0_3_0: 4
+  input_x_0_1_3_1: 4
+  input_x_0_0_0_1: 4
+  input_x_0_1_1_0: 4
+  input_x_0_1_0_0: 4
+  input_x_0_3_2_0: 4
+  input_x_0_3_0_1: 4
+  input_x_0_3_0_0: 4
+  input_x_0_3_2_1: 4
+  input_x_0_3_1_1: 4
+  input_x_0_0_1_1: 4
+  input_y_0_0_0: 4
+  input_y_2_0_0: 4
+  input_y_3_1_0: 4
+  input_y_2_2_1: 4
+  input_y_1_2_0: 4
+  input_y_1_0_1: 4
+  input_y_1_1_1: 4
+  input_y_1_2_1: 4
+  input_y_2_0_1: 4
+  input_y_2_1_1: 4
+  input_y_0_2_1: 4
+  input_y_0_1_0: 4
+  input_y_2_3_0: 4
+  input_y_3_3_1: 4
+  input_y_2_3_1: 4
+  input_y_2_2_0: 4
+  input_y_0_3_1: 4
+  input_y_1_3_0: 4
+  input_y_3_3_0: 4
+  input_y_2_1_0: 4
+  input_y_0_2_0: 4
+  input_y_0_3_0: 4
+  input_y_1_3_1: 4
+  input_y_0_0_1: 4
+  input_y_1_1_0: 4
+  input_y_1_0_0: 4
+  input_y_3_2_0: 4
+  input_y_3_0_1: 4
+  input_y_3_0_0: 4
+  input_y_3_2_1: 4
+  input_y_3_1_1: 4
+  input_y_0_1_1: 4
 expected_outputs:
-  x_pool2_0_2_1_1:
-    SecretInteger: '2'
-  x_pool2_0_1_2_0:
-    SecretInteger: '1'
-  x_pool2_0_3_2_1:
-    SecretInteger: '1'
-  x_pool1_0_2_1_0:
-    SecretInteger: '4'
-  x_pool1_0_3_0_0:
-    SecretInteger: '4'
-  x_pool1_0_1_1_0:
-    SecretInteger: '4'
-  x_pool2_0_3_0_0:
-    SecretInteger: '1'
-  x_pool2_0_3_1_1:
-    SecretInteger: '2'
-  x_pool1_0_3_2_0:
-    SecretInteger: '4'
-  x_pool1_0_0_1_0:
-    SecretInteger: '4'
-  x_pool1_0_3_1_0:
-    SecretInteger: '4'
-  x_pool2_0_2_1_0:
-    SecretInteger: '2'
-  x_pool1_0_0_0_0:
-    SecretInteger: '4'
-  x_pool2_0_1_0_1:
-    SecretInteger: '1'
-  x_pool2_0_1_0_0:
-    SecretInteger: '1'
-  x_pool2_0_2_2_1:
-    SecretInteger: '1'
-  x_pool2_0_0_2_1:
-    SecretInteger: '1'
-  x_pool2_0_0_0_0:
-    SecretInteger: '1'
-  x_pool2_0_1_1_1:
-    SecretInteger: '2'
-  x_pool1_0_0_2_0:
-    SecretInteger: '4'
-  x_pool2_0_3_2_0:
-    SecretInteger: '1'
-  x_pool1_0_1_2_0:
-    SecretInteger: '4'
-  x_pool1_0_2_0_0:
-    SecretInteger: '4'
-  x_pool2_0_0_1_0:
-    SecretInteger: '2'
-  x_pool2_0_3_1_0:
-    SecretInteger: '2'
-  x_pool2_0_1_2_1:
-    SecretInteger: '1'
-  x_pool2_0_1_1_0:
-    SecretInteger: '2'
-  x_pool2_0_2_2_0:
-    SecretInteger: '1'
-  x_pool2_0_2_0_1:
-    SecretInteger: '1'
-  x_pool1_0_1_0_0:
-    SecretInteger: '4'
-  x_pool2_0_3_0_1:
-    SecretInteger: '1'
-  x_pool1_0_2_2_0:
-    SecretInteger: '4'
-  x_pool2_0_0_1_1:
-    SecretInteger: '2'
-  x_pool2_0_0_0_1:
-    SecretInteger: '1'
-  x_pool2_0_0_2_0:
-    SecretInteger: '1'
-  x_pool2_0_2_0_0:
-    SecretInteger: '1'
-  y_pool2_2_1_1:
-    SecretInteger: '2'
-  y_pool2_1_2_0:
-    SecretInteger: '1'
-  y_pool2_3_2_1:
-    SecretInteger: '1'
-  y_pool1_2_1_0:
-    SecretInteger: '4'
-  y_pool1_3_0_0:
-    SecretInteger: '4'
-  y_pool1_1_1_0:
-    SecretInteger: '4'
-  y_pool2_3_0_0:
-    SecretInteger: '1'
-  y_pool2_3_1_1:
-    SecretInteger: '2'
-  y_pool1_3_2_0:
-    SecretInteger: '4'
-  y_pool1_0_1_0:
-    SecretInteger: '4'
-  y_pool1_3_1_0:
-    SecretInteger: '4'
-  y_pool2_2_1_0:
-    SecretInteger: '2'
-  y_pool1_0_0_0:
-    SecretInteger: '4'
-  y_pool2_1_0_1:
-    SecretInteger: '1'
-  y_pool2_1_0_0:
-    SecretInteger: '1'
-  y_pool2_2_2_1:
-    SecretInteger: '1'
-  y_pool2_0_2_1:
-    SecretInteger: '1'
-  y_pool2_0_0_0:
-    SecretInteger: '1'
-  y_pool2_1_1_1:
-    SecretInteger: '2'
-  y_pool1_0_2_0:
-    SecretInteger: '4'
-  y_pool2_3_2_0:
-    SecretInteger: '1'
-  y_pool1_1_2_0:
-    SecretInteger: '4'
-  y_pool1_2_0_0:
-    SecretInteger: '4'
-  y_pool2_0_1_0:
-    SecretInteger: '2'
-  y_pool2_3_1_0:
-    SecretInteger: '2'
-  y_pool2_1_2_1:
-    SecretInteger: '1'
-  y_pool2_1_1_0:
-    SecretInteger: '2'
-  y_pool2_2_2_0:
-    SecretInteger: '1'
-  y_pool2_2_0_1:
-    SecretInteger: '1'
-  y_pool1_1_0_0:
-    SecretInteger: '4'
-  y_pool2_3_0_1:
-    SecretInteger: '1'
-  y_pool1_2_2_0:
-    SecretInteger: '4'
-  y_pool2_0_1_1:
-    SecretInteger: '2'
-  y_pool2_0_0_1:
-    SecretInteger: '1'
-  y_pool2_0_2_0:
-    SecretInteger: '1'
-  y_pool2_2_0_0:
-    SecretInteger: '1'
+  x_pool2_0_2_1_1: 2
+  x_pool2_0_1_2_0: 1
+  x_pool2_0_3_2_1: 1
+  x_pool1_0_2_1_0: 4
+  x_pool1_0_3_0_0: 4
+  x_pool1_0_1_1_0: 4
+  x_pool2_0_3_0_0: 1
+  x_pool2_0_3_1_1: 2
+  x_pool1_0_3_2_0: 4
+  x_pool1_0_0_1_0: 4
+  x_pool1_0_3_1_0: 4
+  x_pool2_0_2_1_0: 2
+  x_pool1_0_0_0_0: 4
+  x_pool2_0_1_0_1: 1
+  x_pool2_0_1_0_0: 1
+  x_pool2_0_2_2_1: 1
+  x_pool2_0_0_2_1: 1
+  x_pool2_0_0_0_0: 1
+  x_pool2_0_1_1_1: 2
+  x_pool1_0_0_2_0: 4
+  x_pool2_0_3_2_0: 1
+  x_pool1_0_1_2_0: 4
+  x_pool1_0_2_0_0: 4
+  x_pool2_0_0_1_0: 2
+  x_pool2_0_3_1_0: 2
+  x_pool2_0_1_2_1: 1
+  x_pool2_0_1_1_0: 2
+  x_pool2_0_2_2_0: 1
+  x_pool2_0_2_0_1: 1
+  x_pool1_0_1_0_0: 4
+  x_pool2_0_3_0_1: 1
+  x_pool1_0_2_2_0: 4
+  x_pool2_0_0_1_1: 2
+  x_pool2_0_0_0_1: 1
+  x_pool2_0_0_2_0: 1
+  x_pool2_0_2_0_0: 1
+  y_pool2_2_1_1: 2
+  y_pool2_1_2_0: 1
+  y_pool2_3_2_1: 1
+  y_pool1_2_1_0: 4
+  y_pool1_3_0_0: 4
+  y_pool1_1_1_0: 4
+  y_pool2_3_0_0: 1
+  y_pool2_3_1_1: 2
+  y_pool1_3_2_0: 4
+  y_pool1_0_1_0: 4
+  y_pool1_3_1_0: 4
+  y_pool2_2_1_0: 2
+  y_pool1_0_0_0: 4
+  y_pool2_1_0_1: 1
+  y_pool2_1_0_0: 1
+  y_pool2_2_2_1: 1
+  y_pool2_0_2_1: 1
+  y_pool2_0_0_0: 1
+  y_pool2_1_1_1: 2
+  y_pool1_0_2_0: 4
+  y_pool2_3_2_0: 1
+  y_pool1_1_2_0: 4
+  y_pool1_2_0_0: 4
+  y_pool2_0_1_0: 2
+  y_pool2_3_1_0: 2
+  y_pool2_1_2_1: 1
+  y_pool2_1_1_0: 2
+  y_pool2_2_2_0: 1
+  y_pool2_2_0_1: 1
+  y_pool1_1_0_0: 4
+  y_pool2_3_0_1: 1
+  y_pool1_2_2_0: 4
+  y_pool2_0_1_1: 2
+  y_pool2_0_0_1: 1
+  y_pool2_0_2_0: 1
+  y_pool2_2_0_0: 1

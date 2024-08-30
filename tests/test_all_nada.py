@@ -60,23 +60,10 @@ class TestSuite:
 
     def test_build(self, testname):
         # Get current working directory
-        cwd = os.getcwd()
-        try:
-            # Build Nada Program
-            build_nada(testname)
-        finally:
-            # Return to initial directory
-            os.chdir(cwd)
+        build_nada(testname)
 
     def test_run(self, testname):
-        # Get current working directory
-        cwd = os.getcwd()
-        try:
-            # Build Nada Program
-            build_nada(testname)
-        finally:
-            # Return to initial directory
-            os.chdir(cwd)
+        run_nada(testname)
 
 
 def test_client():

@@ -1,189 +1,96 @@
 program: time_series
 inputs:
-  my_prophet_changepoints_t_8:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_11:
-    SecretInteger: '3'
-  floor_17:
-    SecretInteger: '3'
-  floor_4:
-    SecretInteger: '3'
-  my_prophet_beta_0_3:
-    SecretInteger: '3'
-  t_7:
-    SecretInteger: '3'
-  t_3:
-    SecretInteger: '3'
-  my_prophet_beta_0_0:
-    SecretInteger: '3'
-  t_1:
-    SecretInteger: '3'
-  floor_5:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_6:
-    SecretInteger: '3'
-  floor_16:
-    SecretInteger: '3'
-  my_prophet_y_scale_0:
-    SecretInteger: '3'
-  floor_2:
-    SecretInteger: '3'
-  floor_19:
-    SecretInteger: '3'
-  my_prophet_beta_0_5:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_7:
-    SecretInteger: '3'
-  my_prophet_delta_0_5:
-    SecretInteger: '3'
-  t_8:
-    SecretInteger: '3'
-  floor_18:
-    SecretInteger: '3'
-  my_prophet_beta_0_2:
-    SecretInteger: '3'
-  floor_10:
-    SecretInteger: '3'
-  t_12:
-    SecretInteger: '3'
-  my_prophet_delta_0_4:
-    SecretInteger: '3'
-  t_14:
-    SecretInteger: '3'
-  t_16:
-    SecretInteger: '3'
-  t_2:
-    SecretInteger: '3'
-  t_5:
-    SecretInteger: '3'
-  floor_11:
-    SecretInteger: '3'
-  my_prophet_delta_0_2:
-    SecretInteger: '3'
-  my_prophet_delta_0_7:
-    SecretInteger: '3'
-  my_prophet_k_0_0:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_1:
-    SecretInteger: '3'
-  t_13:
-    SecretInteger: '3'
-  t_18:
-    SecretInteger: '3'
-  my_prophet_delta_0_0:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_9:
-    SecretInteger: '3'
-  floor_13:
-    SecretInteger: '3'
-  t_15:
-    SecretInteger: '3'
-  t_17:
-    SecretInteger: '3'
-  my_prophet_delta_0_6:
-    SecretInteger: '3'
-  t_10:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_10:
-    SecretInteger: '3'
-  my_prophet_beta_0_4:
-    SecretInteger: '3'
-  floor_3:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_2:
-    SecretInteger: '3'
-  t_9:
-    SecretInteger: '3'
-  floor_9:
-    SecretInteger: '3'
-  t_11:
-    SecretInteger: '3'
-  my_prophet_delta_0_3:
-    SecretInteger: '3'
-  my_prophet_delta_0_10:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_3:
-    SecretInteger: '3'
-  floor_1:
-    SecretInteger: '3'
-  my_prophet_delta_0_8:
-    SecretInteger: '3'
-  t_19:
-    SecretInteger: '3'
-  floor_7:
-    SecretInteger: '3'
-  floor_0:
-    SecretInteger: '3'
-  floor_14:
-    SecretInteger: '3'
-  floor_8:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_4:
-    SecretInteger: '3'
-  floor_12:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_0:
-    SecretInteger: '3'
-  my_prophet_delta_0_9:
-    SecretInteger: '3'
-  my_prophet_m_0_0:
-    SecretInteger: '3'
-  my_prophet_changepoints_t_5:
-    SecretInteger: '3'
-  t_6:
-    SecretInteger: '3'
-  my_prophet_beta_0_1:
-    SecretInteger: '3'
-  t_0:
-    SecretInteger: '3'
-  floor_15:
-    SecretInteger: '3'
-  t_4:
-    SecretInteger: '3'
-  my_prophet_delta_0_11:
-    SecretInteger: '3'
-  my_prophet_delta_0_1:
-    SecretInteger: '3'
-  floor_6:
-    SecretInteger: '3'
+  my_prophet_changepoints_t_8: 3
+  my_prophet_changepoints_t_11: 3
+  floor_17: 3
+  floor_4: 3
+  my_prophet_beta_0_3: 3
+  t_7: 3
+  t_3: 3
+  my_prophet_beta_0_0: 3
+  t_1: 3
+  floor_5: 3
+  my_prophet_changepoints_t_6: 3
+  floor_16: 3
+  my_prophet_y_scale_0: 3
+  floor_2: 3
+  floor_19: 3
+  my_prophet_beta_0_5: 3
+  my_prophet_changepoints_t_7: 3
+  my_prophet_delta_0_5: 3
+  t_8: 3
+  floor_18: 3
+  my_prophet_beta_0_2: 3
+  floor_10: 3
+  t_12: 3
+  my_prophet_delta_0_4: 3
+  t_14: 3
+  t_16: 3
+  t_2: 3
+  t_5: 3
+  floor_11: 3
+  my_prophet_delta_0_2: 3
+  my_prophet_delta_0_7: 3
+  my_prophet_k_0_0: 3
+  my_prophet_changepoints_t_1: 3
+  t_13: 3
+  t_18: 3
+  my_prophet_delta_0_0: 3
+  my_prophet_changepoints_t_9: 3
+  floor_13: 3
+  t_15: 3
+  t_17: 3
+  my_prophet_delta_0_6: 3
+  t_10: 3
+  my_prophet_changepoints_t_10: 3
+  my_prophet_beta_0_4: 3
+  floor_3: 3
+  my_prophet_changepoints_t_2: 3
+  t_9: 3
+  floor_9: 3
+  t_11: 3
+  my_prophet_delta_0_3: 3
+  my_prophet_delta_0_10: 3
+  my_prophet_changepoints_t_3: 3
+  floor_1: 3
+  my_prophet_delta_0_8: 3
+  t_19: 3
+  floor_7: 3
+  floor_0: 3
+  floor_14: 3
+  floor_8: 3
+  my_prophet_changepoints_t_4: 3
+  floor_12: 3
+  my_prophet_changepoints_t_0: 3
+  my_prophet_delta_0_9: 3
+  my_prophet_m_0_0: 3
+  my_prophet_changepoints_t_5: 3
+  t_6: 3
+  my_prophet_beta_0_1: 3
+  t_0: 3
+  floor_15: 3
+  t_4: 3
+  my_prophet_delta_0_11: 3
+  my_prophet_delta_0_1: 3
+  floor_6: 3
 expected_outputs:
-  my_output_1:
-    SecretInteger: '2'
-  my_output_16:
-    SecretInteger: '2'
-  my_output_17:
-    SecretInteger: '1'
-  my_output_14:
-    SecretInteger: '1'
-  my_output_19:
-    SecretInteger: '1'
-  my_output_3:
-    SecretInteger: '1'
-  my_output_2:
-    SecretInteger: '2'
-  my_output_0:
-    SecretInteger: '1'
-  my_output_11:
-    SecretInteger: '2'
-  my_output_10:
-    SecretInteger: '1'
-  my_output_5:
-    SecretInteger: '1'
-  my_output_6:
-    SecretInteger: '1'
-  my_output_7:
-    SecretInteger: '1'
-  my_output_12:
-    SecretInteger: '1'
-  my_output_9:
-    SecretInteger: '2'
-  my_output_4:
-    SecretInteger: '2'
-  my_output_8:
-    SecretInteger: '2'
-  my_output_15:
-    SecretInteger: '2'
-  my_output_18:
-    SecretInteger: '2'
-  my_output_13:
-    SecretInteger: '1'
+  my_output_1: 2
+  my_output_16: 2
+  my_output_17: 1
+  my_output_14: 1
+  my_output_19: 1
+  my_output_3: 1
+  my_output_2: 2
+  my_output_0: 1
+  my_output_11: 2
+  my_output_10: 1
+  my_output_5: 1
+  my_output_6: 1
+  my_output_7: 1
+  my_output_12: 1
+  my_output_9: 2
+  my_output_4: 2
+  my_output_8: 2
+  my_output_15: 2
+  my_output_18: 2
+  my_output_13: 1

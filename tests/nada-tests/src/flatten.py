@@ -13,6 +13,8 @@ def nada_main():
 
     x_flat = flatten(x)
 
+    x_flat += Integer(0)
+
     assert x_flat.shape == (8,), x_flat.shape
 
     assert Flatten()(x).shape == (2, 4), Flatten(start_dim=0)(x).shape
