@@ -3,20 +3,18 @@
 import asyncio
 import os
 
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
 import torch
 from config import DIM
-from sklearn.linear_model import LinearRegression
-
 from dotenv import load_dotenv
-import nada_numpy as na
-from nada_ai.client import SklearnClient
-
 from nillion_client import (InputPartyBinding, Network, NilChainPayer,
                             NilChainPrivateKey, OutputPartyBinding,
                             Permissions, PrivateKey, SecretInteger, VmClient)
+from sklearn.linear_model import LinearRegression
 
-import nada_numpy.client as na_client
+from nada_ai.client import SklearnClient
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
@@ -47,9 +45,17 @@ async def main() -> None:
     # This is just for demonstration purposes
     # Provider and User should only exchange their IDs
     model_provider_name = "Party0"
-    model_provider = await new_client(network, 0, b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7')
+    model_provider = await new_client(
+        network,
+        0,
+        b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7',
+    )
     model_user_name = "Party1"
-    model_user = await new_client(network, 1, b'\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9')
+    model_user = await new_client(
+        network,
+        1,
+        b"\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9",
+    )
 
     program_name = "linear_regression"
     program_mir_path = f"./target/{program_name}.nada.bin"
@@ -147,7 +153,9 @@ async def main() -> None:
     print(f"The computation was sent to the network. compute_id: {compute_id}")
     result = await model_user.retrieve_compute_results(compute_id).invoke()
 
-    print(f"✅  Compute complete for compute_id {compute_id}")    # Rescale the obtained result by the quantization scale
+    print(
+        f"✅  Compute complete for compute_id {compute_id}"
+    )  # Rescale the obtained result by the quantization scale
     outputs = [na_client.float_from_rational(result["my_output"].value)]
     print(f"🖥️  The result is {outputs} @ {na_client.get_log_scale()}-bit precision")
 

@@ -3,17 +3,16 @@
 import asyncio
 import os
 
+import nada_numpy as na
+import nada_numpy.client as na_client
 import numpy as np
 import torch
 from dotenv import load_dotenv
-from nada_ai.client import TorchClient
-
 from nillion_client import (InputPartyBinding, Network, NilChainPayer,
                             NilChainPrivateKey, OutputPartyBinding,
                             Permissions, PrivateKey, SecretInteger, VmClient)
 
-import nada_numpy as na
-import nada_numpy.client as na_client
+from nada_ai.client import TorchClient
 
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
@@ -44,9 +43,17 @@ async def main() -> None:
     # This is just for demonstration purposes
     # Provider and User should only exchange their IDs
     model_provider_name = "Party0"
-    model_provider = await new_client(network, 0, b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7')
+    model_provider = await new_client(
+        network,
+        0,
+        b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7',
+    )
     model_user_name = "Party1"
-    model_user = await new_client(network, 1, b'\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9')
+    model_user = await new_client(
+        network,
+        1,
+        b"\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9",
+    )
 
     program_name = "complex_model"
     program_mir_path = f"./target/{program_name}.nada.bin"
@@ -112,8 +119,9 @@ async def main() -> None:
 
     # Create and store model secrets via ModelClient
     model_client = TorchClient(my_model)
-    model_secrets = model_client.export_state_as_secrets("my_model", na_client.SecretRational)
-
+    model_secrets = model_client.export_state_as_secrets(
+        "my_model", na_client.SecretRational
+    )
 
     # Create a permissions object to attach to the stored secret
     permissions = Permissions.defaults_for_user(model_provider.user_id).allow_compute(

@@ -1,33 +1,25 @@
 """Run model inference"""
 
+import argparse
 import asyncio
+import json
 import os
-import pytest
 import uuid
 
 import nada_numpy as na
 import nada_numpy.client as na_client
 import numpy as np
-import json
+import pytest
 import torch
+from dotenv import load_dotenv
+from nillion_client import (InputPartyBinding, Network, NilChainPayer,
+                            NilChainPrivateKey, OutputPartyBinding,
+                            Permissions, PrivateKey, SecretInteger, VmClient)
+from nillion_client.ids import UserId
 from torch import nn
+
 from nada_ai.client import TorchClient
 
-from nillion_client.ids import UserId
-from nillion_client import (
- 
-    InputPartyBinding,
-    Network,
-    NilChainPayer,
-    NilChainPrivateKey,
-    OutputPartyBinding,
-    Permissions,
-    SecretInteger,
-    VmClient,
-    PrivateKey,
-)
-from dotenv import load_dotenv
-import argparse
 home = os.getenv("HOME")
 load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
 
@@ -45,6 +37,7 @@ PARSER.add_argument(
     required=True,
 )
 ARGS = PARSER.parse_args()
+
 
 async def new_client(network, id: int, private_key: str = None):
     # Create payments config and set up Nillion wallet with a private key to pay for operations
@@ -71,9 +64,17 @@ async def main(features_path: str, in_path: str) -> None:
     # This is just for demonstration purposes
     # Provider and User should only exchange their IDs
     model_provider_name = "Provider"
-    model_provider = await new_client(network, 0, b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7')
+    model_provider = await new_client(
+        network,
+        0,
+        b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7',
+    )
     model_user_name = "User"
-    model_user = await new_client(network, 1, b'\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9')
+    model_user = await new_client(
+        network,
+        1,
+        b"\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9",
+    )
 
     # This information was provided by the model provider
     with open(in_path, "r") as provider_variables_file:
@@ -83,7 +84,6 @@ async def main(features_path: str, in_path: str) -> None:
     model_store_id = provider_variables["model_store_id"]
     model_store_id = uuid.UUID(hex=model_store_id)
     model_provider_user_id = UserId.parse(provider_variables["model_provider_user_id"])
-    
 
     features = np.load(features_path)
 
@@ -94,7 +94,7 @@ async def main(features_path: str, in_path: str) -> None:
     print("-----STORE SECRETS Party 0")
 
     # Create a secret
-    features= na_client.array(features, "my_input", na_client.SecretRational)
+    features = na_client.array(features, "my_input", na_client.SecretRational)
 
     # Create a permissions object to attach to the stored secret
     permissions = Permissions.defaults_for_user(model_user.user_id).allow_compute(
