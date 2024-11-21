@@ -1,27 +1,25 @@
 """Run model inference"""
 
-import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-
 import argparse
 import asyncio
 import json
-import math
+import os
+import uuid
 
 import nada_numpy as na
 import nada_numpy.client as na_client
 import numpy as np
-import py_nillion_client as nillion
-from common.utils import compute, store_secret_array
-from cosmpy.aerial.client import LedgerClient
-from cosmpy.aerial.wallet import LocalWallet
-from cosmpy.crypto.keypairs import PrivateKey
+import pytest
+import torch
 from dotenv import load_dotenv
-from nillion_python_helpers import (create_nillion_client,
-                                    create_payments_config)
-from py_nillion_client import NodeKey, UserKey
+from nillion_client import (InputPartyBinding, Network, NilChainPayer,
+                            NilChainPrivateKey, OutputPartyBinding,
+                            Permissions, PrivateKey, SecretInteger, VmClient)
+from nillion_client.ids import UserId
+from torch import nn
+
+home = os.getenv("HOME")
+load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument(
@@ -38,27 +36,42 @@ PARSER.add_argument(
 )
 ARGS = PARSER.parse_args()
 
-home = os.getenv("HOME")
-load_dotenv(f"{home}/.config/nillion/nillion-devnet.env")
+
+async def new_client(network, id: int, private_key: str = None):
+    # Create payments config and set up Nillion wallet with a private key to pay for operations
+    nilchain_key: str = os.getenv(f"NILLION_NILCHAIN_PRIVATE_KEY_{id}")  # type: ignore
+    payer = NilChainPayer(
+        network,
+        wallet_private_key=NilChainPrivateKey(bytes.fromhex(nilchain_key)),
+        gas_limit=10000000,
+    )
+
+    # Use a random key to identify ourselves
+    signing_key = PrivateKey(private_key)
+    print(signing_key.private_key)
+    client = await VmClient.create(signing_key, network, payer)
+    return client
 
 
+# 1 Party running simple addition on 1 stored secret and 1 compute time secret
 async def main(features_path: str, in_path: str) -> None:
     """Main nada program"""
+    network = Network.from_config("devnet")
 
-    cluster_id = os.getenv("NILLION_CLUSTER_ID")
-    grpc_endpoint = os.getenv("NILLION_NILCHAIN_GRPC")
-    chain_id = os.getenv("NILLION_NILCHAIN_CHAIN_ID")
-    seed = "my_seed"
-    model_user_userkey = UserKey.from_seed((seed))
-    model_user_nodekey = NodeKey.from_seed((seed))
-    model_user_client = create_nillion_client(model_user_userkey, model_user_nodekey)
-    model_user_party_id = model_user_client.party_id
-
-    payments_config = create_payments_config(chain_id, grpc_endpoint)
-    payments_client = LedgerClient(payments_config)
-    payments_wallet = LocalWallet(
-        PrivateKey(bytes.fromhex(os.getenv("NILLION_NILCHAIN_PRIVATE_KEY_0"))),
-        prefix="nillion",
+    # WARNING: In a real use case, the Provider and User would never have access to the Private Key
+    # This is just for demonstration purposes
+    # Provider and User should only exchange their IDs
+    model_provider_name = "Provider"
+    model_provider = await new_client(
+        network,
+        0,
+        b'\xbf\xdf7\xa9\x1eL\x10i"\xd8\x1f\xbb\xe8\r;\x1b`\x1a\xd1\xa1;\xef\xd8\xbbf|\xf9\x12\xe9\xef\x03\xc7',
+    )
+    model_user_name = "User"
+    model_user = await new_client(
+        network,
+        1,
+        b"\x15\xa0\xc1\xcc\x12\xb5r\xf9\xcb\x89\x95\x8d\x94\xfb\xfe)\xdf\xfe\xbd3\x00\x18\x80\xc1\xd9W\x8b\xf7\xc0\x92S\xe9",
     )
 
     # This information was provided by the model provider
@@ -67,56 +80,65 @@ async def main(features_path: str, in_path: str) -> None:
 
     program_id = provider_variables["program_id"]
     model_store_id = provider_variables["model_store_id"]
-    model_provider_party_id = provider_variables["model_provider_party_id"]
+    model_store_id = uuid.UUID(hex=model_store_id)
+    model_provider_user_id = UserId.parse(provider_variables["model_provider_user_id"])
 
     features = np.load(features_path)
 
-    permissions = nillion.Permissions.default_for_user(model_user_client.user_id)
-    permissions.add_compute_permissions({model_user_client.user_id: {program_id}})
+    # Print details about stored program
+    print(f"Stored program_id: {program_id}")
 
-    print("Storing input data...")
+    ##### STORE SECRETS
+    print("-----STORE SECRETS Party 0")
 
-    features_store_id = await store_secret_array(
-        model_user_client,
-        payments_wallet,
-        payments_client,
-        cluster_id,
-        features,
-        "my_input",
-        na.SecretRational,
-        1,
-        permissions,
+    # Create a secret
+    features = na_client.array(features, "my_input", na_client.SecretRational)
+
+    # Create a permissions object to attach to the stored secret
+    permissions = Permissions.defaults_for_user(model_user.user_id).allow_compute(
+        model_user.user_id, program_id
     )
 
-    print("Input data stored successfully!")
+    # Store a secret, passing in the receipt that shows proof of payment
+    features_store_id = await model_user.store_values(
+        features, ttl_days=5, permissions=permissions
+    ).invoke()
 
-    compute_bindings = nillion.ProgramBindings(program_id)
+    print("Stored features: ", features_store_id)
 
-    compute_bindings.add_input_party("Provider", model_provider_party_id)
-    compute_bindings.add_input_party("User", model_user_party_id)
-    compute_bindings.add_output_party("User", model_user_party_id)
+    ##### COMPUTE
+    print("-----COMPUTE")
 
-    result = await compute(
-        model_user_client,
-        payments_wallet,
-        payments_client,
+    # Bind the parties in the computation to the client to set input and output parties
+    input_bindings = [
+        InputPartyBinding(model_provider_name, model_provider_user_id),
+        InputPartyBinding(model_user_name, model_user.user_id),
+    ]
+    output_bindings = [OutputPartyBinding(model_user_name, [model_user.user_id])]
+
+    # Create a computation time secret to use
+    compute_time_values = {
+        # "my_int2": SecretInteger(10)
+    }
+
+    # Compute, passing in the compute time values as well as the previously uploaded value.
+    print(
+        f"Invoking computation using program {program_id} and values id {model_store_id}, {features_store_id}"
+    )
+    compute_id = await model_user.compute(
         program_id,
-        cluster_id,
-        compute_bindings,
-        [model_store_id, features_store_id],
-        nillion.NadaValues({}),
-        verbose=True,
-    )
+        input_bindings,
+        output_bindings,
+        values=compute_time_values,
+        value_ids=[model_store_id, features_store_id],
+    ).invoke()
 
-    logit = na_client.float_from_rational(result["logit_0"])
-    print("Computed logit is", logit)
-
-    def sigmoid(x):
-        return 1 / (1 + math.exp(-x))
-
-    output_probability = sigmoid(logit)
-
-    print("Which corresponds to probability", output_probability)
+    # Print compute result
+    print(f"The computation was sent to the network. compute_id: {compute_id}")
+    result = await model_user.retrieve_compute_results(compute_id).invoke()
+    print(f"✅  Compute complete for compute_id {compute_id}")
+    print(f"🖥️  The result is {result}")
+    return result
 
 
 if __name__ == "__main__":

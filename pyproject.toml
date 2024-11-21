@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nada-ai"
-version = "0.5.0"
+version = "0.6.0"
 description = "Nada-AI is a Python library designed for AI/ML on top of Nada DSL and Nillion Network."
 authors = ["Mathias Leys <mathias.leys@nillion.com>"]
 readme = "README.md"
@@ -10,10 +10,8 @@ python = "^3.10"
 torch = "^2.0.0"
 scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
-nillion-python-helpers = "^0.2.3"
-nada-numpy="^0.5.0"
-nada-dsl="^0.6.0"
-py-nillion-client="^0.6.0"
+nada-numpy = "^0.6.0"
+nillion-python-helpers = "^0.3.1"
 torchvision = {version="^0.18.1", optional=true}
 black = {version="^24.4.2", optional=true}
 isort = {version="^5.13.2", optional=true}
