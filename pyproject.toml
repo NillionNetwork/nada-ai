@@ -10,8 +10,8 @@ python = "^3.10"
 torch = "^2.0.0"
 scikit-learn = "^1.4.2"
 prophet = "^1.1.5"
+nada-numpy = "^0.6.0"
 nillion-python-helpers = "^0.3.1"
-nada-numpy="^0.6.0" # Includes NadaDSL and Clients required
 torchvision = {version="^0.18.1", optional=true}
 black = {version="^24.4.2", optional=true}
 isort = {version="^5.13.2", optional=true}
