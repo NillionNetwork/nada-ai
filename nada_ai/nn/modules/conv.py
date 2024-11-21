@@ -14,7 +14,7 @@ __all__ = ["Conv2d"]
 class Conv2d(Module):
     """Conv2D layer implementation"""
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments disable=too-many-positional-arguments
     def __init__(
         self,
         in_channels: int,

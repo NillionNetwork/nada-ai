@@ -15,7 +15,7 @@ from nada_ai.utils import ensure_cleartext, fourier_series
 class Prophet(Module):  # pylint:disable=too-many-instance-attributes
     """Prophet forecasting implementation"""
 
-    # pylint:disable=too-many-arguments
+    # pylint: disable=too-many-arguments disable=too-many-positional-arguments
     def __init__(
         self,
         n_changepoints: int,
